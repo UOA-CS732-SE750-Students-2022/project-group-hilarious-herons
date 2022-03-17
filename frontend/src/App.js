@@ -1,7 +1,9 @@
 function App() {
   return (
     <div>
-      <header>Header</header>
+      <header>
+        Header
+      </header>
       Food app
     </div>
   );
