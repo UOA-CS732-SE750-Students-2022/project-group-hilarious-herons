@@ -4,6 +4,7 @@ import { Route } from 'react-router-dom';
 
 import '@ionic/react/css/core.css';
 import { HomePage } from './pages/HomePage';
+import { BrowsePage } from './pages/BrowsePage';
 
 // /* Basic CSS for apps built with Ionic */
 // import '@ionic/react/css/normalize.css';
@@ -27,7 +28,7 @@ function App() {
       <IonReactRouter>
         <IonRouterOutlet>
           <Route path="/" exact component={HomePage} />
-          {/* <Route path="/otherPage" exact component={OtherPage} /> */}
+          <Route path="/browse" exact component={BrowsePage} />
         </IonRouterOutlet>
       </IonReactRouter>
     </IonApp>
