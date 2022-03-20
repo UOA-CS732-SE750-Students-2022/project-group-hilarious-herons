@@ -3,6 +3,7 @@ import { IonReactRouter } from '@ionic/react-router'
 import { Route } from 'react-router-dom';
 
 import '@ionic/react/css/core.css';
+import { HomePage } from './pages/HomePage';
 
 // /* Basic CSS for apps built with Ionic */
 // import '@ionic/react/css/normalize.css';
@@ -22,11 +23,11 @@ setupIonicReact()
 
 function App() {
   return (
-    <IonApp>
+    <IonApp style={{ backgroundColor: "#FAFAFA" }}>
       <IonReactRouter>
         <IonRouterOutlet>
-          {/* <Route path="/" exact component={Home} />
-          <Route path="/otherPage" exact component={OtherPage} /> */}
+          <Route path="/" exact component={HomePage} />
+          {/* <Route path="/otherPage" exact component={OtherPage} /> */}
         </IonRouterOutlet>
       </IonReactRouter>
     </IonApp>
