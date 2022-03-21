@@ -5,6 +5,8 @@ import { Route } from 'react-router-dom';
 import '@ionic/react/css/core.css';
 import { HomePage } from './pages/HomePage';
 import { FoodDetailsPage } from './pages/FoodDetailsPage';
+import { LoginPage } from './pages/LoginPage';
+import { AccountPage } from './pages/AccountPage';
 
 // /* Basic CSS for apps built with Ionic */
 // import '@ionic/react/css/normalize.css';
@@ -29,6 +31,8 @@ function App() {
         <IonRouterOutlet>
           <Route path="/" exact component={HomePage} />
           <Route path="/food" exact component={FoodDetailsPage} />
+          <Route path="/login" exact component={LoginPage} />
+          <Route path="/account" exact component={AccountPage} />
         </IonRouterOutlet>
       </IonReactRouter>
     </IonApp>
