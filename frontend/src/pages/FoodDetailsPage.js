@@ -1,7 +1,7 @@
 import { IonPage } from "@ionic/react"
 import { Navbar } from "../components/Navbar"
 
-export const BrowsePage = () => {
+export const FoodDetailsPage = () => {
     return (
         <IonPage>
             <Navbar />
