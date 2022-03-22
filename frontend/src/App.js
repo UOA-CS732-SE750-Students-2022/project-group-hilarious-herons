@@ -27,7 +27,7 @@ setupIonicReact()
 
 function App() {
   return (
-    <IonApp style={{ backgroundColor: "#FAFAFA" }}>
+    <IonApp>
       <IonReactRouter>
         <IonRouterOutlet>
           <Route path="/" exact component={HomePage} />
