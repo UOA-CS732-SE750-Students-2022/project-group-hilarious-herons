@@ -6,8 +6,8 @@ import FoodCard from "../components/FoodCard"
 export const HomePage = () => {
     return (
         <IonPage>
-            <HomeHeader />
-            <FoodCard />
+            <HomeHeader />       
+            <FoodCard />          
         </IonPage>
     )
 }

@@ -1,20 +1,55 @@
 import React from 'react';
-import { IonCard, IonCardHeader, IonCardSubtitle, IonCardContent,IonRow, IonIcon,} from '@ionic/react';
+import {
+    IonCard, 
+    IonCardHeader, 
+    IonCardTitle,
+    IonCardSubtitle, 
+    IonCardContent, 
+    IonGrid,
+    IonRow, 
+    IonCol,
+    IonIcon, 
+    IonButton } from '@ionic/react';
 import { heartOutline, thumbsUpOutline} from 'ionicons/icons';
 import './FoodCard.css';
 
+const infoStyle = {
+    position: 'absolute', 
+    width: '100%',
+    top:'60%',
+    color:'white',
+    fontWeight: 'bold'
+}
+
+const rateStyle = {
+    textAlign: 'right',
+    paddingRight: '0.5em',
+}
+
+
 const FoodCard = () => {
   return (
-    <IonCard class="food-card">
-        <img src="/mock.svg" alt="food-img" className='food-img'/>
-        <IonCardHeader className="ion-inherit-color ios hydrated">   
-            <IonIcon icon = { heartOutline } /> 
-            <IonCardSubtitle role="heading" aria-level="2">Food Name</IonCardSubtitle>     
+    <IonCard className="food-card">
+        <div className='iamge-rate-distanse'>
+            <img src="/mock.svg" alt="food-img" className='food-img'/>
+            <IonRow style={infoStyle}>
+                <IonCol>1.2km</IonCol>
+                <IonCol style={rateStyle}>3.5/5</IonCol>
+            </IonRow>
+        </div>
+        <IonCardHeader> 
+            <IonCardTitle>Food Name</IonCardTitle> 
         </IonCardHeader>
         <IonCardContent>
-            <IonRow>
-                <IonCardSubtitle role="heading" aria-level="3">dd/mm/yyyy</IonCardSubtitle>
-                < IonIcon icon = { thumbsUpOutline } />
+            <IonRow className='like-food'>
+                <IonCardSubtitle>dd/mm/yyyy</IonCardSubtitle>
+                <IonRow>
+                    <IonIcon 
+                    icon={ thumbsUpOutline } 
+                    size="small" 
+                    color='primary'/>
+                    <p>1.2k</p>
+                </IonRow>   
             </IonRow>
         </IonCardContent>
   </IonCard>
