@@ -1,0 +1,10 @@
+.food-card {
+    width: fit-content;
+    height: fit-content;
+}
+
+.food-img {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+}

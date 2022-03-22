@@ -1,13 +1,14 @@
 import React from 'react';
 import { IonCard, IonCardHeader, IonCardSubtitle, IonCardContent,IonRow, IonIcon,} from '@ionic/react';
 import { heartOutline, thumbsUpOutline} from 'ionicons/icons';
+import './FoodCard.css';
 
 const FoodCard = () => {
   return (
     <IonCard class="food-card">
-        <IonIcon icon = { thumbsUpOutline } />
-        <img src="/moke.jpg"/>
-        <IonCardHeader class="ion-inherit-color ios hydrated">    
+        <img src="/mock.svg" alt="food-img" className='food-img'/>
+        <IonCardHeader className="ion-inherit-color ios hydrated">   
+            <IonIcon icon = { heartOutline } /> 
             <IonCardSubtitle role="heading" aria-level="2">Food Name</IonCardSubtitle>     
         </IonCardHeader>
         <IonCardContent>
@@ -17,7 +18,6 @@ const FoodCard = () => {
             </IonRow>
         </IonCardContent>
   </IonCard>
-  
   );
 };
 
