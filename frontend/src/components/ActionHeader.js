@@ -55,15 +55,22 @@ export const ActionHeader = ({ banner, children }) => {
         }}
       >
         <IonToolbar color="transparent">
-          <IonTitle size="large" slot="start" style={{ color: "white" }}>
+          <IonTitle slot="start" style={{ color: "white" }}>
             <h2>FUNTER</h2>
           </IonTitle>
-          <IonSearchbar class="searchBar" style={{ width: "60%" }} />
+          <IonSearchbar
+            class="searchBar"
+            mode="ios"
+            style={{ padding: "0" }}
+            color="light"
+            padding="0"
+          />
           <IonButton
             slot="end"
             shape="round"
             color="light"
-            style={{ paddingRight: "50px" }}
+            style={{ padding: "0 50px" }}
+            mode="ios"
           >
             Login
           </IonButton>
@@ -73,7 +80,7 @@ export const ActionHeader = ({ banner, children }) => {
           <IonToolbar class="toolbar" color="transparent">
             <IonTitle
               slot="start"
-              style={{ fontSize: "36px", width: "40%", color: "white" }}
+              style={{ fontSize: "2.25em", color: "white" }}
             >
               <h1>
                 START YOUR FOOD
