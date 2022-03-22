@@ -7,7 +7,7 @@ export const HomeHeader = () => {
             <div>
                 <IonTitle style={{ color: "white" }}><h2>FUNTER</h2></IonTitle>
                 <IonTitle style={{ color: "white" }}><h1>Something about the app</h1></IonTitle>
-                <IonSearchbar style={{ width: '50%', float: "right", paddingRight: "3%" }} />
+                <IonSearchbar style={{ width: '50%', float: "right", paddingRight: "3%", color: "#727272" }} />
             </div>
         </IonHeader>
     )
