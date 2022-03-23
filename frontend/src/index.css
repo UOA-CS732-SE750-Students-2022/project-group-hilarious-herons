@@ -100,6 +100,10 @@ http://ionicframework.com/docs/theming/ */
     color: var(--ion-color-primary);
 }
 
+:root ion-button {
+  --box-shadow:none;
+}
+
 .ion-color-ionHeaderText {
   --ion-color-base: var(--ion-color-ionHeaderText);
   --ion-color-base-rgb: var(--ion-color-ionHeaderText-rgb);
@@ -222,7 +226,11 @@ http://ionicframework.com/docs/theming/ */
 
   :root ion-icon {
     color: var(--ion-color-primary);
-}
+  }
+  
+  :root ion-button {
+    --box-shadow:none;
+  }
 }
 
 /* Ionic settings end */
