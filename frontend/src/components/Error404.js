@@ -11,7 +11,7 @@ export const Error404 = () => {
             <br />
             <br />
             <NavLink to={"/"}>
-                <IonButton shape="round">Back to hunting</IonButton>
+                <IonButton shape="round"><IonText color="ionHeaderText">Back to hunting</IonText></IonButton>
             </NavLink>
         </IonContent>
     )

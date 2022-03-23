@@ -62,13 +62,13 @@ export const ActionHeader = ({ banner, children }) => {
             class="searchBar"
             mode="ios"
             style={{ padding: "0" }}
-            color="light"
+            color="ionHeaderText"
             padding="0"
           />
           <IonButton
             slot="end"
             shape="round"
-            color="light"
+            color="ionHeaderText"
             style={{ padding: "0 50px" }}
             mode="ios"
           >
