@@ -1,10 +1,10 @@
-import { IonPage } from "@ionic/react"
-import { HomeHeader } from "../components/HomeHeader"
+import { IonPage } from "@ionic/react";
+import { ActionHeader } from "../components/ActionHeader";
 
 export const HomePage = () => {
-    return (
-        <IonPage>
-            <HomeHeader />
-        </IonPage>
-    )
-}
+  return (
+    <IonPage>
+      <ActionHeader banner></ActionHeader>
+    </IonPage>
+  );
+};
