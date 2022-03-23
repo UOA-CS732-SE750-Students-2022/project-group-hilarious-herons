@@ -1,10 +1,10 @@
-import { IonPage } from "@ionic/react"
-import { Navbar } from "../components/Navbar"
+import { IonPage } from "@ionic/react";
+import { ActionHeader } from "../components/ActionHeader";
 
 export const ErrorPage = () => {
-    return (
-        <IonPage>
-            <Navbar />
-        </IonPage>
-    )
-}
+  return (
+    <IonPage>
+      <ActionHeader></ActionHeader>
+    </IonPage>
+  );
+};
