@@ -83,8 +83,8 @@ http://ionicframework.com/docs/theming/ */
 
   --ion-color-ionHeaderText: #FFFFFF;
   --ion-color-ionHeaderText-rgb: 255, 255, 255;
-  --ion-color-ionHeaderText-contrast: #000000;
-  --ion-color-ionHeaderText-contrast-rgb: 0, 0, 0;
+  --ion-color-ionHeaderText-contrast: #FF9F1C;
+  --ion-color-ionHeaderText-contrast-rgb: 255, 159, 28;
   --ion-color-ionHeaderText-shade: #727272;
   --ion-color-ionHeaderText-tint: #727272;
 
@@ -189,8 +189,8 @@ http://ionicframework.com/docs/theming/ */
   
     --ion-color-ionHeaderText: #000000;
     --ion-color-ionHeaderText-rgb: 0, 0, 0;
-    --ion-color-ionHeaderText-contrast: #FFFFFF;
-    --ion-color-ionHeaderText-contrast-rgb: 255, 255, 255;
+    --ion-color-ionHeaderText-contrast: #FF9F1C;
+    --ion-color-ionHeaderText-contrast-rgb: 255, 159, 28;
     --ion-color-ionHeaderText-shade: #727272;
     --ion-color-ionHeaderText-tint: #727272;
   
