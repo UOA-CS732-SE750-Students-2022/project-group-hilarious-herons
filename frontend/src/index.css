@@ -96,6 +96,10 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-ionContentHeaderText-tint: #FFFFFF;
 }
 
+:root ion-icon {
+    color: var(--ion-color-primary);
+}
+
 .ion-color-ionHeaderText {
   --ion-color-base: var(--ion-color-ionHeaderText);
   --ion-color-base-rgb: var(--ion-color-ionHeaderText-rgb);
@@ -215,6 +219,10 @@ http://ionicframework.com/docs/theming/ */
     --ion-color-shade: var(--ion-color-ionContentHeaderText-shade);
     --ion-color-tint: var(--ion-color-ionContentHeaderText-tint);
   }
+
+  :root ion-icon {
+    color: var(--ion-color-primary);
+}
 }
 
 /* Ionic settings end */
