@@ -1,4 +1,5 @@
 import { IonButton, IonContent, IonText } from "@ionic/react"
+import { NavLink } from "react-router-dom"
 
 export const Error404 = () => {
     return (
@@ -9,7 +10,9 @@ export const Error404 = () => {
             <IonText><p><b>The page you are looking for does not exist or another error occured.</b></p></IonText>
             <br />
             <br />
-            <IonButton shape="round">Back to hunting</IonButton>
+            <NavLink to={"/"}>
+                <IonButton shape="round">Back to hunting</IonButton>
+            </NavLink>
         </IonContent>
     )
 }
