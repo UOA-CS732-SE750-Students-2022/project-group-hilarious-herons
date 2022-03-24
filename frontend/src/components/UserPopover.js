@@ -1,24 +1,34 @@
 import { 
     IonPopover,
-    IonContent,
+    IonList,
     IonItem,
     IonLabel,
-    IonButton
+    IonButton,
+    IonIcon
  } from "@ionic/react";
 
 export const UserPopover = () => {
+    const LabelStyle ={
+        textAlign:'center',
+        fontWeight: 'bold',
+    }
+
     return (
         <IonPopover trigger="login-button" size="cover" mode='ios'>
-             <IonItem button={true} detail={false}>
-              <IonLabel>My Posts</IonLabel>
-            </IonItem>
-            <IonItem button={true} detail={false}>
-              <IonLabel>Log Out</IonLabel>
-            </IonItem>
-            
+            <IonList lines="none">
+                <IonItem button detail={false}href="account">
+                    <IonLabel style={LabelStyle}>My Posts</IonLabel>
+                </IonItem>
+                <IonItem
+                    button 
+                    detail={false} 
+                    href="/"
+                    onClick={() => {
+                        console.log('logout click.')
+                    }} >
+                    <IonLabel  color='primary' style={LabelStyle}>Log out</IonLabel>
+                </IonItem>
+            </IonList>
         </IonPopover>
-
     );
-
-
 }
