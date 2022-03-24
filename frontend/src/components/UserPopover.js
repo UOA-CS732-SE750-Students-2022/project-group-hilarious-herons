@@ -3,8 +3,6 @@ import {
     IonList,
     IonItem,
     IonLabel,
-    IonButton,
-    IonIcon
  } from "@ionic/react";
 
 export const UserPopover = () => {
@@ -14,9 +12,9 @@ export const UserPopover = () => {
     }
 
     return (
-        <IonPopover trigger="login-button" size="cover" mode='ios'>
+        <IonPopover trigger="user-avatar" size="cover" mode='ios'>
             <IonList lines="none">
-                <IonItem button detail={false}href="account">
+                <IonItem button detail={false} href="account">
                     <IonLabel style={LabelStyle}>My Posts</IonLabel>
                 </IonItem>
                 <IonItem
@@ -26,7 +24,7 @@ export const UserPopover = () => {
                     onClick={() => {
                         console.log('logout click.')
                     }} >
-                    <IonLabel  color='primary' style={LabelStyle}>Log out</IonLabel>
+                    <IonLabel color='primary' style={LabelStyle}>Log out</IonLabel>
                 </IonItem>
             </IonList>
         </IonPopover>
