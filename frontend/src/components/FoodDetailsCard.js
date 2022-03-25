@@ -1,5 +1,6 @@
 import {
   IonAvatar,
+  IonButton,
   IonCard,
   IonCardSubtitle,
   IonCardTitle,
@@ -13,6 +14,7 @@ import {
   IonLabel,
   IonRow,
   IonText,
+  useIonToast,
 } from "@ionic/react";
 import {
   personCircle,
@@ -27,6 +29,7 @@ import { useState } from "react";
 
 export const FoodDetailsCard = () => {
   const [liked, setLiked] = useState(false);
+  const [present, dismiss] = useIonToast();
   const getData = () => {
     return {
       foodName: "Food post name",
@@ -147,20 +150,43 @@ export const FoodDetailsCard = () => {
             </IonItem>
 
             <IonItem lines="none">
-              <IonText>
-                {`Mon - Fri ---- ${restaurant.hours.weekdays}`}
+              <IonText slot="start">
+                Mon - Fri
                 <br />
-                {`Sat - Sun ---- ${restaurant.hours.weekends}`}
+                Sat - Sun
+              </IonText>
+              <IonText>
+                {restaurant.hours.weekdays}
+                <br />
+                {restaurant.hours.weekends}
               </IonText>
             </IonItem>
 
             <IonItem lines="none">
-              <IonIcon
+              <IonButton
                 slot="end"
-                size="large"
-                icon={liked ? heart : heartOutline}
-                onClick={() => setLiked(!liked)}
-              />
+                fill="clear"
+                color="light"
+                onClick={() => {
+                  setLiked(!liked);
+                  dismiss().then(() => {
+                    present({
+                      message: !liked
+                        ? "Added to liked posts!"
+                        : "Removed from liked posts",
+                      mode: "ios",
+                      color: "dark",
+                      duration: 2000,
+                    });
+                  });
+                }}
+              >
+                <IonIcon
+                  aria-live="assertive"
+                  size="large"
+                  icon={liked ? heart : heartOutline}
+                />
+              </IonButton>
             </IonItem>
           </IonCol>
         </IonRow>
