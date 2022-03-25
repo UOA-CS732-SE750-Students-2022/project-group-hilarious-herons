@@ -24,12 +24,14 @@ import {
   locationOutline,
   heart,
   heartOutline,
+  openOutline,
 } from "ionicons/icons";
 import { useState } from "react";
 
 export const FoodDetailsCard = () => {
   const [liked, setLiked] = useState(false);
   const [present, dismiss] = useIonToast();
+
   const getData = () => {
     return {
       foodName: "Food post name",
@@ -44,6 +46,7 @@ export const FoodDetailsCard = () => {
       restaurant: {
         name: "Restaurant name",
         address: "23 Lorem ipsum dolor, sit amet, 1010",
+        mapLink: "https://www.google.com/maps",
         hours: {
           weekdays: "9:00am - 6:00pm",
           weekends: "10:00am - 5:00pm",
@@ -51,6 +54,7 @@ export const FoodDetailsCard = () => {
       },
     };
   };
+
   const {
     foodName,
     rating,
@@ -77,15 +81,31 @@ export const FoodDetailsCard = () => {
     );
   };
 
+  const addToLikedPosts = () => {
+    setLiked(!liked);
+    // Close current toasts if any and show new toast message
+    dismiss().then(() => {
+      present({
+        message: !liked ? "Added to liked posts!" : "Removed from liked posts",
+        mode: "ios",
+        color: "dark",
+        duration: 2000,
+      });
+    });
+  };
+
   return (
     <IonCard>
       <IonGrid>
         <IonRow>
-          <IonCol size="12" sizeSm="6">
-            <IonImg src={image} />
+          <IonCol size="12" sizeLg="6">
+            <IonImg
+              src={image}
+              style={{ borderRadius: "1rem", overflow: "hidden" }}
+            />
           </IonCol>
 
-          <IonCol size="12" sizeSm="6">
+          <IonCol size="12" sizeLg="6">
             <IonItem lines="none">
               <IonCardTitle>
                 <b>{foodName}</b>
@@ -140,6 +160,15 @@ export const FoodDetailsCard = () => {
                 <br />
                 {restaurant.address}
               </IonText>
+              <IonButton
+                fill="clear"
+                color="light"
+                style={{ marginTop: "1rem" }}
+                href={restaurant.mapLink}
+                target="_blank"
+              >
+                <IonIcon icon={openOutline} slot="end" size="md" />
+              </IonButton>
             </IonItem>
 
             <IonItem lines="none">
@@ -167,25 +196,9 @@ export const FoodDetailsCard = () => {
                 slot="end"
                 fill="clear"
                 color="light"
-                onClick={() => {
-                  setLiked(!liked);
-                  dismiss().then(() => {
-                    present({
-                      message: !liked
-                        ? "Added to liked posts!"
-                        : "Removed from liked posts",
-                      mode: "ios",
-                      color: "dark",
-                      duration: 2000,
-                    });
-                  });
-                }}
+                onClick={() => addToLikedPosts()}
               >
-                <IonIcon
-                  aria-live="assertive"
-                  size="large"
-                  icon={liked ? heart : heartOutline}
-                />
+                <IonIcon size="large" icon={liked ? heart : heartOutline} />
               </IonButton>
             </IonItem>
           </IonCol>
