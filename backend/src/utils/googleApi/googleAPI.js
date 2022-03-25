@@ -50,8 +50,6 @@ const getRestaurant = async (placeId) => {
  * https://developers.google.com/maps/documentation/places/web-service/details#PlaceDetailsResponses
  */
 const getReivewfromGoogle = async (lat, long) => {
-  const { lat, long } = req.body;
-
   try {
     const response = await getNearbyPlace(lat, long);
     const placeDetails = response.results.map(async (res) => {
@@ -68,3 +66,6 @@ const getReivewfromGoogle = async (lat, long) => {
     throw e;
   }
 };
+
+exports.getNearbyPlace = getNearbyPlace;
+exports.getReivewfromGoogle = getReivewfromGoogle;
