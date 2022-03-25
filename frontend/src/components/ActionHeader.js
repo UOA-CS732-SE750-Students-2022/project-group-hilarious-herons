@@ -70,7 +70,6 @@ export const ActionHeader = ({ banner, children }) => {
             shape="round"
             color="ionHeaderText"
             style={{ padding: "0 50px" }}
-            mode="ios"
           >
             Login
           </IonButton>
