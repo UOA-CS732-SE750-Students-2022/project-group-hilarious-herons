@@ -15,7 +15,6 @@ import './FoodCard.css';
 
 const infoStyle = {
     position: 'absolute', 
-    width: '100%',
     top:'59%',
     fontWeight: 'bold',
 }
@@ -26,18 +25,13 @@ const FoodCard = () => {
         <div className='iamge-rate-distanse'>
             <img src="/mock.svg" alt="food-img" className='food-img'/>
             <IonRow style={infoStyle}>
-                <IonCol>
                     <IonChip>
                         <IonLabel>1.2km</IonLabel>
                     </IonChip>
-                </IonCol>
-                <IonCol>
                     <IonChip className='rate'>
                         <IonIcon icon={star}/>
                         <IonLabel>3.5/5</IonLabel>
                     </IonChip>
-                    
-                </IonCol>
             </IonRow>
         </div>
         <IonCardHeader> 
