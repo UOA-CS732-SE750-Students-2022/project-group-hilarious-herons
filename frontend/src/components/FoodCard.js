@@ -38,11 +38,11 @@ const FoodCard = () => {
         <IonCardContent>
             <IonRow className='like-food'>
                 <IonCardSubtitle>dd/mm/yyyy</IonCardSubtitle>
-                <IonRow>
+                <IonRow style={{display:'inline-block'}}>
                     <IonIcon 
                         icon={ heartOutline } 
                         size="small" 
-                        color='primary'/>
+                        style={{verticalAlign: 'text-top'}}/>
                     <IonLabel>1.2k</IonLabel>
                 </IonRow>   
             </IonRow>
