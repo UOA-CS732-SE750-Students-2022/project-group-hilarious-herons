@@ -18,3 +18,9 @@
 ion-chip.rate {
   float: right;
 }
+
+ion-chip {
+  --color:var(--ion-color-primary);
+  --background: white;
+  pointer-events: none;
+}
