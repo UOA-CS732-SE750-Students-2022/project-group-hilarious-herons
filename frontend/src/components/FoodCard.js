@@ -8,9 +8,8 @@ import {
     IonGrid,
     IonRow, 
     IonCol,
-    IonIcon, 
-    IonButton } from '@ionic/react';
-import { thumbsUpOutline} from 'ionicons/icons';
+    IonIcon } from '@ionic/react';
+import { heartOutline} from 'ionicons/icons';
 import './FoodCard.css';
 
 const infoStyle = {
@@ -21,20 +20,14 @@ const infoStyle = {
     fontWeight: 'bold'
 }
 
-const rateStyle = {
-    textAlign: 'right',
-    paddingRight: '0.5em',
-}
-
-
 const FoodCard = () => {
   return (
     <IonCard className="food-card">
         <div className='iamge-rate-distanse'>
             <img src="/mock.svg" alt="food-img" className='food-img'/>
             <IonRow style={infoStyle}>
-                <IonCol>1.2km</IonCol>
-                <IonCol style={rateStyle}>3.5/5</IonCol>
+                <IonCol><div>1.2km</div></IonCol>
+                <IonCol><div className='rate'>3.5/5</div></IonCol>
             </IonRow>
         </div>
         <IonCardHeader> 
@@ -45,7 +38,7 @@ const FoodCard = () => {
                 <IonCardSubtitle>dd/mm/yyyy</IonCardSubtitle>
                 <IonRow>
                     <IonIcon 
-                    icon={ thumbsUpOutline } 
+                    icon={ heartOutline } 
                     size="small" 
                     color='primary'/>
                     <p>1.2k</p>
