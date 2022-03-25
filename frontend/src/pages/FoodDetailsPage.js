@@ -4,7 +4,7 @@ import { ActionHeader } from "../components/ActionHeader";
 export const FoodDetailsPage = () => {
   return (
     <IonPage>
-      <ActionHeader></ActionHeader>
+      <ActionHeader />
     </IonPage>
   );
 };

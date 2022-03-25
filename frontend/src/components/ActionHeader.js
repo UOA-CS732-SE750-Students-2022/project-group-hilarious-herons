@@ -92,27 +92,29 @@ export const ActionHeader = ({ banner, children }) => {
         ) : null}
       </IonHeader>
 
-      <IonContent
-        scrollEvents={true}
-        onIonScroll={(event) => {
-          if (event.detail.scrollTop === 0 && !headerVisible) {
-            setHeaderVisible(true);
-            growAnimation.play();
-            if (banner) {
-              colorOutAnimation.play();
+      {banner ? (
+        <IonContent
+          scrollEvents={true}
+          onIonScroll={(event) => {
+            if (event.detail.scrollTop === 0 && !headerVisible) {
+              setHeaderVisible(true);
+              growAnimation.play();
+              if (banner) {
+                colorOutAnimation.play();
+              }
             }
-          }
-          if (event.detail.scrollTop > 0 && headerVisible) {
-            setHeaderVisible(false);
-            shrinkAnimation.play();
-            if (banner) {
-              colorInAnimation.play();
+            if (event.detail.scrollTop > 0 && headerVisible) {
+              setHeaderVisible(false);
+              shrinkAnimation.play();
+              if (banner) {
+                colorInAnimation.play();
+              }
             }
-          }
-        }}
-      >
-        {children}
-      </IonContent>
+          }}
+        >
+          {children}
+        </IonContent>
+      ) : null}
     </>
   );
 };
