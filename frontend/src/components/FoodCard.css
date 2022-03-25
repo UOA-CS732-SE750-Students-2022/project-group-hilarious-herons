@@ -7,12 +7,19 @@
   width: 100%;
   max-width: 250px;
   height: auto;
-
 }
 
 .like-food {
   display: flex;
   justify-content: space-between;
+}
+
+.likes {
+  display:inline-block;
+}
+
+.likes > ion-icon {
+  vertical-align: text-top;
 }
 
 ion-chip {
