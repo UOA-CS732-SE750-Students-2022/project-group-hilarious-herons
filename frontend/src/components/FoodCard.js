@@ -10,7 +10,7 @@ import {
     IonCol,
     IonIcon, 
     IonButton } from '@ionic/react';
-import { heartOutline, thumbsUpOutline} from 'ionicons/icons';
+import { thumbsUpOutline} from 'ionicons/icons';
 import './FoodCard.css';
 
 const infoStyle = {
