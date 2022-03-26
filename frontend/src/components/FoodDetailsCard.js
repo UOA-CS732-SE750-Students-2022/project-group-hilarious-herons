@@ -52,6 +52,7 @@ export const FoodDetailsCard = () => {
           weekends: "10:00am - 5:00pm",
         },
       },
+      numberOfLikes: "1.2k",
     };
   };
 
@@ -64,6 +65,7 @@ export const FoodDetailsCard = () => {
     dietryRequirements,
     bodyText,
     restaurant,
+    numberOfLikes,
   } = getData();
 
   const getRating = () => {
@@ -199,6 +201,7 @@ export const FoodDetailsCard = () => {
                 onClick={() => addToLikedPosts()}
               >
                 <IonIcon size="large" icon={liked ? heart : heartOutline} />
+                <IonText color="dark">{numberOfLikes}</IonText>
               </IonButton>
             </IonItem>
           </IonCol>
