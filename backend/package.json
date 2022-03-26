@@ -5,13 +5,18 @@
   "main": "./src/server.js",
   "scripts": {
     "start": "node ./src/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
+
   },
   "author": "Osama Kashif",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.26.1",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "mongoose": "^6.2.7"
+  },
+  "devDependencies": {
+    "jest": "^27.5.1"
   }
 }
