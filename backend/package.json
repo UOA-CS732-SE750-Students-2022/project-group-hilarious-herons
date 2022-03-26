@@ -2,9 +2,11 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "Express backend for communicating with MongoDB.",
-  "main": "index.js",
+  "main": "./src/server.js",
   "scripts": {
+    "start": "node ./src/server.js",
     "test": "jest"
+
   },
   "author": "Osama Kashif",
   "license": "ISC",

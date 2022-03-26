@@ -9,6 +9,7 @@ const restaurantSchema = new Schema({
     lat: Number,
     long: Number,
   },
+  googlePlaceId: { type: String, required: true },
 });
 
 const Restaurant = mongoose.model("Restaurant", restaurantSchema);

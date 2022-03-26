@@ -1,0 +1,29 @@
+.food-card {
+    width: fit-content;
+    height: fit-content;
+}
+
+.food-img {
+  width: 100%;
+  max-width: 250px;
+  height: auto;
+}
+
+.like-food {
+  display: flex;
+  justify-content: space-between;
+}
+
+.likes {
+  display:inline-block;
+}
+
+.likes > ion-icon {
+  vertical-align: text-top;
+}
+
+ion-chip {
+  --color:var(--ion-color-primary);
+  --background: white;
+  pointer-events: none;
+}

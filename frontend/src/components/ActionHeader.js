@@ -62,15 +62,14 @@ export const ActionHeader = ({ banner, children }) => {
             class="searchBar"
             mode="ios"
             style={{ padding: "0" }}
-            color="light"
+            color="ionHeaderText"
             padding="0"
           />
           <IonButton
             slot="end"
             shape="round"
-            color="light"
+            color="ionHeaderText"
             style={{ padding: "0 50px" }}
-            mode="ios"
           >
             Login
           </IonButton>
@@ -92,27 +91,29 @@ export const ActionHeader = ({ banner, children }) => {
         ) : null}
       </IonHeader>
 
-      <IonContent
-        scrollEvents={true}
-        onIonScroll={(event) => {
-          if (event.detail.scrollTop === 0 && !headerVisible) {
-            setHeaderVisible(true);
-            growAnimation.play();
-            if (banner) {
-              colorOutAnimation.play();
+      {banner ? (
+        <IonContent
+          scrollEvents={true}
+          onIonScroll={(event) => {
+            if (event.detail.scrollTop === 0 && !headerVisible) {
+              setHeaderVisible(true);
+              growAnimation.play();
+              if (banner) {
+                colorOutAnimation.play();
+              }
             }
-          }
-          if (event.detail.scrollTop > 0 && headerVisible) {
-            setHeaderVisible(false);
-            shrinkAnimation.play();
-            if (banner) {
-              colorInAnimation.play();
+            if (event.detail.scrollTop > 0 && headerVisible) {
+              setHeaderVisible(false);
+              shrinkAnimation.play();
+              if (banner) {
+                colorInAnimation.play();
+              }
             }
-          }
-        }}
-      >
-        {children}
-      </IonContent>
+          }}
+        >
+          {children}
+        </IonContent>
+      ) : null}
     </>
   );
 };
