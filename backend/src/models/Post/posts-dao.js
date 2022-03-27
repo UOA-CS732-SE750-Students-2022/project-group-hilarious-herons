@@ -1,11 +1,11 @@
-import { Post } from "./PostSchema";
+const Post = require("./PostSchema");
 
 /**
  * Saves a post to the database
  * @param {*} post The Post object to be saved
  * @returns Post object created from mongoose schema
  */
-const createPost = async (post) => {
+exports.createPost = async (post) => {
   const newPost = new Post(post);
   await newPost.save();
 
@@ -17,7 +17,7 @@ const createPost = async (post) => {
  * @param {*} postId UUID for post to be retrieved
  * @returns Object with given postID if it can be found
  */
-const retrievePost = async (postId) => {
+exports.retrievePost = async (postId) => {
   return await Post.findById(postId);
 };
 
@@ -26,7 +26,7 @@ const retrievePost = async (postId) => {
  * @param {*} post
  * @returns True if object is found and update, false otherwise
  */
-const updatePost = async (post) => {
+exports.updatePost = async (post) => {
   const existingPost = await Post.findById(post._id);
 
   if (existingPost) {
@@ -52,8 +52,6 @@ const updatePost = async (post) => {
  * @param {*} postId The ID for the post to be deleted
  * @returns
  */
-const deletePost = async (postId) => {
+exports.deletePost = async (postId) => {
   return await Post.deleteOne({ id: postId });
 };
-
-export { createPost, retrievePost, updatePost, deletePost };

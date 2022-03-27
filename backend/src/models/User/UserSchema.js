@@ -1,5 +1,4 @@
-import mongoose from "mongoose";
-
+const mongoose = require("mongoose");
 /**
  * MongoDB Schema for a user object in the database
  */
@@ -26,6 +25,4 @@ const userSchema = new Schema({
   followingUsers: [{ type: Schema.Types.ObjectId, ref: "User" }],
 });
 
-const User = mongoose.model("User", userSchema);
-
-export { User };
+module.exports = mongoose.model("User", userSchema);
