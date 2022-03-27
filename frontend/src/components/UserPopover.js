@@ -12,7 +12,7 @@ export const UserPopover = () => {
     }
 
     return (
-        <IonPopover trigger="user-avatar" size="cover" mode='ios'>
+        <IonPopover trigger="user-avatar" size="auto" mode='ios'>
             <IonList lines="none">
                 <IonItem button detail={false} href="account">
                     <IonLabel style={LabelStyle}>My Posts</IonLabel>
