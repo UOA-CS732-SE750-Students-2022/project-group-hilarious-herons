@@ -14,13 +14,19 @@ app.use(express.json());
 
 //Setting up routes
 app.use("/", routes);
+app.use("/api/post/", require("./routes/index"));
+
+app.get("/api/post/:id", async function (req, res) {
+  // Retrieve the tag from our URL path
+  res.send(req.params.id);
+});
 
 //Connecting to remote MongoDB
-mongoose
-  .connect(
-    `mongodb+srv://db-user:${process.env.MONGO_PASSWORD}@cluster0.vprvj.mongodb.net/${process.env.MONGO_DB_NAME}?retryWrites=true&w=majority`,
-    { useNewUrlParser: true }
-  )
-  .then(() =>
-    app.listen(port, () => console.log(`App server listening on port ${port}!`))
-  );
+// mongoose
+//   .connect(
+//     `mongodb+srv://db-user:${process.env.MONGO_PASSWORD}@cluster0.vprvj.mongodb.net/${process.env.MONGO_DB_NAME}?retryWrites=true&w=majority`,
+//     { useNewUrlParser: true }
+//   )
+//   .then(() =>
+app.listen(port, () => console.log(`App server listening on port ${port}!`));
+//   );
