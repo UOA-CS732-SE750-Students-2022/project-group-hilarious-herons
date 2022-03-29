@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+require("dotenv").config();
 
 const Schema = mongoose.Schema;
 
@@ -10,8 +11,13 @@ const restaurantSchema = new Schema({
     long: Number,
   },
   googlePlaceId: { type: String, required: true },
+  googleMapsURL: { type: String, required: true },
 });
 
-const Restaurant = mongoose.model("Restaurant", restaurantSchema);
+const Restaurant = mongoose.model(
+  "Restaurant",
+  restaurantSchema,
+  "Restaurants"
+);
 
 export { Restaurant };

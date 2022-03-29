@@ -1,8 +1,6 @@
 import mongoose from "mongoose";
+require("dotenv").config();
 
-/**
- * MongoDB Schema for a user object in the database
- */
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
@@ -26,6 +24,6 @@ const userSchema = new Schema({
   followingUsers: [{ type: Schema.Types.ObjectId, ref: "User" }],
 });
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model("User", userSchema, "Users");
 
 export { User };

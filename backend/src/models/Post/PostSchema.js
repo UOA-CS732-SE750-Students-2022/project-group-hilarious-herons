@@ -1,4 +1,7 @@
 import mongoose from "mongoose";
+require("dotenv").config();
+
+//Connecting to remote MongoDB
 
 const Schema = mongoose.Schema;
 
@@ -19,6 +22,6 @@ const postSchema = new Schema(
   }
 );
 
-const Post = mongoose.Schema("Post", postSchema);
+const Post = mongoose.Schema("Post", postSchema, "Posts");
 
 export { Post };

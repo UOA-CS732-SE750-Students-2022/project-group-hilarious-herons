@@ -5,8 +5,8 @@
   "main": "./src/server.js",
   "scripts": {
     "start": "node ./src/server.js",
+    "dev": "nodemon ./src/server.js",
     "test": "jest"
-
   },
   "author": "Osama Kashif",
   "license": "ISC",
@@ -17,6 +17,7 @@
     "mongoose": "^6.2.7"
   },
   "devDependencies": {
-    "jest": "^27.5.1"
+    "jest": "^27.5.1",
+    "nodemon": "^2.0.15"
   }
 }
