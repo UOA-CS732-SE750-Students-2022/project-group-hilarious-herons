@@ -16,7 +16,7 @@ import { UserPopover } from "./UserPopover";
 export const ActionHeader = ({ banner, children }) => {
   const bannerUrl = `url("https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80")`;
   const [headerVisible, setHeaderVisible] = useState(true);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   
   const shrinkAnimation = createAnimation()
     .addElement(document.querySelector(".toolbar"))
@@ -75,23 +75,22 @@ export const ActionHeader = ({ banner, children }) => {
           />
 
           { isLoggedIn
-              ?  (<IonChip id='user-avatar' slot='end' color='light' style={{ magin: "0 3rem" }}>
+              ? <IonChip id='user-avatar' slot='end' color='light' style={{ magin: "0 3rem" }}>
                   <IonAvatar>
                   <img src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg" />
               </IonAvatar>
               <IonLabel >Username</IonLabel>
-          </IonChip>)
+          </IonChip>
           : <IonButton
               slot="end"
               shape="round"
               color="ionHeaderText"
-              style={{ margin: "0 50px" }}
+              style={{ margin: "0 1rem" }}
               mode="ios">
                 Login
-            </IonButton>}
-
-        <UserPopover/> 
-          
+            </IonButton> }
+        <UserPopover/>  
+        
         </IonToolbar>
 
         {banner ? (

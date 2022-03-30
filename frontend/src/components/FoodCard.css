@@ -25,5 +25,8 @@
 ion-chip {
   --color:var(--ion-color-primary);
   --background: white;
+}
+
+.rate {
   pointer-events: none;
 }
