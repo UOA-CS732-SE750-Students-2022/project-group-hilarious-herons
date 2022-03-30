@@ -23,7 +23,7 @@ const FoodCard = () => {
         <div className='iamge-rate-distanse'>
             <img src="/mock.svg" alt="food-img" className='food-img'/>
             <IonRow style={ infoStyle }>
-                    <IonChip>
+                    <IonChip className='rate'>
                         <IonLabel>1.2km</IonLabel>
                     </IonChip>
                     <IonChip className='rate'>
