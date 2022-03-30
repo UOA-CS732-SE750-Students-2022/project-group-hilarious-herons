@@ -5,7 +5,6 @@ exports.getPost = async (req, res) => {
   try {
     const id = mongoose.Types.ObjectId(req.params.id);
     const post = await retrievePost(id);
-    console.log(post);
 
     if (post === undefined || post === null || post.length === 0) {
       res.status(404);

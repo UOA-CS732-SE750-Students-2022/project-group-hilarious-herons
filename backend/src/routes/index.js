@@ -3,6 +3,6 @@ const { getPost } = require("../controllers/post");
 
 const router = express.Router();
 
-router.route("/get-post/:id").get(getPost);
+router.route("/post/:id").get(getPost);
 
 module.exports = router;
