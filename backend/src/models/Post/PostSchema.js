@@ -1,7 +1,4 @@
-import mongoose from "mongoose";
-require("dotenv").config();
-
-//Connecting to remote MongoDB
+const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
@@ -9,7 +6,7 @@ const postSchema = new Schema(
   {
     foodName: String,
     bodyText: { type: String, required: true },
-    tags: [{ type: String, required: true }], //Add at least 1 tag validation requirement
+    tags: [{ type: String, required: true }],
     dietryRequirements: [{ type: String }],
     restaurant: { type: Schema.Types.ObjectId, ref: "Restaurant" },
     numberOfLikes: Number,
@@ -22,6 +19,5 @@ const postSchema = new Schema(
   }
 );
 
-const Post = mongoose.Schema("Post", postSchema, "Posts");
+module.exports = mongoose.model("Post", postSchema, "Posts");
 
-export { Post };
