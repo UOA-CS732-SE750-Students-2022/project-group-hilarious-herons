@@ -6,15 +6,15 @@ import {
   IonIcon,
   IonTitle, 
   IonToolbar,
-  IonSearchbar, 
-  IonItem,
+  IonSearchbar,
   IonTextarea,
-  IonRadio,
-  
+  IonInput,
+  IonLabel
 } from '@ionic/react';
 import { 
   closeOutline, 
   locationOutline, 
+  cameraOutline,
 } from 'ionicons/icons';
 import { useState } from "react";
 import './AddPostModal.css';
@@ -23,6 +23,15 @@ export const AddPostModal = () => {
   const [isModalOpen, setIsModalOpen] = useState('true')
   const [searchLocationText, setSearchLocationText] = useState('');
   const [experienceText, setExperienceText] = useState('');
+  
+  const [postJson, setPostJson] = useState ({
+    food: "",
+    rating: 0,
+    timestamp: new Date(),
+    imgs: [],
+    bodyText: "",
+    restaurant: ""
+  });
   
   function getFiveStarRating () {
     const greyStars = [...Array(6).keys()].slice(1);
@@ -59,17 +68,20 @@ export const AddPostModal = () => {
   } 
   
   return (
-      <IonModal trigger='addPost' 
+      <IonModal className='add-post-modal'
+                trigger='addPost' 
                 isOpen={isModalOpen}
                 swipeToClose={true} 
                 mode='ios'>
         <IonContent>
           <IonToolbar>
-            <IonTitle color='primary'>Add a Review</IonTitle>
+            <IonTitle color='primary'>
+              Add a Review
+            </IonTitle>
             <IonButtons slot='primary'>
               <IonButton color='light' 
                          onClick={ () => setIsModalOpen(false)}>
-                <IonIcon icon={closeOutline} />
+                <IonIcon icon={ closeOutline } />
               </IonButton>
             </IonButtons>
           </IonToolbar>
@@ -90,8 +102,8 @@ export const AddPostModal = () => {
 
               <IonTextarea 
                 placeholder="Share your experience with others ~" 
-                value={experienceText} 
-                rows={6} 
+                value={ experienceText } 
+                rows={ 6 } 
                 enterkeyhint='enter'
                 spellCheck={ true }
                 onIonChange={e => setExperienceText(e.detail.value)}
@@ -99,11 +111,32 @@ export const AddPostModal = () => {
                   border: "1px solid #ccc"
                 }}>
               </IonTextarea>
+       
+              <div className='upload'>
+                <input
+                    id="upload-images" 
+                    name="upload-images" 
+                    type="file" 
+                    accept="image/*" 
+                    multiple
+                    placeholder="Upload Images" 
+                    onChange={ (e) => {
+                      console.log(e.target.files);
+                      // postJson.imgs = setPostJson([e.target.files])
+                    }} 
+                />
+              <label htmlFor="upload-images" >
+                <IonIcon icon={ cameraOutline } color='medium'/>
+              </label>
+              </div>
           </IonToolbar>
-                
+
+    
           <IonToolbar>
             { getFiveStarRating() }
-            <IonButton slot='end'>
+            <IonButton shape="round" slot='end' onClick={(e) => {
+               
+            }}>
               Submit
             </IonButton>
           </IonToolbar>
