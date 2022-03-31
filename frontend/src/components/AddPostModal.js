@@ -23,15 +23,7 @@ export const AddPostModal = () => {
   const [isModalOpen, setIsModalOpen] = useState('true')
   const [searchLocationText, setSearchLocationText] = useState('');
   const [experienceText, setExperienceText] = useState('');
-  
-  const [postJson, setPostJson] = useState ({
-    food: "",
-    rating: 0,
-    timestamp: new Date(),
-    imgs: [],
-    bodyText: "",
-    restaurant: ""
-  });
+  const [images, setImages] = useState();
   
   function getFiveStarRating () {
     const greyStars = [...Array(6).keys()].slice(1);
@@ -57,6 +49,10 @@ export const AddPostModal = () => {
       eIcon.classList.remove('active')
     )
     prevAll(e.target)
+  }
+
+  function getRateOfFood() {
+    return document.querySelectorAll('.star-rating .active').length
   }
 
   function prevAll(element) {
@@ -121,8 +117,7 @@ export const AddPostModal = () => {
                     multiple
                     placeholder="Upload Images" 
                     onChange={ (e) => {
-                      console.log(e.target.files);
-                      // postJson.imgs = setPostJson([e.target.files])
+                      setImages(e.target.files);                   
                     }} 
                 />
               <label htmlFor="upload-images" >
@@ -134,8 +129,15 @@ export const AddPostModal = () => {
     
           <IonToolbar>
             { getFiveStarRating() }
-            <IonButton shape="round" slot='end' onClick={(e) => {
-               
+            <IonButton shape="round" slot='end' onClick={(e) => { 
+              let postJson = { 
+                foodName: "",
+                rate: getRateOfFood(),
+                timestamp: new Date(),
+                bodyText: experienceText,
+                imgs: images,
+                restaurant: searchLocationText 
+              }    
             }}>
               Submit
             </IonButton>
