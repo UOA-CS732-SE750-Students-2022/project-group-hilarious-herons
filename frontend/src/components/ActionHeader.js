@@ -67,11 +67,11 @@ export const ActionHeader = ({ banner, children }) => {
             <h2>FUNTER</h2>
           </IonTitle>
           <IonSearchbar
+           slot='start'
             class="searchBar"
             mode="ios"
-            style={{ padding: "0" }}
+            style={{ width: "50%", padding:'0' }}
             color="ionHeaderText"
-            padding="0"
           />
 
           { isLoggedIn
