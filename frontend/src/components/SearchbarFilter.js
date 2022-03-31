@@ -3,7 +3,6 @@ import {
   IonCheckbox,
   IonContent,
   IonHeader,
-  IonIcon,
   IonItem,
   IonItemDivider,
   IonLabel,
@@ -14,17 +13,17 @@ import {
   IonSelect,
   IonSelectOption,
 } from "@ionic/react";
-import { close } from "ionicons/icons";
+import { location } from "ionicons/icons";
 import { useState } from "react";
+import { LocationPopover } from "./LocationPopover";
 
 export const SearchbarFilter = () => {
   const [showModal, setShowModal] = useState(false);
   const [byDistance, setByDistance] = useState(false);
   const [byRating, setByRating] = useState(false);
+  const [locationFilter, setLocationFilter] = useState("");
   const [rating, setRating] = useState(5);
   const [dietaries, setDietaries] = useState([]);
-
-  let isSortDistance, isSortRating, currentRating, currentDietaries;
 
   const getDietaries = () => {
     return [
@@ -38,6 +37,18 @@ export const SearchbarFilter = () => {
     ];
   };
 
+  const search = () => {
+    console.log(
+      "search for results with the filters: ",
+      `shortest distance: ${byDistance}`,
+      `highest rating: ${byRating}`,
+      `location: ${locationFilter}`,
+      `rating: ${rating}`,
+      `dietary: ${dietaries}`
+    );
+    return [];
+  };
+
   return (
     <IonModal
       trigger="searchbar"
@@ -48,16 +59,7 @@ export const SearchbarFilter = () => {
     >
       {/* IonHeader added to allow the swipe to close feature in ios mode */}
       <IonHeader translucent>
-        <IonItem lines="none">
-          <IonButton
-            slot="end"
-            fill="clear"
-            color="light"
-            onClick={() => setShowModal(false)}
-          >
-            <IonIcon icon={close} />
-          </IonButton>
-        </IonItem>
+        <IonItem lines="none" />
       </IonHeader>
       <IonContent>
         <IonList lines="none">
@@ -67,7 +69,7 @@ export const SearchbarFilter = () => {
               checked={byDistance}
               slot="start"
               onIonChange={(e) => {
-                isSortDistance = e.detail.checked;
+                setByDistance(e.detail.checked);
               }}
             />
             <IonLabel expand="block">Shortest distance</IonLabel>
@@ -77,7 +79,7 @@ export const SearchbarFilter = () => {
               checked={byRating}
               slot="start"
               onIonChange={(e) => {
-                isSortRating = e.detail.checked;
+                setByRating(e.detail.checked);
               }}
             />
             <IonLabel expand="block">Highest rating</IonLabel>
@@ -85,7 +87,15 @@ export const SearchbarFilter = () => {
           <IonItemDivider>Filter by</IonItemDivider>
           <IonItem>
             <IonLabel>Location</IonLabel>
-            <IonSearchbar style={{ width: "80%" }} />
+            <IonSearchbar
+              style={{ width: "80%" }}
+              autocomplete="on"
+              searchIcon={location}
+              showClearButton="never"
+              id="location-searchbar"
+              value={locationFilter}
+            />
+            <LocationPopover setLocationFilter={setLocationFilter} />
           </IonItem>
           <IonItem>
             <IonLabel>Ratings</IonLabel>
@@ -97,7 +107,7 @@ export const SearchbarFilter = () => {
               style={{ minWidth: "80%" }}
               mode="md"
               onIonChange={(e) => {
-                currentRating = e.detail.value;
+                setRating(e.detail.value);
               }}
             />
           </IonItem>
@@ -111,7 +121,7 @@ export const SearchbarFilter = () => {
               style={{ minWidth: "80%" }}
               placeholder="None"
               onIonChange={(e) => {
-                currentDietaries = e.detail.value;
+                setDietaries(e.detail.value);
               }}
             >
               {getDietaries().map((dietary, idx) => {
@@ -135,6 +145,7 @@ export const SearchbarFilter = () => {
             onClick={() => {
               setByDistance(false);
               setByRating(false);
+              setLocationFilter("");
               setRating(5);
               setDietaries([]);
             }}
@@ -148,21 +159,8 @@ export const SearchbarFilter = () => {
             shape="round"
             size="default"
             onClick={() => {
-              setByDistance(
-                isSortDistance === undefined ? byDistance : isSortDistance
-              );
-              setByRating(isSortRating === undefined ? byRating : isSortRating);
-              setRating(currentRating === undefined ? rating : currentRating);
-              setDietaries(
-                currentDietaries === undefined ? dietaries : currentDietaries
-              );
               setShowModal(false);
-
-              // Reset all current filter choices
-              isSortDistance = undefined;
-              isSortRating = undefined;
-              currentRating = undefined;
-              currentDietaries = undefined;
+              search();
             }}
           >
             Search
