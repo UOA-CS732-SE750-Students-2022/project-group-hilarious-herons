@@ -17,13 +17,41 @@ import { location } from "ionicons/icons";
 import { useState } from "react";
 import { LocationPopover } from "./LocationPopover";
 
-export const SearchbarFilter = () => {
+export const SearchbarFilter = ({ setShowMobileModal, doSearch }) => {
   const [showModal, setShowModal] = useState(false);
-  const [byDistance, setByDistance] = useState(false);
-  const [byRating, setByRating] = useState(false);
-  const [locationFilter, setLocationFilter] = useState("");
-  const [rating, setRating] = useState(5);
-  const [dietaries, setDietaries] = useState([]);
+  const [byDistance, setByDistance] = useState(
+    localStorage.getItem("byDistance") || false
+  );
+  const [byRating, setByRating] = useState(
+    localStorage.getItem("byRating") || false
+  );
+  const [locationFilter, setLocationFilter] = useState(
+    localStorage.getItem("locationFilter") || ""
+  );
+  const [rating, setRating] = useState(localStorage.getItem("rating") || 5);
+  const [dietaries, setDietaries] = useState(
+    JSON.parse(localStorage.getItem("dietaries")) || []
+  );
+
+  const handleReset = () => {
+    setByDistance(false);
+    setByRating(false);
+    setLocationFilter("");
+    setRating(5);
+    setDietaries([]);
+  };
+
+  const handleSearch = () => {
+    setShowModal(false);
+    setShowMobileModal(false);
+    localStorage.setItem("byDistance", byDistance);
+    localStorage.setItem("byRating", byRating);
+    localStorage.setItem("locationFilter", locationFilter);
+    localStorage.setItem("rating", rating);
+    localStorage.setItem("dietaries", JSON.stringify(dietaries));
+
+    doSearch();
+  };
 
   const getDietaries = () => {
     return [
@@ -35,18 +63,6 @@ export const SearchbarFilter = () => {
       "Dairy free",
       "Paleo",
     ];
-  };
-
-  const search = () => {
-    console.log(
-      "search for results with the filters: ",
-      `shortest distance: ${byDistance}`,
-      `highest rating: ${byRating}`,
-      `location: ${locationFilter}`,
-      `rating: ${rating}`,
-      `dietary: ${dietaries}`
-    );
-    return [];
   };
 
   return (
@@ -98,7 +114,7 @@ export const SearchbarFilter = () => {
             <LocationPopover setLocationFilter={setLocationFilter} />
           </IonItem>
           <IonItem>
-            <IonLabel>Ratings</IonLabel>
+            <IonLabel>Rating</IonLabel>
             <IonRange
               max={5}
               snaps={true}
@@ -143,11 +159,7 @@ export const SearchbarFilter = () => {
             shape="round"
             size="default"
             onClick={() => {
-              setByDistance(false);
-              setByRating(false);
-              setLocationFilter("");
-              setRating(5);
-              setDietaries([]);
+              handleReset();
             }}
           >
             Reset
@@ -159,8 +171,7 @@ export const SearchbarFilter = () => {
             shape="round"
             size="default"
             onClick={() => {
-              setShowModal(false);
-              search();
+              handleSearch();
             }}
           >
             Search
