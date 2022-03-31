@@ -1,0 +1,17 @@
+
+.star-rating > ion-icon {
+    display: inline-block;
+    fill: #9e9e9e;
+}
+
+.star-rating .active {
+    fill: var(--ion-color-primary);
+}
+
+
+
+
+
+
+
+

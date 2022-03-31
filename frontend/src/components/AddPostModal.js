@@ -9,22 +9,60 @@ import {
   IonSearchbar, 
   IonItem,
   IonTextarea,
+  IonRadio,
   
 } from '@ionic/react';
-import { closeOutline, locationOutline} from 'ionicons/icons';
+import { 
+  closeOutline, 
+  locationOutline, 
+} from 'ionicons/icons';
 import { useState } from "react";
-import "./AddPostModal.css";
+import './AddPostModal.css';
 
 export const AddPostModal = () => {
   const [isModalOpen, setIsModalOpen] = useState('true')
   const [searchLocationText, setSearchLocationText] = useState('');
   const [experienceText, setExperienceText] = useState('');
+  
+  function getFiveStarRating () {
+    const greyStars = [...Array(6).keys()].slice(1);
 
-    return (
-        <IonModal trigger='addPost' 
-                  isOpen={isModalOpen}
-                  swipeToClose={true} 
-                  mode='ios'>
+    return ( 
+      <IonButtons className='star-rating'>
+        { greyStars.map((num) => { 
+              return <IonIcon 
+                    key={num}
+                    size='large' 
+                    src="/star.svg" 
+                    class='star' 
+                    onClick={(e) => {
+                      ratingStar(e);
+                    }}/>;
+            }) 
+        }
+      </IonButtons>) 
+  }
+
+  function ratingStar(e) {
+    document.querySelectorAll('.star-rating .star').forEach ( (eIcon) =>
+      eIcon.classList.remove('active')
+    )
+    prevAll(e.target)
+  }
+
+  function prevAll(element) {
+    element.classList.add('active')
+    
+    while (element = element.previousElementSibling) {
+          element.classList.add('active')
+    }
+  } 
+  
+  return (
+      <IonModal trigger='addPost' 
+                isOpen={isModalOpen}
+                swipeToClose={true} 
+                mode='ios'>
         <IonContent>
           <IonToolbar>
             <IonTitle color='primary'>Add a Review</IonTitle>
@@ -62,8 +100,15 @@ export const AddPostModal = () => {
                 }}>
               </IonTextarea>
           </IonToolbar>
+                
+          <IonToolbar>
+            { getFiveStarRating() }
+            <IonButton slot='end'>
+              Submit
+            </IonButton>
+          </IonToolbar>
 
         </IonContent>
       </IonModal>
-    );
+  );
 }
