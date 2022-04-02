@@ -41,13 +41,10 @@ export const Searchbar = () => {
   // listen for window resize events
   useEffect(() => {
     const handleResize = () => {
-      // at least md breakpoint wide
       if (window.matchMedia(mdBreakpoint).matches) {
-        setIsMdBreakpoint(true);
-        setShowMobileModal(false);
-        // less than md breakpoint wide
+        setIsMdBreakpoint(true); // at least md breakpoint wide
       } else {
-        setIsMdBreakpoint(false);
+        setIsMdBreakpoint(false); // less than md breakpoint wide
       }
     };
 
@@ -101,7 +98,13 @@ export const Searchbar = () => {
   const smSearchbar = () => {
     return (
       <>
-        <IonFabButton size="small" slot="end" color="light" id="sm-searchbar">
+        <IonFabButton
+          size="small"
+          slot="end"
+          color="light"
+          id="sm-searchbar"
+          className="ion-no-shadows"
+        >
           <IonIcon icon={search} size="small" />
         </IonFabButton>
 
