@@ -39,7 +39,7 @@ exports.updatePost = async (post) => {
     existingPost.rating = post.rating;
     existingPost.numberOfReviews = post.numberOfReviews;
 
-    await Post.save(existingPost);
+    await existingPost.save();
 
     return true;
   }
