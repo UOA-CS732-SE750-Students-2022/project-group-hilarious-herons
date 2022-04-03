@@ -20,8 +20,6 @@ exports.getPost = async (req, res) => {
 };
 
 exports.likePost = async (req, res) => {
-  const { id } = req.body;
-
   try {
     const objectId = mongoose.Types.ObjectId(req.body.id);
     const post = await retrievePost(objectId);
@@ -30,9 +28,7 @@ exports.likePost = async (req, res) => {
       res.status(404);
     }
 
-    console.log(post);
     post.numberOfLikes = post.numberOfLikes + 1;
-    console.log(post);
 
     updatePost(post);
 
@@ -50,8 +46,6 @@ exports.likePost = async (req, res) => {
 };
 
 exports.unlikePost = async (req, res) => {
-  const { id } = req.body;
-
   try {
     const objectId = mongoose.Types.ObjectId(req.body.id);
     const post = await retrievePost(objectId);
@@ -60,11 +54,9 @@ exports.unlikePost = async (req, res) => {
       res.status(404);
     }
 
-    console.log(post);
     if (post.numberOfLikes > 0) {
       post.numberOfLikes = post.numberOfLikes - 1;
     }
-    console.log(post);
 
     updatePost(post);
 
