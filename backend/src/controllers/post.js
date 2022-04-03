@@ -82,11 +82,14 @@ exports.createPost = async (req, res) => {
     const postObj = req.body;
     const newPost = await createPost(postObj);
 
-    res.status(201).header("Location", `/api/posts/${id}`).json(newPost);
+    res
+      .status(201)
+      .header("Location", `/api/post/${newPost._id}`)
+      .json(newPost);
   } catch (err) {
     res.status(500).json({
       success: false,
-      info: error.message,
+      info: err.message,
     });
   }
 };
