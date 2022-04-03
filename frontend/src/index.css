@@ -94,6 +94,13 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-ionContentHeaderText-contrast-rgb: 0, 0, 0;
   --ion-color-ionContentHeaderText-shade: #000000;
   --ion-color-ionContentHeaderText-tint: #FFFFFF;
+
+  --ion-color-ionWhite: #FFFFFF;
+  --ion-color-ionWhite-rgb: 114, 114, 114;
+  --ion-color-ionWhite-contrast: #727272;
+  --ion-color-ionWhite-contrast-rgb: 114, 114, 114;
+  --ion-color-ionWhite-shade: #727272;
+  --ion-color-ionWhite-tint: #000000;
 }
 
 :root ion-icon {
@@ -121,6 +128,15 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-contrast-rgb: var(--ion-color-ionContentHeaderText-contrast-rgb);
   --ion-color-shade: var(--ion-color-ionContentHeaderText-shade);
   --ion-color-tint: var(--ion-color-ionContentHeaderText-tint);
+}
+
+.ion-color-ionWhite {
+  --ion-color-base: var(--ion-color-ionWhite);
+  --ion-color-base-rgb: var(--ion-color-ionWhite-rgb);
+  --ion-color-contrast: var(--ion-color-ionWhite-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-ionWhite-contrast-rgb);
+  --ion-color-shade: var(--ion-color-ionWhite-shade);
+  --ion-color-tint: var(--ion-color-ionWhite-tint);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -205,6 +221,13 @@ http://ionicframework.com/docs/theming/ */
     --ion-color-ionContentHeaderText-contrast-rgb: 0, 0, 0;
     --ion-color-ionContentHeaderText-shade: #000000;
     --ion-color-ionContentHeaderText-tint: #FFFFFF;
+
+    --ion-color-ionWhite: #FFFFFF;
+    --ion-color-ionWhite-rgb: 114, 114, 114;
+    --ion-color-ionWhite-contrast: #727272;
+    --ion-color-ionWhite-contrast-rgb: 114, 114, 114;
+    --ion-color-ionWhite-shade: #727272;
+    --ion-color-ionWhite-tint: #000000;
   }
   
   .ion-color-ionHeaderText {
@@ -223,6 +246,15 @@ http://ionicframework.com/docs/theming/ */
     --ion-color-contrast-rgb: var(--ion-color-ionContentHeaderText-contrast-rgb);
     --ion-color-shade: var(--ion-color-ionContentHeaderText-shade);
     --ion-color-tint: var(--ion-color-ionContentHeaderText-tint);
+  }
+
+  .ion-color-ionWhite {
+    --ion-color-base: var(--ion-color-ionWhite);
+    --ion-color-base-rgb: var(--ion-color-ionWhite-rgb);
+    --ion-color-contrast: var(--ion-color-ionWhite-contrast);
+    --ion-color-contrast-rgb: var(--ion-color-ionWhite-contrast-rgb);
+    --ion-color-shade: var(--ion-color-ionWhite-shade);
+    --ion-color-tint: var(--ion-color-ionWhite-tint);
   }
 
   :root ion-icon {
