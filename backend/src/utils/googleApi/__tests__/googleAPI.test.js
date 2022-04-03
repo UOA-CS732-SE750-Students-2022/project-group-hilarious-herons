@@ -1,4 +1,4 @@
-const { getReivewfromGoogle, getNearbyPlace } = require("./googleAPI");
+const { getReivewfromGoogle, getNearbyPlace } = require("../googleAPI");
 
 require("dotenv").config();
 

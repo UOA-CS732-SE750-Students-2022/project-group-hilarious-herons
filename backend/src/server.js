@@ -12,6 +12,7 @@ app.use(express.json());
 
 //Setting up routes
 app.use("/", routes);
+app.use("/api", require("./routes/index"));
 
 mongoose
   .connect(
