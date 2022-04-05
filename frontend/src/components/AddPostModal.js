@@ -8,8 +8,9 @@ import {
   IonToolbar,
   IonSearchbar,
   IonTextarea,
-  IonInput,
-  IonLabel
+  IonRow,
+  useIonToast,
+  IonText,
 } from '@ionic/react';
 import { 
   closeOutline, 
@@ -24,6 +25,7 @@ export const AddPostModal = () => {
   const [searchLocationText, setSearchLocationText] = useState('');
   const [experienceText, setExperienceText] = useState('');
   const [images, setImages] = useState();
+  const [present] = useIonToast();
   
   function getFiveStarRating () {
     const greyStars = [...Array(6).keys()].slice(1);
@@ -62,6 +64,49 @@ export const AddPostModal = () => {
           element.classList.add('active')
     }
   } 
+
+  function handlePreviewImages(uploadImgs) {
+    if(uploadImgs) {
+      const files = Array.from(uploadImgs);
+
+      if(files.length <= 9) {
+        return (
+          <IonRow className='nine-images'>
+            { 
+              files.map( (file, num) => {
+                const imgUrl = URL.createObjectURL(file);
+                return  <img id={ num } 
+                             key={ num } 
+                             src={ imgUrl } 
+                             alt="your image" 
+                             width="100px"/>
+              })
+            } 
+          </IonRow>
+        )
+      } else {
+        present({
+          message: 'Share up to 9 photoes in one post.',
+          mode: "ios",
+          color: "dark",
+          duration: 2000,
+        })
+      }
+    }
+  }
+
+  function handleSubmitPost() {
+    let postJson = { 
+      foodName: "",
+      rate: getRateOfFood(),
+      timestamp: new Date(),
+      bodyText: experienceText,
+      imgs: images,
+      restaurant: searchLocationText 
+    }    
+    setIsModalOpen(false);
+
+  }
   
   return (
       <IonModal className='add-post-modal'
@@ -75,24 +120,24 @@ export const AddPostModal = () => {
               Add a Review
             </IonTitle>
             <IonButtons slot='primary'>
-              <IonButton color='light' 
+              <IonButton color="light" 
                          onClick={ () => setIsModalOpen(false)}>
                 <IonIcon icon={ closeOutline } />
               </IonButton>
             </IonButtons>
           </IonToolbar>
 
-          <IonToolbar mode='md' className='location'>
+          <IonToolbar mode="md" className="location">
             <IonTitle size='small'>Restaurant Location</IonTitle>
             <IonSearchbar
                 value={ searchLocationText } 
                 class="location-bar"
                 mode="ios"
-                placeholder='Serach'
-                searchIcon= {locationOutline}
-                showClearButton='never'
-                style={{ padding: '0 1em'}}
-                onIonChange={(e) => {
+                placeholder="Serach"
+                searchIcon= { locationOutline }
+                showClearButton="never"
+                style={{ padding: "0 1em"}}
+                onIonChange={ (e) => {
                   setSearchLocationText(e.detail.value)
                 }}/> 
 
@@ -102,43 +147,45 @@ export const AddPostModal = () => {
                 rows={ 6 } 
                 enterkeyhint='enter'
                 spellCheck={ true }
-                onIonChange={e => setExperienceText(e.detail.value)}
+                onIonChange={ e => 
+                  setExperienceText(e.detail.value) 
+                }
                 style={{       
                   border: "1px solid #ccc"
                 }}>
               </IonTextarea>
        
               <div className='upload'>
-                <input
-                    id="upload-images" 
-                    name="upload-images" 
-                    type="file" 
-                    accept="image/*" 
-                    multiple
-                    placeholder="Upload Images" 
-                    onChange={ (e) => {
-                      setImages(e.target.files);                   
-                    }} 
-                />
-              <label htmlFor="upload-images" >
-                <IonIcon icon={ cameraOutline } color='medium'/>
-              </label>
+                <IonText mode='ios' color='medium'> 
+                  Share the photoes of the food with others ~
+                </IonText>
+                <input id="upload-images" 
+                       name="upload-images" 
+                       type="file" 
+                       accept="image/*" 
+                       multiple
+                      onChange={ (e) => {
+                        setImages(e.target.files);
+              
+                      }} />
+                { handlePreviewImages(images) }
+                <IonRow>
+                    <label htmlFor="upload-images" >
+                        <IonIcon icon={ cameraOutline } color='medium'/>
+                    </label>
+                </IonRow>
               </div>
           </IonToolbar>
 
     
           <IonToolbar>
             { getFiveStarRating() }
-            <IonButton shape="round" slot='end' onClick={(e) => { 
-              let postJson = { 
-                foodName: "",
-                rate: getRateOfFood(),
-                timestamp: new Date(),
-                bodyText: experienceText,
-                imgs: images,
-                restaurant: searchLocationText 
-              }    
-            }}>
+            <IonButton shape="round" 
+                       slot='end' 
+                       onClick={(e) => { 
+                          handleSubmitPost();
+                        }}
+            >
               Submit
             </IonButton>
           </IonToolbar>
