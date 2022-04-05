@@ -1,7 +1,7 @@
 
 .star-rating > ion-icon {
     display: inline-block;
-    fill: #9e9e9e;
+    fill: var(--ion-color-medium);
     cursor: pointer;
 }
 
@@ -10,9 +10,10 @@
 }
 
 .upload {
-    background-color: #ccc;
-    opacity: 50%;
+    background-color: #e0e0e0;
     width: 100%;
+    height: 15rem;
+    overflow-y: scroll;
 }
 
 #upload-images {
@@ -20,14 +21,16 @@
 }
 
 .upload label {
-  display: block;
-  width:100%;
-  height: 100%;
-  text-align:center;
   cursor: pointer;
-  padding: 3rem 0;
+  position: absolute;
+  bottom: 0;
+  right: 1%;
 }
 
-label ion-icon {
-    font-size: 10vw;
+.upload label ion-icon {
+    font-size: 5em;
+}
+
+.upload ion-text {
+    padding: 0 1%;
 }
