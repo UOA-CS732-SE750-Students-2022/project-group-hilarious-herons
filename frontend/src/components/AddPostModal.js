@@ -104,8 +104,8 @@ export const AddPostModal = () => {
       imgs: images,
       restaurant: searchLocationText 
     }    
-    setIsModalOpen(false);
 
+    setIsModalOpen(false);
   }
   
   return (
@@ -115,6 +115,7 @@ export const AddPostModal = () => {
                 swipeToClose={true} 
                 mode='ios'>
         <IonContent>
+          {/* Modal header and close button section */}
           <IonToolbar>
             <IonTitle color='primary'>
               Add a Review
@@ -126,7 +127,7 @@ export const AddPostModal = () => {
               </IonButton>
             </IonButtons>
           </IonToolbar>
-
+          {/* Search locations of the restrautants section */}
           <IonToolbar mode="md" className="location">
             <IonTitle size='small'>Restaurant Location</IonTitle>
             <IonSearchbar
@@ -140,7 +141,8 @@ export const AddPostModal = () => {
                 onIonChange={ (e) => {
                   setSearchLocationText(e.detail.value)
                 }}/> 
-
+                
+              {/* Typing expereicne section */}
               <IonTextarea 
                 placeholder="Share your experience with others ~" 
                 value={ experienceText } 
@@ -153,10 +155,11 @@ export const AddPostModal = () => {
                 style={{       
                   border: "1px solid #ccc"
                 }}>
-              </IonTextarea>
-       
+              </IonTextarea>  
+
+              {/* upload image section */}
               <div className='upload'>
-                <IonText mode='ios' color='medium'> 
+                <IonText mode='ios' color='medium' className='place-holder'> 
                   Share the photoes of the food with others ~
                 </IonText>
                 <input id="upload-images" 
@@ -166,7 +169,7 @@ export const AddPostModal = () => {
                        multiple
                       onChange={ (e) => {
                         setImages(e.target.files);
-              
+                        document.querySelector('.place-holder').classList.add('disable');
                       }} />
                 { handlePreviewImages(images) }
                 <IonRow>
@@ -177,7 +180,7 @@ export const AddPostModal = () => {
               </div>
           </IonToolbar>
 
-    
+          {/* Dynamic Rating section and submit button section */}
           <IonToolbar>
             { getFiveStarRating() }
             <IonButton shape="round" 

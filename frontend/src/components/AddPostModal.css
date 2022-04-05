@@ -34,3 +34,7 @@
 .upload ion-text {
     padding: 0 1%;
 }
+
+.upload .disable {
+    display: none;
+}
