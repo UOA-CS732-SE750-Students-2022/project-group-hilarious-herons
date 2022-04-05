@@ -1,4 +1,8 @@
-import { IonFab, IonFabButton, IonIcon } from "@ionic/react"
+import { 
+    IonFab, 
+    IonFabButton, 
+    IonIcon 
+} from "@ionic/react"
 
 import { add } from "ionicons/icons";
 import { AddPostModal } from "./AddPostModal";
