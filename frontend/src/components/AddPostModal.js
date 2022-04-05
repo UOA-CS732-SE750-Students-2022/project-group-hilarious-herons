@@ -21,7 +21,7 @@ import { useState } from "react";
 import './AddPostModal.css';
 
 export const AddPostModal = () => {
-  const [isModalOpen, setIsModalOpen] = useState('true')
+  const [isModalOpen, setIsModalOpen] = useState('false')
   const [searchLocationText, setSearchLocationText] = useState('');
   const [experienceText, setExperienceText] = useState('');
   const [images, setImages] = useState();
