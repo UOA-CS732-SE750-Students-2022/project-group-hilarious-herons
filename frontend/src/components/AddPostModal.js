@@ -10,6 +10,8 @@ import {
   IonTextarea,
   IonRow,
   useIonToast,
+  IonFab,
+  IonFabButton
 } from '@ionic/react';
 import { 
   closeOutline, 
@@ -79,7 +81,7 @@ export const AddPostModal = () => {
                              key={ num } 
                              src={ imgUrl } 
                              alt='your image' 
-                             width='100px'
+                             width='120px'
                              style={{ objectFit: "cover" }}/>
               })
             } 
@@ -88,8 +90,8 @@ export const AddPostModal = () => {
       } else {
         present({
           message: 'Share up to 9 photos in one post.',
-          mode: "ios",
-          color: "dark",
+          mode: 'ios',
+          color: 'dark',
           duration: 2000,
         })
       }
@@ -176,9 +178,14 @@ export const AddPostModal = () => {
                       }} />
                 { handlePreviewImages(images) }
                 <IonRow>
-                    <label htmlFor="upload-images" >
-                        <IonIcon icon={ cameraOutline } color='medium'/>
-                    </label>
+                  
+                    <IonFab vertical="bottom" horizontal="end" >
+                      <IonFabButton>
+                       <label htmlFor="upload-images" >
+                          <IonIcon icon={ cameraOutline } color="ionWhite"/>
+                      </label>
+                      </IonFabButton>
+                    </IonFab>
                 </IonRow>
               </div>
           </IonToolbar>

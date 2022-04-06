@@ -21,15 +21,9 @@
 
 .upload label {
   cursor: pointer;
-  position: absolute;
-  bottom: 0;
-  right: 1%;
+ 
 }
 
 .upload label ion-icon {
-    font-size: 5em;
-}
-
-.upload ion-text {
-    padding: 0 1%;
+    font-size: 3em;
 }
