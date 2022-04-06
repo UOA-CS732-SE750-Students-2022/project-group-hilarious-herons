@@ -7,7 +7,7 @@ const Restaurant = require("./RestaurantSchema");
  */
 exports.createRestaurant = async (restaurant) => {
   const newRestaurant = new Restaurant(restaurant);
-  await Restaurant.save();
+  await newRestaurant.save();
 
   return newRestaurant;
 };
@@ -34,7 +34,7 @@ exports.updateRestaurant = async (restaurant) => {
     existingRestaurant.address = restaurant.address;
     existingRestaurant.coordinates = restaurant.coordinates;
 
-    await Restaurant.save();
+    await existingRestaurant.save();
     return true;
   }
 

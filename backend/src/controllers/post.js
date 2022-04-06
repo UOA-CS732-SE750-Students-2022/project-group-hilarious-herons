@@ -1,4 +1,8 @@
-const { retrievePost, updatePost } = require("../models/Post/posts-dao");
+const {
+  retrievePost,
+  updatePost,
+  createPost,
+} = require("../models/Post/posts-dao");
 const mongoose = require("mongoose");
 
 exports.getPost = async (req, res) => {
@@ -69,6 +73,23 @@ exports.unlikePost = async (req, res) => {
     res.status(500).json({
       success: false,
       info: e.message,
+    });
+  }
+};
+
+exports.createPost = async (req, res) => {
+  try {
+    const postObj = req.body;
+    const newPost = await createPost(postObj);
+
+    res
+      .status(201)
+      .header("Location", `/api/post/${newPost._id}`)
+      .json(newPost);
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      info: err.message,
     });
   }
 };
