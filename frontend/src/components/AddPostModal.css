@@ -1,12 +1,12 @@
 
 .star-rating > ion-icon {
     display: inline-block;
-    fill: var(--ion-color-medium);
+    color: var(--ion-color-medium);
     cursor: pointer;
 }
 
 .star-rating .active {
-    fill: var(--ion-color-primary);
+    color: var(--ion-color-primary);
 }
 
 .upload {
@@ -33,8 +33,4 @@
 
 .upload ion-text {
     padding: 0 1%;
-}
-
-.upload .disable {
-    display: none;
 }

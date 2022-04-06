@@ -10,12 +10,12 @@ import {
   IonTextarea,
   IonRow,
   useIonToast,
-  IonText,
 } from '@ionic/react';
 import { 
   closeOutline, 
   locationOutline, 
   cameraOutline,
+  star
 } from 'ionicons/icons';
 import { useState } from "react";
 import './AddPostModal.css';
@@ -36,7 +36,7 @@ export const AddPostModal = () => {
               return <IonIcon 
                     key={num}
                     size='large' 
-                    src="/star.svg" 
+                    icon={ star }
                     class='star' 
                     onClick={(e) => {
                       ratingStar(e);
@@ -159,9 +159,6 @@ export const AddPostModal = () => {
 
               {/* upload image section */}
               <div className='upload'>
-                <IonText mode='ios' color='medium' className='place-holder'> 
-                  Share the photoes of the food with others ~
-                </IonText>
                 <input id="upload-images" 
                        name="upload-images" 
                        type="file" 
@@ -169,7 +166,6 @@ export const AddPostModal = () => {
                        multiple
                       onChange={ (e) => {
                         setImages(e.target.files);
-                        document.querySelector('.place-holder').classList.add('disable');
                       }} />
                 { handlePreviewImages(images) }
                 <IonRow>
