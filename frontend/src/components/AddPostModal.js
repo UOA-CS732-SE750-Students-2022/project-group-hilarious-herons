@@ -47,9 +47,9 @@ export const AddPostModal = () => {
   }
 
   function ratingStar(e) {
-    document.querySelectorAll('.star-rating .star').forEach ( (eIcon) =>
-      eIcon.classList.remove('active')
-    )
+    document.querySelectorAll('.star-rating .star').forEach ( (eIcon) => {
+      eIcon.classList.remove('active');
+    })
     prevAll(e.target)
   }
 
@@ -86,7 +86,7 @@ export const AddPostModal = () => {
         )
       } else {
         present({
-          message: 'Share up to 9 photoes in one post.',
+          message: 'Share up to 9 photos in one post.',
           mode: "ios",
           color: "dark",
           duration: 2000,
@@ -134,7 +134,7 @@ export const AddPostModal = () => {
                 value={ searchLocationText } 
                 class="location-bar"
                 mode="ios"
-                placeholder="Serach"
+                placeholder="Search"
                 searchIcon= { locationOutline }
                 showClearButton="never"
                 style={{ padding: "0 1em"}}
