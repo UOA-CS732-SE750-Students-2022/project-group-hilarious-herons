@@ -13,4 +13,4 @@ const restaurantSchema = new Schema({
   googleMapsURL: { type: String, required: true },
 });
 
-module.exports = mongoose.model("Restaurant", restaurantSchema, "Restaurants");
+module.exports = mongoose.model("Restaurant", restaurantSchema);

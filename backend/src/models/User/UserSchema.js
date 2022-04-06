@@ -23,4 +23,4 @@ const userSchema = new Schema({
   followingUsers: [{ type: Schema.Types.ObjectId, ref: "User" }],
 });
 
-module.exports = mongoose.model("User", userSchema, "Users");
+module.exports = mongoose.model("User", userSchema);
