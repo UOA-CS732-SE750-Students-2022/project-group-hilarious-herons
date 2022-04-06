@@ -21,7 +21,7 @@ import { useState } from "react";
 import './AddPostModal.css';
 
 export const AddPostModal = () => {
-  const [isModalOpen, setIsModalOpen] = useState('false')
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const [searchLocationText, setSearchLocationText] = useState('');
   const [experienceText, setExperienceText] = useState('');
   const [images, setImages] = useState();
@@ -78,8 +78,9 @@ export const AddPostModal = () => {
                 return  <img id={ num } 
                              key={ num } 
                              src={ imgUrl } 
-                             alt="your image" 
-                             width="100px"/>
+                             alt='your image' 
+                             width='100px'
+                             style={{ objectFit: "cover" }}/>
               })
             } 
           </IonRow>
@@ -104,16 +105,18 @@ export const AddPostModal = () => {
       imgs: images,
       restaurant: searchLocationText 
     }    
-
     setIsModalOpen(false);
   }
   
   return (
       <IonModal className='add-post-modal'
                 trigger='addPost' 
-                isOpen={isModalOpen}
-                swipeToClose={true} 
-                mode='ios'>
+                isOpen={ isModalOpen }
+                swipeToClose
+                mode='ios'
+                onDidPresent={() => setIsModalOpen(true)}
+                onDidDismiss={() => setIsModalOpen(false)}
+                >
         <IonContent>
           {/* Modal header and close button section */}
           <IonToolbar>
@@ -122,7 +125,11 @@ export const AddPostModal = () => {
             </IonTitle>
             <IonButtons slot='primary'>
               <IonButton color="light" 
-                         onClick={ () => setIsModalOpen(false)}>
+                         onClick={ () => {
+                            setIsModalOpen(false);
+                            console.log(isModalOpen);                        
+                          }
+                        }>
                 <IonIcon icon={ closeOutline } />
               </IonButton>
             </IonButtons>
