@@ -13,7 +13,7 @@ import {
   IonSelect,
   IonSelectOption,
 } from "@ionic/react";
-import { location } from "ionicons/icons";
+import { locationOutline } from "ionicons/icons";
 import { useState } from "react";
 import { LocationPopover } from "./LocationPopover";
 
@@ -74,7 +74,7 @@ export const SearchbarFilter = ({ setShowMobileModal, doSearch }) => {
       mode="ios"
     >
       {/* IonHeader added to allow the swipe to close feature in ios mode */}
-      <IonHeader translucent>
+      <IonHeader>
         <IonItem lines="none" />
       </IonHeader>
       <IonContent>
@@ -106,7 +106,7 @@ export const SearchbarFilter = ({ setShowMobileModal, doSearch }) => {
             <IonSearchbar
               style={{ width: "80%" }}
               autocomplete="on"
-              searchIcon={location}
+              searchIcon={locationOutline}
               showClearButton="never"
               id="location-searchbar"
               value={locationFilter}
@@ -149,7 +149,7 @@ export const SearchbarFilter = ({ setShowMobileModal, doSearch }) => {
               })}
             </IonSelect>
           </IonItem>
-          <IonItem /> <IonItem />
+          <IonItem />
         </IonList>
         <IonItem lines="none">
           <IonButton
