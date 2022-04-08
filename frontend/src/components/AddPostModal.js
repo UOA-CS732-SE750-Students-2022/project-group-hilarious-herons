@@ -123,7 +123,7 @@ export const AddPostModal = () => {
       timestamp: new Date(),
       bodyText: experienceText,
       imgs: images,
-      restaurant: ""
+      restaurant: locationFilter,
     }    
     
     setIsModalOpen(false);
