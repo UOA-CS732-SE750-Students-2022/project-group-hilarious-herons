@@ -23,19 +23,18 @@ import {
 } from 'ionicons/icons';
 import { useState } from "react";
 import { LocationSearchbar } from './LocationSearchbar';
+import { DietariesSelect } from './DietariesSelect';
 import './AddPostModal.css';
 
 export const AddPostModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [foodName, setFoodName] = useState('');
-  const [locationFilter, setLocationFilter] = useState(
-    localStorage.getItem("locationFilter") || ""
-  );
   const [experienceText, setExperienceText] = useState('');
   const [images, setImages] = useState([]);
+  const [locationFilter, setLocationFilter] = useState("");
+  const [dietaries, setDietaries] = useState([]);
   const [present] = useIonToast();
-  
-  
+
   function getFiveStarRating () {
     const greyStars = [...Array(6).keys()].slice(1);
 
@@ -110,10 +109,10 @@ export const AddPostModal = () => {
     setFoodName("");
     setExperienceText("");
     setImages([]);
+    setDietaries([])
     document.querySelectorAll('.star-rating .star').forEach ( (eIcon) => {
       eIcon.classList.remove('active');
     })
-
   }
 
   function handleSubmitPost() {
@@ -140,20 +139,19 @@ export const AddPostModal = () => {
                 onDidDismiss={() => { 
                   handleReset();
                   setIsModalOpen(false);
-                }}
-                >
+                }}>
         <IonHeader>
           <IonItem lines='none'>
               <IonTitle color='primary'>
                 Add a Review
               </IonTitle>
               <IonButtons slot='end'>
-                <IonButton color="light" 
-                           onClick={ () => { 
-                             handleReset();
-                             setIsModalOpen(false) 
-                            }}
-                >
+                <IonButton 
+                  color="light" 
+                  onClick={ () => { 
+                    handleReset();
+                    setIsModalOpen(false) 
+                  }}>
                     <IonIcon icon={ closeOutline } />
                 </IonButton>
             </IonButtons>
@@ -161,20 +159,27 @@ export const AddPostModal = () => {
         </IonHeader>
         <IonContent>
                 
-          {/* Search locations of the restrautants section */}     
+          {/* Adding foodnama */}     
           <IonItem lines="none" className='foodname'>
               <IonLabel >Food Name</IonLabel>
-              <IonInput value={ foodName } 
-                        size="text"
-                        placeholder="Enter food name" 
-                        className='food-name-input'
-                        onIonChange={ (e) => 
-                          setFoodName(e.detail.value)
-                        } />
+              <IonInput 
+                value={ foodName } 
+                required = { true }
+                clearInput
+                autoCorrect='on'
+                type="text"
+                placeholder="Enter food name" 
+                className='food-name-input'
+                onIonChange={ (e) => 
+                  setFoodName(e.detail.value)
+                } />
             </IonItem>
             
+            {/* Adding restaurant locatoin and dietaries for the food*/}           
             <LocationSearchbar locationFilter={ locationFilter } setLocationFilter={ setLocationFilter }/>
+            <DietariesSelect dietaries={ dietaries } setDietaries={ setDietaries }/>
             
+            {/* Adding experience and images to the foood */} 
             <IonToolbar mode='md'>
               <IonTextarea 
                 placeholder="Share your experience with others ~" 
@@ -196,7 +201,7 @@ export const AddPostModal = () => {
                        type="file" 
                        accept="image/*" 
                        multiple
-                      onChange={ (e) => {
+                       onChange={ (e) => {
                         setImages(e.target.files);
                       }} />
                 { handlePreviewImages(images) }
@@ -216,12 +221,12 @@ export const AddPostModal = () => {
           {/* Dynamic Rating section and submit button section */}
           <IonToolbar>
             { getFiveStarRating() }
-            <IonButton shape="round" 
-                       slot='end' 
-                       onClick={(e) => { 
-                          handleSubmitPost();
-                        }}
-            >
+            <IonButton 
+              shape="round" 
+              slot='end' 
+              onClick={(e) => { 
+                handleSubmitPost();
+              }}>
               Submit
             </IonButton>
           </IonToolbar>

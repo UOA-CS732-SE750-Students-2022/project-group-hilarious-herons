@@ -9,15 +9,11 @@ import {
   IonList,
   IonModal,
   IonRange,
-  IonSearchbar,
-  IonSelect,
-  IonSelectOption,
   IonTitle,
 } from "@ionic/react";
-import { locationOutline } from "ionicons/icons";
 import { useState } from "react";
+import { DietariesSelect } from "./DietariesSelect";
 import { LocationSearchbar } from "./LocationSearchbar";
-import { LocationPopover } from "./LocationPopover";
 
 export const SearchbarFilter = ({ setShowMobileModal, doSearch }) => {
   const [showModal, setShowModal] = useState(false);
@@ -52,20 +48,9 @@ export const SearchbarFilter = ({ setShowMobileModal, doSearch }) => {
     localStorage.setItem("locationFilter", locationFilter);
     localStorage.setItem("rating", rating);
     localStorage.setItem("dietaries", JSON.stringify(dietaries));
-
+    
+    console.log(localStorage);
     doSearch();
-  };
-
-  const getDietaries = () => {
-    return [
-      "Vegetarian",
-      "Vegan",
-      "Gluten free",
-      "Lactose free",
-      "Halal",
-      "Dairy free",
-      "Paleo",
-    ];
   };
 
   return (
@@ -121,28 +106,7 @@ export const SearchbarFilter = ({ setShowMobileModal, doSearch }) => {
               }}
             />
           </IonItem>
-          <IonItem>
-            <IonLabel>Dietary</IonLabel>
-            <IonSelect
-              value={dietaries}
-              multiple
-              cancelText="Cancel"
-              okText="OK"
-              style={{ minWidth: "80%" }}
-              placeholder="None"
-              onIonChange={(e) => {
-                setDietaries(e.detail.value);
-              }}
-            >
-              {getDietaries().map((dietary, idx) => {
-                return (
-                  <IonSelectOption value={dietary} key={idx}>
-                    {dietary}
-                  </IonSelectOption>
-                );
-              })}
-            </IonSelect>
-          </IonItem>
+          <DietariesSelect dietaries={ dietaries } setDietaries={ setDietaries }/>
           <IonItem />
         </IonList>
         <IonItem lines="none">
