@@ -6,28 +6,35 @@ import {
   IonIcon,
   IonTitle, 
   IonToolbar,
-  IonSearchbar,
   IonTextarea,
   IonRow,
   useIonToast,
   IonFab,
-  IonFabButton
+  IonFabButton,
+  IonInput,
+  IonItem,
+  IonLabel,
+  IonHeader,
 } from '@ionic/react';
 import { 
   closeOutline, 
-  locationOutline, 
   cameraOutline,
   star
 } from 'ionicons/icons';
 import { useState } from "react";
+import { LocationSearchbar } from './LocationSearchbar';
 import './AddPostModal.css';
 
 export const AddPostModal = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [searchLocationText, setSearchLocationText] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [foodName, setFoodName] = useState('');
+  const [locationFilter, setLocationFilter] = useState(
+    localStorage.getItem("locationFilter") || ""
+  );
   const [experienceText, setExperienceText] = useState('');
-  const [images, setImages] = useState();
+  const [images, setImages] = useState([]);
   const [present] = useIonToast();
+  
   
   function getFiveStarRating () {
     const greyStars = [...Array(6).keys()].slice(1);
@@ -98,6 +105,17 @@ export const AddPostModal = () => {
     }
   }
 
+  function handleReset () {
+    setLocationFilter("");
+    setFoodName("");
+    setExperienceText("");
+    setImages([]);
+    document.querySelectorAll('.star-rating .star').forEach ( (eIcon) => {
+      eIcon.classList.remove('active');
+    })
+
+  }
+
   function handleSubmitPost() {
     let postJson = { 
       foodName: "",
@@ -105,9 +123,11 @@ export const AddPostModal = () => {
       timestamp: new Date(),
       bodyText: experienceText,
       imgs: images,
-      restaurant: searchLocationText 
+      restaurant: ""
     }    
+    
     setIsModalOpen(false);
+    handleReset();
   }
   
   return (
@@ -117,41 +137,45 @@ export const AddPostModal = () => {
                 swipeToClose
                 mode='ios'
                 onDidPresent={() => setIsModalOpen(true)}
-                onDidDismiss={() => setIsModalOpen(false)}
+                onDidDismiss={() => { 
+                  handleReset();
+                  setIsModalOpen(false);
+                }}
                 >
-        <IonContent>
-          {/* Modal header and close button section */}
-          <IonToolbar>
-            <IonTitle color='primary'>
-              Add a Review
-            </IonTitle>
-            <IonButtons slot='primary'>
-              <IonButton color="light" 
-                         onClick={ () => {
-                            setIsModalOpen(false);
-                            console.log(isModalOpen);                        
-                          }
-                        }>
-                <IonIcon icon={ closeOutline } />
-              </IonButton>
+        <IonHeader>
+          <IonItem lines='none'>
+              <IonTitle color='primary'>
+                Add a Review
+              </IonTitle>
+              <IonButtons slot='end'>
+                <IonButton color="light" 
+                           onClick={ () => { 
+                             handleReset();
+                             setIsModalOpen(false) 
+                            }}
+                >
+                    <IonIcon icon={ closeOutline } />
+                </IonButton>
             </IonButtons>
-          </IonToolbar>
-          {/* Search locations of the restrautants section */}
-          <IonToolbar mode="md" className="location">
-            <IonTitle size='small'>Restaurant Location</IonTitle>
-            <IonSearchbar
-                value={ searchLocationText } 
-                class="location-bar"
-                mode="ios"
-                placeholder="Search"
-                searchIcon= { locationOutline }
-                showClearButton="never"
-                style={{ padding: "0 1em"}}
-                onIonChange={ (e) => {
-                  setSearchLocationText(e.detail.value)
-                }}/> 
+          </IonItem>
+        </IonHeader>
+        <IonContent>
                 
-              {/* Typing expereicne section */}
+          {/* Search locations of the restrautants section */}     
+          <IonItem lines="none" className='foodname'>
+              <IonLabel >Food Name</IonLabel>
+              <IonInput value={ foodName } 
+                        size="text"
+                        placeholder="Enter food name" 
+                        className='food-name-input'
+                        onIonChange={ (e) => 
+                          setFoodName(e.detail.value)
+                        } />
+            </IonItem>
+            
+            <LocationSearchbar locationFilter={ locationFilter } setLocationFilter={ setLocationFilter }/>
+            
+            <IonToolbar mode='md'>
               <IonTextarea 
                 placeholder="Share your experience with others ~" 
                 value={ experienceText } 
@@ -166,7 +190,6 @@ export const AddPostModal = () => {
                 }}>
               </IonTextarea>  
 
-              {/* upload image section */}
               <div className='upload'>
                 <input id="upload-images" 
                        name="upload-images" 

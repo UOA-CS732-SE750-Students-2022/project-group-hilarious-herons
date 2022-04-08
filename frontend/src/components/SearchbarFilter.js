@@ -12,9 +12,11 @@ import {
   IonSearchbar,
   IonSelect,
   IonSelectOption,
+  IonTitle,
 } from "@ionic/react";
 import { locationOutline } from "ionicons/icons";
 import { useState } from "react";
+import { LocationSearchbar } from "./LocationSearchbar";
 import { LocationPopover } from "./LocationPopover";
 
 export const SearchbarFilter = ({ setShowMobileModal, doSearch }) => {
@@ -28,6 +30,7 @@ export const SearchbarFilter = ({ setShowMobileModal, doSearch }) => {
   const [locationFilter, setLocationFilter] = useState(
     localStorage.getItem("locationFilter") || ""
   );
+
   const [rating, setRating] = useState(localStorage.getItem("rating") || 5);
   const [dietaries, setDietaries] = useState(
     JSON.parse(localStorage.getItem("dietaries")) || []
@@ -75,7 +78,9 @@ export const SearchbarFilter = ({ setShowMobileModal, doSearch }) => {
     >
       {/* IonHeader added to allow the swipe to close feature in ios mode */}
       <IonHeader>
-        <IonItem lines="none" />
+        <IonItem lines="none" >
+          <IonTitle>Search Filter</IonTitle>
+        </IonItem>
       </IonHeader>
       <IonContent>
         <IonList lines="none">
@@ -101,28 +106,17 @@ export const SearchbarFilter = ({ setShowMobileModal, doSearch }) => {
             <IonLabel expand="block">Highest rating</IonLabel>
           </IonItem>
           <IonItemDivider>Filter by</IonItemDivider>
-          <IonItem>
-            <IonLabel>Location</IonLabel>
-            <IonSearchbar
-              style={{ width: "80%" }}
-              autocomplete="on"
-              searchIcon={locationOutline}
-              showClearButton="never"
-              id="location-searchbar"
-              value={locationFilter}
-            />
-            <LocationPopover setLocationFilter={setLocationFilter} />
-          </IonItem>
+          <LocationSearchbar locationFilter={ locationFilter } setLocationFilter={ setLocationFilter }/>
           <IonItem>
             <IonLabel>Rating</IonLabel>
             <IonRange
               max={5}
-              snaps={true}
-              pin={true}
+              snaps
+              pin
               value={rating}
               style={{ minWidth: "80%" }}
               mode="md"
-              onIonChange={(e) => {
+              onIonChange={ (e) => {
                 setRating(e.detail.value);
               }}
             />
@@ -131,7 +125,7 @@ export const SearchbarFilter = ({ setShowMobileModal, doSearch }) => {
             <IonLabel>Dietary</IonLabel>
             <IonSelect
               value={dietaries}
-              multiple={true}
+              multiple
               cancelText="Cancel"
               okText="OK"
               style={{ minWidth: "80%" }}
