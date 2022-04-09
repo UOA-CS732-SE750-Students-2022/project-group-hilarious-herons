@@ -184,7 +184,7 @@ export const AddPostModal = () => {
               <IonTextarea 
                 placeholder="Share your experience with others ~" 
                 value={ experienceText } 
-                rows={ 6 } 
+                rows={ 5 } 
                 enterkeyhint='enter'
                 spellCheck={ true }
                 onIonChange={ e => 
