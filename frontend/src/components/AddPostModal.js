@@ -22,7 +22,6 @@ import {
   star
 } from 'ionicons/icons';
 import { useState } from "react";
-import { LocationSearchbar } from './LocationSearchbar';
 import { DietariesSelect } from './DietariesSelect';
 import './AddPostModal.css';
 
@@ -31,7 +30,7 @@ export const AddPostModal = () => {
   const [foodName, setFoodName] = useState('');
   const [experienceText, setExperienceText] = useState('');
   const [images, setImages] = useState([]);
-  const [locationFilter, setLocationFilter] = useState("");
+  const [restaurantName, setRestaurantName] = useState("");
   const [dietaries, setDietaries] = useState([]);
   const [present] = useIonToast();
 
@@ -105,7 +104,7 @@ export const AddPostModal = () => {
   }
 
   function handleReset () {
-    setLocationFilter("");
+    setRestaurantName("");
     setFoodName("");
     setExperienceText("");
     setImages([]);
@@ -122,7 +121,7 @@ export const AddPostModal = () => {
       timestamp: new Date(),
       bodyText: experienceText,
       imgs: images,
-      restaurant: locationFilter,
+      restaurant: restaurantName,
     }    
     
     setIsModalOpen(false);
@@ -159,13 +158,12 @@ export const AddPostModal = () => {
         </IonHeader>
         <IonContent>
                 
-          {/* Adding foodnama */}     
+          {/* Adding food name */}
           <IonItem lines="none" className='foodname'>
               <IonLabel >Food Name</IonLabel>
               <IonInput 
                 value={ foodName } 
                 required = { true }
-                clearInput
                 autoCorrect='on'
                 type="text"
                 placeholder="Enter food name" 
@@ -175,8 +173,22 @@ export const AddPostModal = () => {
                 } />
             </IonItem>
             
-            {/* Adding restaurant locatoin and dietaries for the food*/}           
-            <LocationSearchbar locationFilter={ locationFilter } setLocationFilter={ setLocationFilter }/>
+            {/* Adding the restautant name*/}  
+            <IonItem lines="none" className='foodname'>
+              <IonLabel>Restaurant</IonLabel>
+              <IonInput 
+                value={ restaurantName } 
+                required = { true }
+                autoCorrect='on'
+                type="text"
+                placeholder="Enter restaurant name" 
+                className='restaurant-input'
+                onIonChange={ (e) => 
+                  setRestaurantName(e.detail.value)
+                } />
+            </IonItem>
+            
+            {/* Adding dietaries for the food*/}           
             <DietariesSelect dietaries={ dietaries } setDietaries={ setDietaries }/>
             
             {/* Adding experience and images to the foood */} 
