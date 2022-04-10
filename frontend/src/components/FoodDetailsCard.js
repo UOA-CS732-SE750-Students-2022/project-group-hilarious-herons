@@ -127,7 +127,7 @@ export const FoodDetailsCard = () => {
 
             <IonItem lines="none">{getRating()}</IonItem>
 
-            <IonItemGroup>
+            <IonItemGroup style={{pointerEvents: 'none'}}>
               {tags.map((tag, idx) => {
                 return (
                   <IonChip color="primary" key={idx}>
@@ -137,7 +137,7 @@ export const FoodDetailsCard = () => {
               })}
             </IonItemGroup>
 
-            <IonItemGroup>
+            <IonItemGroup  style={{pointerEvents: 'none'}}>
               {dietryRequirements.map((diet, idx) => {
                 return (
                   <IonChip color="primary" outline key={idx}>
@@ -200,8 +200,10 @@ export const FoodDetailsCard = () => {
                 color="light"
                 onClick={() => addToLikedPosts()}
               >
-                <IonIcon size="large" icon={liked ? heart : heartOutline} />
-                <IonText color="dark">{numberOfLikes}</IonText>
+                <IonRow style={{ display: 'inline-block'}}>
+                  <IonIcon size="large" icon={liked ? heart : heartOutline} style={{ verticalAlign: "middle" }}/>
+                  <IonText color="dark">{ numberOfLikes }</IonText>
+                </IonRow>
               </IonButton>
             </IonItem>
           </IonCol>

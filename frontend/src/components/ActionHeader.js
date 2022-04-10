@@ -97,7 +97,7 @@ export const ActionHeader = ({ banner, children }) => {
           <UserPopover />
         </IonToolbar>
 
-        {banner ? (
+        { banner ? (
           <IonToolbar class="toolbar" color="transparent">
             <IonTitle
               slot="start"
@@ -113,7 +113,7 @@ export const ActionHeader = ({ banner, children }) => {
         ) : null}
       </IonHeader>
 
-      {banner ? (
+      { banner ? (
         <IonContent
           scrollEvents={true}
           onIonScroll={(event) => {
