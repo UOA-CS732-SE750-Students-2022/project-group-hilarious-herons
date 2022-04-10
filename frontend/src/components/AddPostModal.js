@@ -160,7 +160,7 @@ export const AddPostModal = () => {
                 
           {/* Adding food name */}
           <IonItem lines="none" className='foodname'>
-              <IonLabel >Food Name</IonLabel>
+              <IonLabel position='fixed'>Food Name</IonLabel>
               <IonInput 
                 value={ foodName } 
                 required = { true }
@@ -175,7 +175,7 @@ export const AddPostModal = () => {
             
             {/* Adding the restautant name*/}  
             <IonItem lines="none" className='foodname'>
-              <IonLabel>Restaurant</IonLabel>
+              <IonLabel position='fixed'>Restaurant</IonLabel>
               <IonInput 
                 value={ restaurantName } 
                 required = { true }
@@ -183,6 +183,7 @@ export const AddPostModal = () => {
                 type="text"
                 placeholder="Enter restaurant name" 
                 className='restaurant-input'
+                style={{verticalAlign: 'text-top'}}
                 onIonChange={ (e) => 
                   setRestaurantName(e.detail.value)
                 } />

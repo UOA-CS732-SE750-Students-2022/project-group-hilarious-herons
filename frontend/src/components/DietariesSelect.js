@@ -21,7 +21,7 @@ export const DietariesSelect = ({ dietaries, setDietaries }) => {
 
     return (
         <IonItem lines="none">
-          <IonLabel>Dietary</IonLabel>
+          <IonLabel position="fixed">Dietary</IonLabel>
           <IonSelect
             value={ dietaries }
             multiple
