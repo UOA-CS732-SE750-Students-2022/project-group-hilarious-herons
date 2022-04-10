@@ -36,20 +36,20 @@ beforeAll(async () => {
 
   const connectionString = mongod.getUri();
   await mongoose.connect(connectionString, { useNewUrlParser: true });
+  await mongoose.connection.db.createCollection("Posts");
 });
 
 beforeEach(async () => {
-  await mongoose.connection.db.dropDatabase();
+  // await mongoose.connection.db.dropDatabase();
 
-  const coll = await mongoose.connection.db.createCollection("Posts");
   // console.log(coll);
   const post = new Post(mockPost);
   await post.save();
 });
 
-// afterEach(async () => {
-//   await Post.deleteMany();
-// });
+afterEach(async () => {
+  await Post.deleteMany();
+});
 
 afterAll(async () => {
   await mongoose.disconnect();
