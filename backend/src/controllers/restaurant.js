@@ -32,6 +32,12 @@ exports.getRestaurantDetail = async (req, res) => {
 
         resDetail = [...resDetail, restaurantObj];
       }
+
+      if (resDetail.length === 0) {
+        return res
+          .status(404)
+          .json({ success: false, info: "No such restuarant" });
+      }
     }
     res.send(resDetail);
   } catch (e) {
