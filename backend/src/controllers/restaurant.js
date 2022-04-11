@@ -8,7 +8,6 @@ const {
 exports.getRestaurantDetail = async (req, res) => {
   try {
     const { name } = req.body;
-
     let resDetail = await Restaurant.find({ name: name });
 
     if (resDetail.length === 0) {
@@ -30,7 +29,6 @@ exports.getRestaurantDetail = async (req, res) => {
         resDetail = [...resDetail, newRestaurant];
       }
     }
-    console.log("done");
     res.send(resDetail);
   } catch (e) {
     res.status(500).json({

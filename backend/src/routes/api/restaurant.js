@@ -3,6 +3,6 @@ const { getRestaurantDetail } = require("../../controllers/restaurant");
 
 const router = express.Router();
 
-router.post("/", getRestaurantDetail);
+router.get("/", getRestaurantDetail);
 
 module.exports = router;
