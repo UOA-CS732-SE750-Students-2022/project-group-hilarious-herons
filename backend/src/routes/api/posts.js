@@ -9,8 +9,8 @@ const {
 const router = express.Router();
 
 router.post("/", createPost);
-router.route("/:id").get(getPost);
-router.route("/like-post").post(likePost);
-router.route("/unlike-post").post(unlikePost);
+router.get("/:id", getPost);
+router.post("/like-post", likePost);
+router.post("/unlike-post", unlikePost);
 
 module.exports = router;
