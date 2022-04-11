@@ -25,8 +25,12 @@ exports.getRestaurantDetail = async (req, res) => {
           googleMapsURL: place.url,
           openHours: place.opening_hours.weekday_text,
         };
-        const newRestaurant = await createRestaurant(restaurantObj);
-        resDetail = [...resDetail, newRestaurant];
+        const restuarntName = await Restaurant.findOne({ name: place.name });
+        if (restuarntName === null) {
+          await createRestaurant(restaurantObj);
+        }
+
+        resDetail = [...resDetail, restaurantObj];
       }
     }
     res.send(resDetail);
