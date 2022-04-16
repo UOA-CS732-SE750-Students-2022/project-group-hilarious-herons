@@ -5,6 +5,7 @@ const { Storage } = require("@google-cloud/storage");
 const storage = new Storage({ keyFilename: "google-cloud-key.json" });
 const bucket = storage.bucket("funter_image");
 
+// https://www.bezkoder.com/google-cloud-storage-nodejs-upload-file/#Nodejs_upload_File_to_Google_Cloud_Storage_example
 exports.upload = async (req, res) => {
   try {
     await processFile(req, res);
