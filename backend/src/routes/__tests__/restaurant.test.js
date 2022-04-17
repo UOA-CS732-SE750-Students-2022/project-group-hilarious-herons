@@ -79,7 +79,7 @@ describe("GET /restaurants", () => {
           return done(err);
         }
         expect(res.body);
-        expect(res.body[0].name).toBe("McDonald's Mount Wellington");
+        expect(res.body[0].name).toContain("McDonald's");
         return done();
       });
   });
