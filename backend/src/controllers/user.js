@@ -30,7 +30,7 @@ exports.getUser = async (req, res) => {
       res.status(404);
     }
 
-    res.send(post);
+    res.send(user);
   } catch (e) {
     res.status(500).json({
       success: false,
@@ -45,24 +45,16 @@ exports.updateUser = async (req, res) => {
     const user = await retrieveUser(userID);
 
     if (user === undefined || user === null || user.length === 0) {
-      res.status(404);
+      res.sendStatus(404);
     }
 
-    const newUserObj = req.body;
+    const updatedUserObj = req.body;
+    updatedUserObj._id = userID;
 
-    user.firebaseUUID = newUserObj.firebaseUUID;
-    user.displayName = newUserObj.displayName;
-    user.firstName = newUserObj.firstName;
-    user.lastName = newUserObj.lastName;
-    user.posts = newUserObj.posts;
-    user.favourites = newUserObj.favourites;
-    user.followingUsers = newUserObj.followingUsers;
+    updateUser(updatedUserObj);
 
-    updateUser(user);
-
-    res.status(200).json({
+    res.status(204).json({
       success: true,
-      ...user,
     });
   } catch (err) {
     res.status(500).json({
