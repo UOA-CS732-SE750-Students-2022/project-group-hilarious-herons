@@ -29,6 +29,23 @@ const data = {
     "Sunday: 11:00 AM – 11:00 PM",
   ],
 };
+
+const data2 = {
+  _id: new mongoose.Types.ObjectId("000000000000000000000002"),
+  name: "McDonald's",
+  address: "4 Mount Wellington Highway, Mount Wellington, Auckland",
+  googlePlaceId: "test",
+  googleMapsURL: "https://maps.google.com/?cid=6721690756797890172",
+  openHours: [
+    "Monday: 11:00 AM – 11:00 PM",
+    "Tuesday: 11:00 AM – 11:00 PM",
+    "Wednesday: 11:00 AM – 11:00 PM",
+    "Thursday: 11:00 AM – 11:00 PM",
+    "Friday: 11:00 AM – 11:00 PM",
+    "Saturday: 11:00 AM – 11:00 PM",
+    "Sunday: 11:00 AM – 11:00 PM",
+  ],
+};
 beforeAll(async () => {
   mongod = await MongoMemoryServer.create();
 
@@ -42,6 +59,9 @@ beforeEach(async () => {
   const coll = await mongoose.connection.db.createCollection("restaurants");
   const restaurant = new Restaurant(data);
   await restaurant.save();
+
+  const restaurant2 = new Restaurant(data2);
+  await restaurant2.save();
 });
 
 afterAll(async () => {
@@ -72,7 +92,7 @@ describe("GET /restaurants", () => {
   it("do return restaurant", (done) => {
     request(app)
       .get("/api/restaurants")
-      .send({ name: "Mcdonald" })
+      .send({ name: "McDonald's" })
       .expect(200)
       .end((err, res) => {
         if (err) {
