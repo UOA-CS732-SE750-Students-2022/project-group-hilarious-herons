@@ -39,7 +39,7 @@ beforeAll(async () => {
 beforeEach(async () => {
   await mongoose.connection.db.dropDatabase();
 
-  const coll = await mongoose.connection.db.createCollection("Restaurants");
+  const coll = await mongoose.connection.db.createCollection("restaurants");
   const restaurant = new Restaurant(data);
   await restaurant.save();
 });
