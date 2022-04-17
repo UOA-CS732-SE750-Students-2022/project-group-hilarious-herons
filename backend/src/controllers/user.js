@@ -41,7 +41,7 @@ exports.getUser = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
   try {
-    const userID = req.body.id;
+    const userID = req.params.id;
     const user = await retrieveUser(userID);
 
     if (user === undefined || user === null || user.length === 0) {
