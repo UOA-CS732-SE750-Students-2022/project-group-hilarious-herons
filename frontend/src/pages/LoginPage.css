@@ -1,0 +1,61 @@
+.login-content {
+    --background: none;
+    background: url('https://www.twopeasandtheirpod.com/wp-content/uploads/2017/09/Sweet-and-Salty-Snack-Board-1.jpg');
+    background-repeat: no-repeat;
+    background-size:50% 100%;
+    background-position:right top;
+    display: flex;
+}
+
+@media only screen and (max-width: 600px) {
+    .login-content {
+        --background: white;
+    }
+    .image-content {
+        display: none;
+    }
+}
+
+.image-content {
+    position: absolute;
+    left: 50%; 
+    width: 50%; 
+    height: 100%;
+}
+
+.component {
+    position: absolute;
+    width: 50%; 
+    height: 100%;
+    display: flex;
+}
+
+.componentx {
+    display: grid;
+    margin: auto;
+}
+.componentx ion-title {
+    justify-self: center;
+    align-self: center
+}
+
+.componentx .login-button {
+    justify-self: center;
+    align-self: center;
+}
+
+.componentx .sign-up {
+    justify-self: center;
+    align-self: center
+}
+
+.image-content h1 {
+    font-size: 80px;  
+}
+
+
+
+
+
+
+
