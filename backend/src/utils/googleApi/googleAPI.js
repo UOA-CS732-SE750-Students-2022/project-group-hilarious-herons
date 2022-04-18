@@ -67,5 +67,27 @@ const getReivewfromGoogle = async (lat, long) => {
   }
 };
 
+const getRestaurantByText = async (name) => {
+  try {
+    const key = process.env.GOOGLE_API_KEY;
+
+    var config = {
+      method: "get",
+      url: `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${name}&inputtype=textquery&key=${key}`,
+      headers: {},
+    };
+
+    const response = await axios(config).catch(function (error) {
+      console.log(error);
+      throw error;
+    });
+    return response.data;
+  } catch (e) {
+    throw e;
+  }
+};
+
+exports.getPlace = getRestaurant;
 exports.getNearbyPlace = getNearbyPlace;
 exports.getReivewfromGoogle = getReivewfromGoogle;
+exports.getRestaurantByText = getRestaurantByText;

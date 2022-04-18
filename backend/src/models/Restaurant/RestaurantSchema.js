@@ -11,6 +11,7 @@ const restaurantSchema = new Schema({
   },
   googlePlaceId: { type: String, required: true },
   googleMapsURL: { type: String, required: true },
+  openHours: [{ type: String }],
 });
 
 module.exports = mongoose.model("Restaurant", restaurantSchema);
