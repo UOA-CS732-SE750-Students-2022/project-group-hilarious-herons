@@ -1,5 +1,3 @@
-import React from 'react';
-import './FoodCard.css';
 import {
     IonCard, 
     IonCardHeader, 
@@ -9,11 +7,14 @@ import {
     IonChip,
     IonLabel,
     IonRow, 
-    IonIcon } from '@ionic/react';
+    IonIcon 
+} from '@ionic/react';
 import { 
     star, 
     heartOutline 
 } from 'ionicons/icons';
+import React from 'react';
+import './FoodCard.css';
 
 const infoStyle = {
     position: 'absolute', 
