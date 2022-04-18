@@ -15,7 +15,7 @@
 }
 
 .likes {
-  display:inline-block;
+  display: inline-block;
 }
 
 .likes > ion-icon {
@@ -25,5 +25,8 @@
 ion-chip {
   --color:var(--ion-color-primary);
   --background: white;
+}
+
+.rate {
   pointer-events: none;
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import './FoodCard.css';
 import {
     IonCard, 
     IonCardHeader, 
@@ -9,8 +10,10 @@ import {
     IonLabel,
     IonRow, 
     IonIcon } from '@ionic/react';
-import { star, heartOutline} from 'ionicons/icons';
-import './FoodCard.css';
+import { 
+    star, 
+    heartOutline 
+} from 'ionicons/icons';
 
 const infoStyle = {
     position: 'absolute', 
@@ -23,7 +26,7 @@ const FoodCard = () => {
         <div className='iamge-rate-distanse'>
             <img src="/mock.svg" alt="food-img" className='food-img'/>
             <IonRow style={ infoStyle }>
-                    <IonChip>
+                    <IonChip className='rate'>
                         <IonLabel>1.2km</IonLabel>
                     </IonChip>
                     <IonChip className='rate'>

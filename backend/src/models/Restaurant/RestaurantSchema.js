@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
@@ -10,8 +10,8 @@ const restaurantSchema = new Schema({
     long: Number,
   },
   googlePlaceId: { type: String, required: true },
+  googleMapsURL: { type: String, required: true },
+  openHours: [{ type: String }],
 });
 
-const Restaurant = mongoose.model("Restaurant", restaurantSchema);
-
-export { Restaurant };
+module.exports = mongoose.model("Restaurant", restaurantSchema);

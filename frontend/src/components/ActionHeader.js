@@ -2,16 +2,23 @@ import {
   IonButton,
   IonContent,
   IonHeader,
-  IonSearchbar,
   IonTitle,
   IonToolbar,
+  IonChip,
+  IonAvatar,
+  IonLabel,
+  IonText,
 } from "@ionic/react";
 import { createAnimation } from "@ionic/react";
 import { useState } from "react";
+import { Searchbar } from "./Searchbar";
+import { UserPopover } from "./UserPopover";
 
 export const ActionHeader = ({ banner, children }) => {
   const bannerUrl = `url("https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80")`;
   const [headerVisible, setHeaderVisible] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const shrinkAnimation = createAnimation()
     .addElement(document.querySelector(".toolbar"))
     .duration(500)
@@ -19,6 +26,7 @@ export const ActionHeader = ({ banner, children }) => {
     .fromTo("height", "300px", "0")
     .fromTo("transform", "translateY(0px)", "translateY(-500px)")
     .fromTo("opacity", "1", "0");
+
   const growAnimation = createAnimation()
     .addElement(document.querySelector(".toolbar"))
     .duration(500)
@@ -26,11 +34,13 @@ export const ActionHeader = ({ banner, children }) => {
     .fromTo("height", "0", "300px")
     .fromTo("transform", "translateY(-300px)", "translateY(0px)")
     .fromTo("opacity", "0", "1");
+
   const colorInAnimation = createAnimation()
     .addElement(document.querySelector(".header"))
     .duration(500)
     .easing("ease-in")
     .to("background", "#ff9f1c");
+
   const colorOutAnimation = createAnimation()
     .addElement(document.querySelector(".header"))
     .duration(500)
@@ -55,31 +65,43 @@ export const ActionHeader = ({ banner, children }) => {
         }}
       >
         <IonToolbar color="transparent">
-          <IonTitle slot="start" style={{ color: "white" }}>
+          <IonText slot="start" style={{ color: "white", margin: "0 5%" }}>
             <h2>FUNTER</h2>
-          </IonTitle>
-          <IonSearchbar
-            class="searchBar"
-            mode="ios"
-            style={{ padding: "0" }}
-            color="ionHeaderText"
-            padding="0"
-          />
-          <IonButton
-            slot="end"
-            shape="round"
-            color="ionHeaderText"
-            style={{ padding: "0 50px" }}
-          >
-            Login
-          </IonButton>
+          </IonText>
+
+          <Searchbar />
+
+          {isLoggedIn ? (
+            <IonChip
+              id="user-avatar"
+              slot="end"
+              color="light"
+              style={{ margin: "0 5%" }}
+            >
+              <IonAvatar>
+                <img src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg" />
+              </IonAvatar>
+              <IonLabel>Username</IonLabel>
+            </IonChip>
+          ) : (
+            <IonButton
+              slot="end"
+              shape="round"
+              color="light"
+              style={{ margin: "0 5%" }}
+              mode="ios"
+            >
+              Login
+            </IonButton>
+          )}
+          <UserPopover />
         </IonToolbar>
 
-        {banner ? (
+        { banner ? (
           <IonToolbar class="toolbar" color="transparent">
             <IonTitle
               slot="start"
-              style={{ fontSize: "2.25em", color: "white" }}
+              style={{ fontSize: "2.25em", color: "white", margin: "0 5%" }}
             >
               <h1>
                 START YOUR FOOD
@@ -91,7 +113,7 @@ export const ActionHeader = ({ banner, children }) => {
         ) : null}
       </IonHeader>
 
-      {banner ? (
+      { banner ? (
         <IonContent
           scrollEvents={true}
           onIonScroll={(event) => {
