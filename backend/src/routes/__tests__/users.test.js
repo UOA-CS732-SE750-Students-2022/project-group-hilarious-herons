@@ -208,7 +208,7 @@ describe("PUT user /api/users/:id", () => {
 
     const { body: updatedDBUser } = await request(app)
       .get("/api/users/000000000000000000000001")
-      .send(updatedUser)
+      .send()
       .expect(200);
 
     expect(updatedDBUser.firstName).toBe("updated");
