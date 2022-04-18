@@ -7,6 +7,7 @@
     display: flex;
 }
 
+
 @media only screen and (max-width: 600px) {
     .login-content {
         --background: white;
@@ -21,6 +22,7 @@
     left: 50%; 
     width: 50%; 
     height: 100%;
+    background-color: rgba(0, 0, 0, 0.4)
 }
 
 .component {
@@ -50,7 +52,7 @@
 }
 
 .image-content h1 {
-    font-size: 80px;  
+    font-size: 50px;  
 }
 
 
