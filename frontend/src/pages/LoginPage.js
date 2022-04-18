@@ -6,7 +6,6 @@ import {
   IonIcon, 
   IonText,
   IonRow,
-  IonGrid,
 } from "@ionic/react";
 import { 
   logoGoogle
@@ -15,7 +14,6 @@ import { useState } from "react";
 import './LoginPage.css';
 
 export const LoginPage = () => {
-  const [isLogin, setIsLogin] = useState(false);
 
   return (
     <IonPage>
@@ -42,6 +40,16 @@ export const LoginPage = () => {
           <IonText style={{ color: "white"}} >
             <h1>FUNTER</h1>
           </IonText>
+          <IonTitle
+              slot="start"
+              style={{ fontSize: "2.25em", color: "white", margin: "0 5%" }}
+            >
+              <h1>
+                START YOUR FOOD
+                <br />
+                HUNTING JOURNEY.
+              </h1>
+            </IonTitle>
         </div>
 
       </IonContent>
