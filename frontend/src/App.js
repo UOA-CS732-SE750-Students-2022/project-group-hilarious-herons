@@ -31,10 +31,10 @@ function App() {
       <IonReactRouter>
         <IonRouterOutlet>
           <Route path="/" exact component={HomePage} />
-          <Route path="/Food" exact component={FoodDetailsPage} />
-          <Route path="/Login" exact component={LoginPage} />
-          <Route path="/Account" exact component={AccountPage} />
-          <Route path="/NotFound" exact component={ErrorPage} />
+          <Route path="/food" exact component={FoodDetailsPage} />
+          <Route path="/auth" exact component={LoginPage} />
+          <Route path="/account" exact component={AccountPage} />
+          <Route path="/notFound" exact component={ErrorPage} />
           <Route render={() => <Redirect to={"/NotFound"} />} />
         </IonRouterOutlet>
       </IonReactRouter>
