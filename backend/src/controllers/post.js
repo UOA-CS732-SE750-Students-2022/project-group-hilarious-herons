@@ -133,11 +133,9 @@ const getPostsFromDB = async (lat, long, range) => {
     const distLat = i.coordinates.lat;
     const distLong = i.coordinates.long;
     const distance = distanceCalculation(lat, long, distLat, distLong);
+
     if (distance < range) {
-      // const response = await Post.find({ restaurant: i._id });
-      // console.log(response);
       distancesObj = [...distancesObj, { distance: distance, id: i._id }];
-      // return i._id;
     }
   }
 
@@ -146,9 +144,9 @@ const getPostsFromDB = async (lat, long, range) => {
   });
 
   let posts = [];
-  for (i in distancesObj) {
-    const response = await Post.find({ restaurant: i._id });
-    posts = [...posts, response];
+  for (i of distancesObj) {
+    const response = await Post.find({ restaurant: i.id });
+    posts = posts.concat(response);
   }
   return posts;
 };
@@ -156,13 +154,13 @@ const getPostsFromDB = async (lat, long, range) => {
 exports.getPosts = async (req, res) => {
   try {
     const { lat, long, desktop } = req.body;
-    let { range } = req.body;
+    let { range } = req.body; //km
 
     if (!range) {
-      range = 10000;
+      range = 10;
     }
-
     let posts = await getPostsFromDB(lat, long, range);
+    range = range * 1000; //convert to meter
 
     return res.send(posts);
   } catch (err) {
