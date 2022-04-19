@@ -1,7 +1,7 @@
-const { distanceCalcultion } = require("../distanceCalculation");
+const { distanceCalculation } = require("../distanceCalculation");
 
 test("test distance", async () => {
-  const result = await distanceCalcultion(
+  const result = await distanceCalculation(
     -36.91042,
     174.76936,
     -36.9112826,
@@ -12,7 +12,7 @@ test("test distance", async () => {
 
 test("test not valide distance", async () => {
   try {
-    const result = await distanceCalcultion(
+    const result = await distanceCalculation(
       "aaaa",
       174.76936,
       -36.9112826,
@@ -25,7 +25,7 @@ test("test not valide distance", async () => {
 
 test("test not valide distance", async () => {
   try {
-    const result = await distanceCalcultion(
+    const result = await distanceCalculation(
       174.76936,
       -36.9112826,
       174.7698112

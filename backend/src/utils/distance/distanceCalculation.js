@@ -13,7 +13,7 @@ const checkValidity = (input) => {
   return true;
 };
 
-exports.distanceCalcultion = (currentLat, currentLong, destLat, destLong) => {
+exports.distanceCalculation = (currentLat, currentLong, destLat, destLong) => {
   if (
     !checkValidity(currentLat) ||
     !checkValidity(currentLong) ||
