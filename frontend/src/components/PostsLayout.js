@@ -1,7 +1,7 @@
 import { IonGrid, IonRow, IonCol } from '@ionic/react';
 import FoodCard from './FoodCard';
 
-export const PostsLayout = ({ dataForCards }) => {
+export const PostsLayout = ({ dataForCards=[] }) => {
     return (
         <IonGrid>
             <IonRow>
