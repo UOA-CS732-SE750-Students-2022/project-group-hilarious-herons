@@ -12,8 +12,18 @@ import {
 } from 'ionicons/icons';
 import { useState } from "react";
 import './LoginPage.css';
-
+import { signIn } from "../firebase"
 export const LoginPage = () => {
+
+  const logIn = () => {
+      signIn(async (ok, user) => {
+        if(ok) {
+
+          console.log(user)
+          
+        }
+      })
+  }
 
   return (
     <IonPage>
@@ -23,7 +33,7 @@ export const LoginPage = () => {
             <IonTitle>Log in to your account!</IonTitle>
             <br /> 
             <br /> 
-            <IonButton className="login-button" expand="full" size="large">
+            <IonButton className="login-button" expand="full" size="large" onClick={logIn}>
               <IonIcon slot="start"  icon={ logoGoogle } color="light"/>
                 Login with Google
             </IonButton>   
