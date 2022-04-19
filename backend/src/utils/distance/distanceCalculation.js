@@ -3,7 +3,25 @@ const convertToRad = (deg) => {
   return deg * (pi / 180);
 };
 
+const checkValidity = (input) => {
+  if (input === null) {
+    return false;
+  }
+  if (isNaN(input)) {
+    return false;
+  }
+  return true;
+};
+
 exports.distanceCalcultion = (currentLat, currentLong, destLat, destLong) => {
+  if (
+    !checkValidity(currentLat) ||
+    !checkValidity(currentLong) ||
+    !checkValidity(destLat) ||
+    !checkValidity(destLong)
+  ) {
+    throw "Please enter a valid input";
+  }
   const earthRadius = 6571; //km
   const x1 = destLat - currentLat;
   const dLat = convertToRad(x1);
