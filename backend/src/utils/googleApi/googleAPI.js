@@ -6,12 +6,16 @@ const axios = require("axios");
  * @param {*} long
  * @returns
  */
-const getNearbyPlace = async (lat, long) => {
+const getNearbyPlace = async (lat, long, range) => {
   const key = process.env.GOOGLE_API_KEY;
+  if (typeof range === "undefined" || range === null) {
+    range = 10000;
+  }
+  console.log(range);
 
   const config = {
     method: "get",
-    url: `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${long}&rankby=distance&type=restaurant&key=${key}`,
+    url: `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${long}&type=restaurant&radius=${range}&key=${key}`,
     headers: {},
   };
 
