@@ -20,7 +20,10 @@ exports.distanceCalculation = (currentLat, currentLong, destLat, destLong) => {
     !checkValidity(destLat) ||
     !checkValidity(destLong)
   ) {
-    throw "Please enter a valid input";
+    const e = {
+      message: "Please enter a valid input",
+    };
+    throw e;
   }
   const earthRadius = 6571; //km
   const x1 = destLat - currentLat;
