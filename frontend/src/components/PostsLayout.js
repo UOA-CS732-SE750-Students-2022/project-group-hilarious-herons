@@ -1,15 +1,14 @@
 import { IonGrid, IonRow, IonCol } from '@ionic/react';
-// import FoodCard from './FoodCard';
+import FoodCard from './FoodCard';
 
-export const PostsLayout = ({ cards }) => {
-    // cards = [<FoodCard />, <FoodCard />, <FoodCard />, <FoodCard />, <FoodCard />, <FoodCard />, <FoodCard />, <FoodCard />];
+export const PostsLayout = ({ dataForCards }) => {
     return (
         <IonGrid>
             <IonRow>
-                {cards.map((card) => {
+                {dataForCards.map((cardData) => {
                     return (
                         <IonCol size='auto'>
-                            {card}
+                            <FoodCard />
                         </IonCol>
                     );
                 })}
