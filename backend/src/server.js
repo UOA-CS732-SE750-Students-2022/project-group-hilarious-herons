@@ -15,10 +15,7 @@ app.use("/", routes);
 app.use("/api", require("./routes/index"));
 
 mongoose
-  .connect(
-    `mongodb+srv://db-user:${process.env.MONGO_PASSWORD}@cluster0.vprvj.mongodb.net/${process.env.MONGO_DB_NAME}?retryWrites=true&w=majority`,
-    { useNewUrlParser: true }
-  )
+  .connect(`${process.env.MONGO_DB_URI}`, { useNewUrlParser: true })
   .then((result) => {
     console.log("MongoDB connection successful");
   })
