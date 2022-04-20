@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const BASE_URL = "http://localhost:3001/api/"
+const BASE_URL = "http://localhost:3001/api"
 
 const apiGET = async (endpoint, data) => {
     const response = await axios.get(`${BASE_URL}${endpoint}`)
@@ -27,7 +27,7 @@ const apiDELETE = async (endpoint, data) => {
     return response.data
 }
 
-export default {
+export {
     apiGET,
     apiPOST,
     apiPUT,
