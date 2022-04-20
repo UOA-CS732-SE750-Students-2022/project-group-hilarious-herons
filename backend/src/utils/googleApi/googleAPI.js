@@ -53,15 +53,14 @@ const getRestaurant = async (placeId) => {
  * return neaby restaurnt information including reviews and photo
  * https://developers.google.com/maps/documentation/places/web-service/details#PlaceDetailsResponses
  */
-const getReivewfromGoogle = async (lat, long) => {
+const getReivewfromGoogle = async (lat, long, range) => {
   try {
-    const response = await getNearbyPlace(lat, long);
+    const response = await getNearbyPlace(lat, long, range);
+
     const placeDetails = response.results.map(async (res) => {
       const detail = await getRestaurant(res.place_id);
-
       return detail.result;
     });
-    // const placeResponse = await getRestaurant("ChIJST6enOVHDW0RG9tjM7E9zDg");
 
     const result = await Promise.all(placeDetails);
 

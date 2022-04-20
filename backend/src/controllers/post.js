@@ -10,6 +10,7 @@ const {
   distanceCalculation,
 } = require("../utils/distance/distanceCalculation");
 const Post = require("../models/Post/PostSchema");
+const { getReivewfromGoogle } = require("../utils/googleApi/googleAPI");
 
 exports.getPost = async (req, res) => {
   try {
@@ -151,6 +152,32 @@ const getPostsFromDB = async (lat, long, range) => {
   return posts;
 };
 
+const getPostFromGoogle = async (lat, long, range) => {
+  const response = await getReivewfromGoogle(lat, long, range);
+  for (data of response) {
+    const href = data.photos[0].html_attributions[0];
+    // console.log(href);
+
+    const link = getImageFromHref(href);
+    console.log(link);
+    // const postObj = {
+    //   foodName :data.name,
+    //   bodyText:null,
+    //   tags:[data.name,"Restaurant","Food"],
+    //   numberOfLikes:0,
+    //   rating:0,
+    //   numberOfReviews:0,
+    //   imageURLs
+    //   restaurant,
+    // };
+  }
+  return response;
+};
+
+const getImageFromHref = (html) => {
+  return html.match(/href="([^"]*)/)[1];
+};
+
 exports.getPosts = async (req, res) => {
   try {
     const { lat, long, desktop } = req.body;
@@ -159,9 +186,11 @@ exports.getPosts = async (req, res) => {
     if (!range) {
       range = 10;
     }
-    let posts = await getPostsFromDB(lat, long, range);
+    // TODO: Remove comment
+    // let posts = await getPostsFromDB(lat, long, range);
     range = range * 1000; //convert to meter
-
+    const posts = await getPostFromGoogle(lat, long, range);
+    // console.log(posts);
     return res.send(posts);
   } catch (err) {
     return res.status(500).json({
