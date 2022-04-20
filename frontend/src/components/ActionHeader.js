@@ -15,7 +15,7 @@ import { Searchbar } from "./Searchbar";
 import { UserPopover } from "./UserPopover";
 
 export const ActionHeader = ({ banner, children }) => {
-  const bannerUrl = `url("https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80")`;
+  const bannerUrl = `url('/header.jpg')`;
   const [headerVisible, setHeaderVisible] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 

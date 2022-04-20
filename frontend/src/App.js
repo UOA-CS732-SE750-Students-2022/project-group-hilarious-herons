@@ -35,7 +35,7 @@ function App() {
           <Route path="/auth" exact component={LoginPage} />
           <Route path="/account" exact component={AccountPage} />
           <Route path="/notFound" exact component={ErrorPage} />
-          <Route render={() => <Redirect to={"/NotFound"} />} />
+          <Route render={() => <Redirect to={"/notFound"} />} />
         </IonRouterOutlet>
       </IonReactRouter>
     </IonApp>

@@ -40,19 +40,18 @@ export const LoginPage = () => {
             <br /> 
             <br /> 
             <br /> 
-            <IonRow style={{ display: "inline-block" }} className="sign-up">
-              <IonText style={{ fontWeight: "bold"}}>Don't have an account?&nbsp;&nbsp;</IonText>
-              <IonButton style={{ verticalAlign: "middle" }} mode="ios" size="small">Sign Up</IonButton>  
+            <IonRow className="sign-up">
+              <IonText>Don't have an account?&nbsp;&nbsp;</IonText>
+              <IonButton mode="ios" size="small">Sign Up</IonButton>  
             </IonRow>
           </div>
         </div>
         <div className="image-content">
-          <IonText style={{ color: "white"}} >
+          <IonText>
             <h1>FUNTER</h1>
           </IonText>
           <IonTitle
               slot="start"
-              style={{ fontSize: "2.25em", color: "white", margin: "0 5%" }}
             >
               <h1>
                 START YOUR FOOD
