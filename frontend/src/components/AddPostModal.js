@@ -144,7 +144,7 @@ export const AddPostModal = () => {
     if (e.code === "Enter" || e.code === "NumpadEnter") {
       setTag("");
 
-      if (tag.length > 1) {
+      if (tag.length > 0) {
         if (tagsList.length < 5) {
           setTagsList([...tagsList, tag]);
         } else {
@@ -248,7 +248,7 @@ export const AddPostModal = () => {
             required={true}
             autoCorrect="on"
             type="text"
-            placeholder="Add tags to your post"
+            placeholder="Add tags to your post (e.g. burger, pasta, etc)"
             className="tags-input"
             style={{ verticalAlign: "text-top" }}
             onKeyUp={(e) => handleEnterTag(e)}
