@@ -25,6 +25,7 @@ import {
 import { useState } from "react";
 import { DietariesSelect } from "./DietariesSelect";
 import "./AddPostModal.css";
+import { LocationSearchbar } from "./LocationSearchbar";
 
 export const AddPostModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -35,6 +36,7 @@ export const AddPostModal = () => {
   const [dietaries, setDietaries] = useState([]);
   const [tag, setTag] = useState("");
   const [tagsList, setTagsList] = useState([]);
+  const [show, setShow] = useState(false);
   const [present] = useIonToast();
 
   function getFiveStarRating() {
@@ -162,6 +164,26 @@ export const AddPostModal = () => {
     setTagsList([...tagsList]);
   };
 
+  const getLocations = () => {
+    const locations = [
+      { name: "McDonald's Ti Rakau", address: "500 Ti Rakau Dr" },
+      { name: "McDonald's Botany Town centre", address: "Botany Town Centre" },
+      { name: "McDonald's Pakuranga", address: "472 Pakuranga Rd" },
+      { name: "McDonald's Ormiston", address: "249 Ormiston Rd" },
+      { name: "Carl's Jr. Pakuranga", address: "490 Pakuranga Rd" },
+      { name: "Carl's Jr. St Johns", address: "113-117 Felton Mathew Ave" },
+      { name: "Carl's Jr.", address: "639 Great South Rd" },
+      { name: "Domino's Pizza Howick", address: "26 Moore St" },
+      {
+        name: "Domino's Pizza Highland Park NZ",
+        address: "Unit 3/5 Aviemore Dr",
+      },
+      { name: "Domino's Pizza Pakuranga", address: "2 Johns Ln" },
+    ];
+
+    return locations;
+  };
+
   return (
     <IonModal
       className="add-post-modal"
@@ -207,19 +229,13 @@ export const AddPostModal = () => {
         </IonItem>
 
         {/* Adding the restaurant name*/}
-        <IonItem lines="none" className="foodname">
-          <IonLabel position="fixed">Restaurant</IonLabel>
-          <IonInput
-            value={restaurantName}
-            required={true}
-            autoCorrect="on"
-            type="text"
-            placeholder="Enter restaurant name"
-            className="restaurant-input"
-            style={{ verticalAlign: "text-top" }}
-            onIonChange={(e) => setRestaurantName(e.detail.value)}
-          />
-        </IonItem>
+        <LocationSearchbar
+          label="Restaurant"
+          placeholder="Enter restaurant name"
+          locationText={restaurantName}
+          setLocationText={setRestaurantName}
+          locations={getLocations()}
+        />
 
         {/* Adding dietaries for the food*/}
         <DietariesSelect dietaries={dietaries} setDietaries={setDietaries} />
