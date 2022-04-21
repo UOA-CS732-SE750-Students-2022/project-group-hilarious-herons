@@ -6,7 +6,7 @@ const {
   unlikePost,
   getPosts,
 } = require("../../controllers/post");
-const { upload } = require("../../controllers/imageProcess");
+const { upload } = require("../../controllers/uploadImage");
 
 const router = express.Router();
 

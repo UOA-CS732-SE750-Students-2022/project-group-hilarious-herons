@@ -8,7 +8,6 @@ const { bucket } = require("../config/googleCloudStorage");
 exports.upload = async (req, res) => {
   try {
     await processFile(req, res);
-    console.log(req.file);
     if (!req.file) {
       return res.status(400).send({ message: "Please upload a file!" });
     }
