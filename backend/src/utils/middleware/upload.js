@@ -3,7 +3,7 @@ const { format } = require("util");
 exports.upload = (imageStream, filename, cb) => {
   try {
     imageStream.on("error", (err) => {
-      res.status(500).send({ message: err.message });
+      throw err;
     });
     imageStream.on("finish", async (data) => {
       // Create URL for directly file access via HTTP.
