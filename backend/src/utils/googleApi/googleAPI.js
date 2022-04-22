@@ -90,7 +90,27 @@ const getRestaurantByText = async (name) => {
   }
 };
 
+const getGooglePhoto = async (ref) => {
+  const key = process.env.GOOGLE_API_KEY;
+  try {
+    var config = {
+      method: "get",
+      url: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${ref}&key=${key}`,
+      headers: {},
+    };
+
+    const response = await axios(config).catch(function (error) {
+      console.log(error);
+      throw error;
+    });
+    return response.request.res.responseUrl;
+  } catch (e) {
+    throw e;
+  }
+};
+
 exports.getPlace = getRestaurant;
 exports.getNearbyPlace = getNearbyPlace;
 exports.getReivewfromGoogle = getReivewfromGoogle;
 exports.getRestaurantByText = getRestaurantByText;
+exports.getGooglePhoto = getGooglePhoto;

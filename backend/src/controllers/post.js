@@ -10,7 +10,11 @@ const {
   distanceCalculation,
 } = require("../utils/distance/distanceCalculation");
 const Post = require("../models/Post/PostSchema");
-const { getReivewfromGoogle } = require("../utils/googleApi/googleAPI");
+const {
+  getReivewfromGoogle,
+  getGooglePhoto,
+} = require("../utils/googleApi/googleAPI");
+const { createRestaurant } = require("../models/Restaurant/restaurant-dao");
 
 exports.getPost = async (req, res) => {
   try {
@@ -147,35 +151,102 @@ const getPostsFromDB = async (lat, long, range) => {
   let posts = [];
   for (i of distancesObj) {
     const response = await Post.find({ restaurant: i.id });
-    posts = posts.concat(response);
+    const processedData = response.map((data) => {
+      return { ...data._doc, distance: i.distance };
+    });
+    posts = posts.concat(processedData);
   }
+
   return posts;
 };
 
-const getPostFromGoogle = async (lat, long, range) => {
+const getPostFromGoogle = async (
+  lat,
+  long,
+  range,
+  numReqPost = 10,
+  postPerRestaurant = 2
+) => {
   const response = await getReivewfromGoogle(lat, long, range);
+  let allPosts = [];
   for (data of response) {
-    const href = data.photos[0].html_attributions[0];
-    // console.log(href);
+    const distance = distanceCalculation(
+      lat,
+      long,
+      data.geometry.location.lat,
+      data.geometry.location.lng
+    );
+    for (let i = 0; i < postPerRestaurant; i++) {
+      const existPostName = await Post.find({
+        foodName: data.name,
+      });
 
-    const link = getImageFromHref(href);
-    console.log(link);
-    // const postObj = {
-    //   foodName :data.name,
-    //   bodyText:null,
-    //   tags:[data.name,"Restaurant","Food"],
-    //   numberOfLikes:0,
-    //   rating:0,
-    //   numberOfReviews:0,
-    //   imageURLs
-    //   restaurant,
-    // };
+      if (existPostName.length >= 2) {
+        console.log("out");
+        break;
+      }
+      if (data.photos[Math.floor(Math.random() * 5)].photo_reference) {
+        const photoRef =
+          data.photos[Math.floor(Math.random() * 5)].photo_reference;
+        const imageURL = await getGooglePhoto(photoRef);
+
+        const existingPost = await Post.find({
+          imageURLs: { $in: [imageURL] },
+        });
+
+        if (existingPost.length < 1) {
+          let restaurant = await Restaurant.find({
+            googlePlaceId: data.place_id,
+          });
+
+          if (restaurant.length < 1) {
+            const restaurantObj = {
+              name: data.name,
+              address: data.formatted_address,
+              coordinates: {
+                lat: data.geometry.location.lat,
+                long: data.geometry.location.lng,
+              },
+              googlePlaceId: data.place_id,
+              googleMapsURL: data.url,
+              openHours: data.opening_hours.weekday_text,
+            };
+
+            restaurant = await createRestaurant(restaurantObj);
+          } else {
+            restaurant = restaurant[0];
+          }
+
+          const postObj = {
+            foodName: data.name,
+            bodyText: data.name,
+            tags: [data.name, "Restaurant", "Food"],
+            numberOfLikes: 0,
+            rating: 0,
+            numberOfReviews: 0,
+            imageURLs: [imageURL],
+            restaurant: restaurant,
+          };
+
+          let post = await createPost(postObj);
+          post = {
+            ...post._doc,
+            distance: distance,
+          };
+          allPosts = [...allPosts, post];
+          numReqPost--;
+        }
+      }
+    }
+    if (numReqPost <= 0) {
+      break;
+    }
   }
-  return response;
-};
+  allposts = allPosts.sort((a, b) => {
+    return a.distance - b.distance;
+  });
 
-const getImageFromHref = (html) => {
-  return html.match(/href="([^"]*)/)[1];
+  return allPosts;
 };
 
 exports.getPosts = async (req, res) => {
@@ -187,10 +258,14 @@ exports.getPosts = async (req, res) => {
       range = 10;
     }
     // TODO: Remove comment
-    // let posts = await getPostsFromDB(lat, long, range);
+    let posts = await getPostsFromDB(lat, long, range);
     range = range * 1000; //convert to meter
-    const posts = await getPostFromGoogle(lat, long, range);
-    // console.log(posts);
+    if (posts.length < 10) {
+      const num = 10 - posts.length;
+
+      posts = await getPostFromGoogle(lat, long, range, num);
+      posts = posts.concat(posts);
+    }
     return res.send(posts);
   } catch (err) {
     return res.status(500).json({
