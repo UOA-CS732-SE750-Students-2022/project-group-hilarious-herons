@@ -182,7 +182,6 @@ const getPostFromGoogle = async (
       });
 
       if (existPostName.length >= 2) {
-        console.log("out");
         break;
       }
       if (data.photos[Math.floor(Math.random() * 5)].photo_reference) {
@@ -263,9 +262,10 @@ exports.getPosts = async (req, res) => {
     if (posts.length < 10) {
       const num = 10 - posts.length;
 
-      posts = await getPostFromGoogle(lat, long, range, num);
-      posts = posts.concat(posts);
+      const googleposts = await getPostFromGoogle(lat, long, range, num);
+      posts.concat(googleposts);
     }
+
     return res.send(posts);
   } catch (err) {
     return res.status(500).json({
