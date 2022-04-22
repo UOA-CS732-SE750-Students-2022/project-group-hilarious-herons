@@ -23,30 +23,12 @@ const infoStyle = {
     top: '59%',
 }
 
-const LikedIcon = ({ id, isPostLiked }) => {
-    const [liked, setLiked] = useState(isPostLiked);
+const FoodCard = ({ id = 0, foodName = "Food Name", rating = 5, timestamp = "21/04/2022", numberOfLikes = 1200, postLiked = false }) => {
+    const [liked, setLiked] = useState(postLiked);
     const updateLike = () => {
         setLiked(!liked)
         // Backend API method to be implemented. Use id.
     }
-    if (liked) {
-        return (
-            <IonIcon
-                onClick={() => updateLike()}
-                icon={heart}
-                size="small" />
-        )
-    } else {
-        return (
-            <IonIcon
-                onClick={() => updateLike()}
-                icon={heartOutline}
-                size="small" />
-        )
-    }
-}
-
-const FoodCard = ({ id = 0, foodName = "Food Name", rating = 5, timestamp="21/04/2022", numberOfLikes = 1200, postLiked = false }) => {
 
     return (
         <IonCard className="food-card">
@@ -73,7 +55,7 @@ const FoodCard = ({ id = 0, foodName = "Food Name", rating = 5, timestamp="21/04
                 <IonRow className='like-food'>
                     <IonCardSubtitle>{timestamp}</IonCardSubtitle>
                     <IonRow className="likes">
-                        <LikedIcon isPostLiked={postLiked} />
+                        <IonIcon onClick={() => updateLike()} icon={liked ? heart : heartOutline} size="small" />
                         <IonLabel>{numberOfLikes}</IonLabel>
                     </IonRow>
                 </IonRow>
