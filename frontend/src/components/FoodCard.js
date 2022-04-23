@@ -25,7 +25,13 @@ const infoStyle = {
 
 const FoodCard = ({ id = 0, foodName = "Food Name", rating = 5, timestamp = "21/04/2022", numberOfLikes = 1200, postLiked = false }) => {
     const [liked, setLiked] = useState(postLiked);
+    const [totalLikes, setTotalLikes] = useState(numberOfLikes);
     const updateLike = () => {
+        if (!liked) {
+            setTotalLikes(totalLikes + 1)
+        } else {
+            setTotalLikes(totalLikes - 1)
+        }
         setLiked(!liked)
         // Backend API method to be implemented. Use id.
     }
@@ -56,7 +62,7 @@ const FoodCard = ({ id = 0, foodName = "Food Name", rating = 5, timestamp = "21/
                     <IonCardSubtitle>{timestamp}</IonCardSubtitle>
                     <IonRow className="likes">
                         <IonIcon onClick={() => updateLike()} icon={liked ? heart : heartOutline} size="small" />
-                        <IonLabel>{numberOfLikes}</IonLabel>
+                        <IonLabel>{totalLikes}</IonLabel>
                     </IonRow>
                 </IonRow>
             </IonCardContent>
