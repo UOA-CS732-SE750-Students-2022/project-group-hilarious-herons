@@ -4,11 +4,14 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ServiceWorkerProvider } from "./context/serviceWorkerContext";
+import { AuthContextProvider } from "./context/AuthContext";
 
 ReactDOM.render(
   <React.StrictMode>
     <ServiceWorkerProvider>
-      <App />
+      <AuthContextProvider value={{ isLoggedIn: false, user: {} }}>
+        <App />
+      </AuthContextProvider>
     </ServiceWorkerProvider>
   </React.StrictMode>,
   document.getElementById("root")
