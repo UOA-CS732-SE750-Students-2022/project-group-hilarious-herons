@@ -22,6 +22,15 @@ exports.retrieveUser = async (userID) => {
 };
 
 /**
+ * Retrieves the user from the databse with the specified firebaseUUID
+ * @param {*} firebaseUID UUID for user in firebase auth
+ * @returns Object with given userID if it can be found
+ */
+exports.retrieveByFirebaseUID = async (firebaseUID) => {
+  return await User.findOne({ firebaseUUID: firebaseUID });
+};
+
+/**
  * Updates an existing user in the database with new data from supplied object
  * @param {*} user A user object data to update object
  * @returns True if object is found and update, false otherwise
