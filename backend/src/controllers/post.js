@@ -248,10 +248,6 @@ const getPostFromGoogle = async (
       }
     }
 
-    allposts = allPosts.sort((a, b) => {
-      return a.distance - b.distance;
-    });
-
     return allPosts;
   } catch (err) {
     throw err;
