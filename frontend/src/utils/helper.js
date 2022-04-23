@@ -3,16 +3,8 @@ export const getTodaysDateAsString = () => {
 }
 
 export const getDateAsString = (providedDate) => {
-    let dateVal = providedDate.getDate().toString()
-    let date = providedDate.getDate().toString()
-    if (dateVal < 10) {
-        date = "0" + month
-    }
-    let monthVal = providedDate.getMonth()
-    let month = providedDate.getMonth().toString()
-    if (monthVal < 10) {
-        month = "0" + month
-    }
+    let date = ('0' + providedDate.getDate()).slice(-2)
+    let month = ('0' + providedDate.getMonth()).slice(-2)
     const formattedDate = date + "/" + month + "/" + providedDate.getFullYear().toString()
     return formattedDate
 }
