@@ -3,6 +3,7 @@ const {
   updatePost,
   createPost,
 } = require("../models/Post/posts-dao");
+const { retrieveRestaurant } = require("../models/Restaurant/restaurant-dao");
 const mongoose = require("mongoose");
 
 exports.getPost = async (req, res) => {
@@ -79,7 +80,32 @@ exports.unlikePost = async (req, res) => {
 
 exports.createPost = async (req, res) => {
   try {
-    const postObj = req.body;
+    const {
+      foodName,
+      bodyText,
+      tags,
+      numberOfLikes,
+      rating,
+      numberOfReviews,
+      restaurantId,
+    } = req.body;
+
+    console.log(req);
+
+    const restaurant = await retrieveRestaurant(restaurantId);
+    console.log(req.body);
+    console.log(req.body.file);
+
+    const postObj = {
+      foodName,
+      bodyText,
+      tags,
+      numberOfLikes,
+      rating,
+      numberOfReviews,
+      restaurant,
+    };
+
     const newPost = await createPost(postObj);
 
     res

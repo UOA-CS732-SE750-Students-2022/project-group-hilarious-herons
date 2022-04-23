@@ -41,7 +41,7 @@ beforeAll(async () => {
 beforeEach(async () => {
   await mongoose.connection.db.dropDatabase();
 
-  const coll = await mongoose.connection.db.createCollection("Posts");
+  const coll = await mongoose.connection.db.createCollection("posts");
   // console.log(coll);
   const post = new Post(mockPost);
   await post.save();
