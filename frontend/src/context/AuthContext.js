@@ -15,11 +15,22 @@ const AuthContextProvider = ({ children }) => {
     return updatedUser;
   };
 
+  const login = (user) => {
+    setUser({ ...user });
+    setIsLoggedIn(true);
+  };
+
+  const logout = (user) => {
+    setUser({});
+    setIsLoggedIn(false);
+  };
+
   const context = {
     isLoggedIn,
     user,
     updateUser,
-    setIsLoggedIn,
+    login,
+    logout,
   };
 
   return (

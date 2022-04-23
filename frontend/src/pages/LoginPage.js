@@ -18,7 +18,7 @@ import { AuthContext } from "../context/AuthContext";
 export const LoginPage = () => {
   const history = useHistory();
 
-  const { updateUser, setIsLoggedIn } = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
 
   const logIn = () => {
     signIn(async (ok, user) => {
@@ -40,12 +40,10 @@ export const LoginPage = () => {
 
           const newUser = await createUser(newUserObj);
 
-          updateUser(newUser);
+          login(newUser);
         } else {
-          updateUser(dbUser);
+          login(dbUser);
         }
-
-        setIsLoggedIn(true);
 
         history.push("/");
       }
