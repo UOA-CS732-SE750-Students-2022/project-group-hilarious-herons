@@ -8,14 +8,17 @@ import {
   IonRow,
 } from "@ionic/react";
 import { logoGoogle } from "ionicons/icons";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "./LoginPage.css";
 import { signIn } from "../firebase";
 import { createUser, getUser } from "../utils/helperFunctions";
 import { useHistory } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 export const LoginPage = () => {
   const history = useHistory();
+
+  const { updateUser, setIsLoggedIn } = useContext(AuthContext);
 
   const logIn = () => {
     signIn(async (ok, user) => {
@@ -36,10 +39,13 @@ export const LoginPage = () => {
           };
 
           const newUser = await createUser(newUserObj);
-          console.log(newUser);
+
+          updateUser(newUser);
         } else {
-          console.log(dbUser);
+          updateUser(dbUser);
         }
+
+        setIsLoggedIn(true);
 
         history.push("/");
       }

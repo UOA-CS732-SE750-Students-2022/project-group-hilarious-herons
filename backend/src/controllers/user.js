@@ -43,14 +43,11 @@ exports.getUser = async (req, res) => {
 exports.getUserFromFirebaseUID = async (req, res) => {
   try {
     const id = req.params.id;
-    // console.log(id);
     const user = await retrieveByFirebaseUID(id);
 
     if (user === undefined || user === null || user.length === 0) {
       res.status(404);
     }
-
-    console.log(user);
 
     res.send(user);
   } catch (e) {

@@ -18,6 +18,8 @@ const AuthContextProvider = ({ children }) => {
   const context = {
     isLoggedIn,
     user,
+    updateUser,
+    setIsLoggedIn,
   };
 
   return (
