@@ -15,6 +15,7 @@ const {
   getGooglePhoto,
 } = require("../utils/googleApi/googleAPI");
 const { createRestaurant } = require("../models/Restaurant/restaurant-dao");
+const { post } = require("../routes");
 
 exports.getPost = async (req, res) => {
   try {
@@ -273,6 +274,9 @@ exports.getPosts = async (req, res) => {
       const googleposts = await getPostFromGoogle(lat, long, range, num);
 
       posts = posts.concat(googleposts);
+      posts = posts.sort((a, b) => {
+        return a.distance - b.distance;
+      });
     }
 
     res.send(posts);
