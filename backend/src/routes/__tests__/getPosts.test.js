@@ -5,7 +5,6 @@ const { MongoMemoryServer } = require("mongodb-memory-server");
 const mongoose = require("mongoose");
 const Post = require("../../models/Post/PostSchema");
 const Restaurant = require("../../models/Restaurant/RestaurantSchema");
-
 require("dotenv").config();
 
 const app = express();
@@ -47,6 +46,7 @@ const mockPost = {
 };
 
 beforeAll(async () => {
+  // jest.setTimeout();
   mongod = await MongoMemoryServer.create();
 
   const connectionString = mongod.getUri();
@@ -69,6 +69,7 @@ afterAll(async () => {
   await mongoose.disconnect();
   await mongod.stop();
 });
+jest.setTimeout(15000);
 
 describe("GET /posts", () => {
   it("GET /posts", (done) => {
@@ -77,9 +78,13 @@ describe("GET /posts", () => {
       .send({ lat: -36.91042, long: 174.7698112 })
       .expect(200)
       .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
         expect(res.body);
-        console.log(res.body[0]);
+
         expect(res.body[0].foodName).toBe("Fries");
+        expect(res.body.length).toBe(10);
         return done();
       });
   });

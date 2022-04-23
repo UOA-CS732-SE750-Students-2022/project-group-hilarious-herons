@@ -164,88 +164,97 @@ const getPostFromGoogle = async (
   lat,
   long,
   range,
-  numReqPost = 10,
+  numReqPost = 9,
   postPerRestaurant = 2
 ) => {
-  const response = await getReivewfromGoogle(lat, long, range);
-  let allPosts = [];
-  for (data of response) {
-    const distance = distanceCalculation(
-      lat,
-      long,
-      data.geometry.location.lat,
-      data.geometry.location.lng
-    );
-    for (let i = 0; i < postPerRestaurant; i++) {
-      const existPostName = await Post.find({
-        foodName: data.name,
-      });
+  try {
+    const response = await getReivewfromGoogle(lat, long, range);
+    let allPosts = [];
 
-      if (existPostName.length >= 2) {
-        break;
-      }
-      if (data.photos[Math.floor(Math.random() * 5)].photo_reference) {
-        const photoRef =
-          data.photos[Math.floor(Math.random() * 5)].photo_reference;
-        const imageURL = await getGooglePhoto(photoRef);
-
-        const existingPost = await Post.find({
-          imageURLs: { $in: [imageURL] },
+    for (data of response) {
+      const distance = distanceCalculation(
+        lat,
+        long,
+        data.geometry.location.lat,
+        data.geometry.location.lng
+      );
+      for (let i = 0; i < postPerRestaurant; i++) {
+        const existPostName = await Post.find({
+          foodName: data.name,
         });
 
-        if (existingPost.length < 1) {
-          let restaurant = await Restaurant.find({
-            googlePlaceId: data.place_id,
+        if (existPostName.length >= 2) {
+          break;
+        }
+
+        if (data.photos[Math.floor(Math.random() * 5)].photo_reference) {
+          const photoRef =
+            data.photos[Math.floor(Math.random() * 5)].photo_reference;
+          // let imageURL = null;
+
+          let imageURL = await getGooglePhoto(photoRef);
+
+          const existingPost = await Post.find({
+            imageURLs: { $in: [imageURL] },
           });
 
-          if (restaurant.length < 1) {
-            const restaurantObj = {
-              name: data.name,
-              address: data.formatted_address,
-              coordinates: {
-                lat: data.geometry.location.lat,
-                long: data.geometry.location.lng,
-              },
+          if (existingPost.length < 1) {
+            let restaurant = await Restaurant.find({
               googlePlaceId: data.place_id,
-              googleMapsURL: data.url,
-              openHours: data.opening_hours.weekday_text,
+            });
+
+            if (restaurant.length < 1) {
+              const restaurantObj = {
+                name: data.name,
+                address: data.formatted_address,
+                coordinates: {
+                  lat: data.geometry.location.lat,
+                  long: data.geometry.location.lng,
+                },
+                googlePlaceId: data.place_id,
+                googleMapsURL: data.url,
+                openHours: data.opening_hours.weekday_text,
+              };
+
+              restaurant = await createRestaurant(restaurantObj);
+            } else {
+              restaurant = restaurant[0];
+            }
+
+            const postObj = {
+              foodName: data.name,
+              bodyText: data.name,
+              tags: [data.name, "Restaurant", "Food"],
+              numberOfLikes: 0,
+              rating: 0,
+              numberOfReviews: 0,
+              imageURLs: [imageURL],
+              restaurant: restaurant,
             };
 
-            restaurant = await createRestaurant(restaurantObj);
-          } else {
-            restaurant = restaurant[0];
+            let post = await createPost(postObj);
+            post = {
+              ...post._doc,
+              distance: distance,
+            };
+            allPosts = [...allPosts, post];
+            numReqPost--;
           }
-
-          const postObj = {
-            foodName: data.name,
-            bodyText: data.name,
-            tags: [data.name, "Restaurant", "Food"],
-            numberOfLikes: 0,
-            rating: 0,
-            numberOfReviews: 0,
-            imageURLs: [imageURL],
-            restaurant: restaurant,
-          };
-
-          let post = await createPost(postObj);
-          post = {
-            ...post._doc,
-            distance: distance,
-          };
-          allPosts = [...allPosts, post];
-          numReqPost--;
         }
       }
+      if (numReqPost <= 0) {
+        break;
+      }
     }
-    if (numReqPost <= 0) {
-      break;
-    }
-  }
-  allposts = allPosts.sort((a, b) => {
-    return a.distance - b.distance;
-  });
 
-  return allPosts;
+    allposts = allPosts.sort((a, b) => {
+      return a.distance - b.distance;
+    });
+
+    return allPosts;
+  } catch (err) {
+    throw err;
+  }
 };
 
 exports.getPosts = async (req, res) => {
@@ -256,17 +265,17 @@ exports.getPosts = async (req, res) => {
     if (!range) {
       range = 10;
     }
-    // TODO: Remove comment
     let posts = await getPostsFromDB(lat, long, range);
     range = range * 1000; //convert to meter
     if (posts.length < 10) {
       const num = 10 - posts.length;
 
       const googleposts = await getPostFromGoogle(lat, long, range, num);
-      posts.concat(googleposts);
+
+      posts = posts.concat(googleposts);
     }
 
-    return res.send(posts);
+    res.send(posts);
   } catch (err) {
     return res.status(500).json({
       success: false,

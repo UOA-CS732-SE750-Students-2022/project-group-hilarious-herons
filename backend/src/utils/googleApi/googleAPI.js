@@ -103,9 +103,11 @@ const getGooglePhoto = async (ref) => {
       console.log(error);
       throw error;
     });
+
     return response.request.res.responseUrl;
-  } catch (e) {
-    throw e;
+  } catch (err) {
+    console.log(err);
+    throw err;
   }
 };
 
