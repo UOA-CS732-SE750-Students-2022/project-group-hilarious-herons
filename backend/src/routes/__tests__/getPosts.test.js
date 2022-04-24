@@ -18,8 +18,8 @@ const mockRestaurant = {
   name: "Paradise Takeaway",
   address: "581 Sandringham Road, Sandringham, Auckland",
   coordinates: {
-    lat: -36.89254189999999,
-    long: 174.7361622,
+    lat: -36.91042,
+    long: 174.7698112,
   },
   googlePlaceId: "ChIJcT4y8llGDW0RfP72WCE-SF0",
   googleMapsURL: "https://maps.google.com/?cid=6721690756797890172",
@@ -81,6 +81,7 @@ describe("GET /posts", () => {
         if (err) {
           return done(err);
         }
+        console.log(res.body);
         expect(res.body);
 
         expect(res.body[0].foodName).toBe("Fries");
