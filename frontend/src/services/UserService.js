@@ -1,7 +1,7 @@
 import { apiGET, apiPOST } from "./api/apiAccessFunctions";
 
 
-export const UserService = {
+export const userService = {
   getUser,
   createUser
 
