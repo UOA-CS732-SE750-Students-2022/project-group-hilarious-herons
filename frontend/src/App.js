@@ -31,7 +31,7 @@ function App() {
       <IonReactRouter>
         <IonRouterOutlet>
           <Route path="/" exact component={HomePage} />
-          <Route path="/Food" exact component={FoodDetailsPage} />
+          <Route path="/Food:id" exact component={FoodDetailsPage}/>
           <Route path="/Login" exact component={LoginPage} />
           <Route path="/Account" exact component={AccountPage} />
           <Route path="/NotFound" exact component={ErrorPage} />
