@@ -67,7 +67,7 @@ export const LoginPage = () => {
             <br />
             <IonRow className="sign-up">
               <IonText>Don't have an account?&nbsp;&nbsp;</IonText>
-              <IonButton mode="ios" size="small">
+              <IonButton mode="ios" size="small" onClick={login}>
                 Sign Up
               </IonButton>
             </IonRow>
