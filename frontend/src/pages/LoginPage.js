@@ -12,11 +12,9 @@ import { useContext } from "react";
 import "./LoginPage.css";
 import { signIn } from "../firebase";
 import { userService } from '../services/UserService';
-import { useHistory } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 export const LoginPage = () => {
-  const history = useHistory();
   const { login } = useContext(AuthContext);
 
   const logIn = () => {
@@ -38,12 +36,12 @@ export const LoginPage = () => {
           const newUser = await userService.createUser(newUserObj);
 
           login(newUser);
-          
         } else {
           login(dbUser);
         }
-        history.push("/");
+        window.location.href = '/';
       }
+      
     });
   };
 
@@ -59,7 +57,7 @@ export const LoginPage = () => {
               className="login-button"
               expand="full"
               size="large"
-              onClick={logIn}
+              onClick={ logIn }
             >
               <IonIcon slot="start" icon={logoGoogle} color="light" />
               Login with Google

@@ -23,10 +23,10 @@ async function signIn (callback) {
         const token = credential.accessToken;
     
         if(user) { 
-            callback(true, user);
             localStorage.setItem("token", token);
             localStorage.setItem("displayName", user.displayName);
             localStorage.setItem('uid', user.uid);
+            callback(true, user);
         }
     } catch (err) {
         console.log("Error logging in : ", err)
