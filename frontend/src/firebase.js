@@ -1,17 +1,32 @@
 import { initializeApp } from "@firebase/app"
-import {getAuth, signInWithPopup, GoogleAuthProvider} from "firebase/auth"
+import { 
+    getAuth, 
+    signInWithPopup, 
+    GoogleAuthProvider, 
+    signOut 
+} from "firebase/auth"
 import { firebaseConfig } from "./firebase_config"
 
 const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)
 
-const signIn = async (callback) => {
+export {
+    signIn,
+    logOut
+}
+
+async function signIn (callback) {
     try {
         const result = await signInWithPopup(auth, new GoogleAuthProvider())
         const user = result.user
-
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+    
         if(user) { 
-            callback(true, user)
+            callback(true, user);
+            localStorage.setItem("token", token);
+            localStorage.setItem("displayName", user.displayName);
+            localStorage.setItem('uid', user.uid);
         }
     } catch (err) {
         console.log("Error logging in : ", err)
@@ -19,6 +34,11 @@ const signIn = async (callback) => {
     }
 }
 
-export {
-    signIn
+async function logOut(callback) {
+    signOut(auth).then(() => {
+        callback(true);      
+      }).catch((error) => {
+          callback(false);
+          console.log(error)
+      });
 }

@@ -9,6 +9,7 @@ const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+
   const updateUser = (updatedUser) => {
     setUser({ ...updatedUser });
 
@@ -18,6 +19,7 @@ const AuthContextProvider = ({ children }) => {
   const login = (user) => {
     setUser({ ...user });
     setIsLoggedIn(true);
+    localStorage.setItem('isLoggedIn', true);
   };
 
   const logout = (user) => {

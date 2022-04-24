@@ -10,13 +10,15 @@ import {
   IonText,
 } from "@ionic/react";
 import { createAnimation } from "@ionic/react";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Searchbar } from "./Searchbar";
 import { UserPopover } from "./UserPopover";
+import { AuthContext } from "../context/AuthContext";
 
-export const ActionHeader = ({ banner, children }) => {
+export const ActionHeader = ({ banner, children}) => {
   const bannerUrl = `url('/header.jpg')`;
   const [headerVisible, setHeaderVisible] = useState(true);
+  const [displayName, setDisplayName] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const shrinkAnimation = createAnimation()
@@ -52,6 +54,11 @@ export const ActionHeader = ({ banner, children }) => {
     .to("backgroundRepeat", "no-repeat")
     .to("backgroundSize", "cover");
 
+    useEffect(() => {
+      setDisplayName(localStorage.getItem('displayName'));
+      setIsLoggedIn(localStorage.getItem("isLoggedIn"));
+    } , [])
+
   return (
     <>
       <IonHeader
@@ -81,7 +88,7 @@ export const ActionHeader = ({ banner, children }) => {
               <IonAvatar>
                 <img src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg" />
               </IonAvatar>
-              <IonLabel>Username</IonLabel>
+              <IonLabel>{displayName}</IonLabel>
             </IonChip>
           ) : (
             <IonButton
