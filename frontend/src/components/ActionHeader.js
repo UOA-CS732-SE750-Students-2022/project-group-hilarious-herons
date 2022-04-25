@@ -1,7 +1,6 @@
 import {
   IonButton,
   IonContent,
-  IonHeader,
   IonTitle,
   IonToolbar,
   IonChip,
@@ -37,26 +36,42 @@ export const ActionHeader = ({ banner, children }) => {
 
   const colorInAnimation = createAnimation()
     .addElement(document.querySelector(".header"))
-    .duration(500)
+    .duration(300)
     .easing("ease-in")
     .to("background", "#ff9f1c");
 
   const colorOutAnimation = createAnimation()
     .addElement(document.querySelector(".header"))
-    .duration(500)
+    .duration(300)
     .easing("ease-out")
-    .to(
-      "background",
-      `linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), ${bannerUrl}`
-    )
-    .to("backgroundRepeat", "no-repeat")
-    .to("backgroundSize", "cover");
+    .to("background", `transparent`);
+
+  const handleScroll = (event) => {
+    if (event.detail.scrollTop === 0 && !headerVisible) {
+      setHeaderVisible(true);
+      growAnimation.play();
+      if (banner) {
+        colorOutAnimation.play();
+      }
+    }
+
+    if (event.detail.scrollTop > 0 && headerVisible) {
+      setHeaderVisible(false);
+      shrinkAnimation.play();
+      if (banner) {
+        colorInAnimation.play();
+      }
+    }
+  };
 
   return (
-    <>
-      <IonHeader
-        class="header"
+    <IonContent
+      scrollEvents={true}
+      onIonScroll={(event) => handleScroll(event)}
+    >
+      <div
         style={{
+          width: "100%",
           background: banner
             ? `linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), ${bannerUrl}`
             : "#ff9f1c",
@@ -64,7 +79,11 @@ export const ActionHeader = ({ banner, children }) => {
           backgroundSize: "cover",
         }}
       >
-        <IonToolbar color="transparent">
+        <IonToolbar
+          color="transparent"
+          class="header"
+          style={{ position: "fixed" }}
+        >
           <IonText slot="start" style={{ color: "white", margin: "0 5%" }}>
             <h2>FUNTER</h2>
           </IonText>
@@ -97,11 +116,11 @@ export const ActionHeader = ({ banner, children }) => {
           <UserPopover />
         </IonToolbar>
 
-        { banner ? (
+        {banner ? (
           <IonToolbar class="toolbar" color="transparent">
             <IonTitle
               slot="start"
-              style={{ fontSize: "2.25em", color: "white", margin: "0 5%" }}
+              style={{ fontSize: "2.25em", color: "white", margin: "5%" }}
             >
               <h1>
                 START YOUR FOOD
@@ -111,31 +130,9 @@ export const ActionHeader = ({ banner, children }) => {
             </IonTitle>
           </IonToolbar>
         ) : null}
-      </IonHeader>
+      </div>
 
-      { banner ? (
-        <IonContent
-          scrollEvents={true}
-          onIonScroll={(event) => {
-            if (event.detail.scrollTop === 0 && !headerVisible) {
-              setHeaderVisible(true);
-              growAnimation.play();
-              if (banner) {
-                colorOutAnimation.play();
-              }
-            }
-            if (event.detail.scrollTop > 0 && headerVisible) {
-              setHeaderVisible(false);
-              shrinkAnimation.play();
-              if (banner) {
-                colorInAnimation.play();
-              }
-            }
-          }}
-        >
-          {children}
-        </IonContent>
-      ) : null}
-    </>
+      <div style={{ minHeight: "50rem" }}>{children}</div>
+    </IonContent>
   );
 };
