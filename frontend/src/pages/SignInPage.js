@@ -8,14 +8,11 @@ import {
   IonRow,
 } from "@ionic/react";
 import { logoGoogle } from "ionicons/icons";
-import { useContext } from "react";
 import "./SignInPage.css";
 import { signIn } from "../firebase";
 import { userService } from '../services/UserService';
-import { AuthContext } from "../context/AuthContext";
 
 export const SignInPage = () => {
-  const { login } = useContext(AuthContext);
 
   const SignInWithGoogle = () => {
     signIn(async (ok, user) => {
@@ -32,13 +29,13 @@ export const SignInPage = () => {
             favourites: [],
             followingUsers: [],
           };
-
-          const newUser = await userService.createUser(newUserObj);
-
-          login(newUser);
-        } else {
-          login(dbUser);
+           await userService.createUser(newUserObj);      
+      
         }
+
+        localStorage.setItem('isLoggedIn', true);
+        localStorage.setItem("displayName", user.displayName);
+        localStorage.setItem('uid', user.uid);
         window.location.href = '/';
       }
       
