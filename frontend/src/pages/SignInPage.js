@@ -9,15 +9,15 @@ import {
 } from "@ionic/react";
 import { logoGoogle } from "ionicons/icons";
 import { useContext } from "react";
-import "./LoginPage.css";
+import "./SignInPage.css";
 import { signIn } from "../firebase";
 import { userService } from '../services/UserService';
 import { AuthContext } from "../context/AuthContext";
 
-export const LoginPage = () => {
+export const SignInPage = () => {
   const { login } = useContext(AuthContext);
 
-  const logIn = () => {
+  const SignInWithGoogle = () => {
     signIn(async (ok, user) => {
       if (ok) {
         const dbUser = await userService.getUser(user.uid);
@@ -57,17 +57,21 @@ export const LoginPage = () => {
               className="login-button"
               expand="full"
               size="large"
-              onClick={ logIn }
+              onClick={SignInWithGoogle}
             >
               <IonIcon slot="start" icon={logoGoogle} color="light" />
-              Login with Google
+              Sign In with Google
             </IonButton>
             <br />
             <br />
             <br />
             <IonRow className="sign-up">
               <IonText>Don't have an account?&nbsp;&nbsp;</IonText>
-              <IonButton mode="ios" size="small" onClick={login}>
+              <IonButton 
+                mode="ios" 
+                size="small" 
+                onClick={SignInWithGoogle}
+              >
                 Sign Up
               </IonButton>
             </IonRow>

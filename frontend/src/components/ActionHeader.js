@@ -10,10 +10,9 @@ import {
   IonText,
 } from "@ionic/react";
 import { createAnimation } from "@ionic/react";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Searchbar } from "./Searchbar";
 import { UserPopover } from "./UserPopover";
-import { AuthContext } from "../context/AuthContext";
 
 export const ActionHeader = ({ banner, children}) => {
   const bannerUrl = `url('/header.jpg')`;
@@ -101,7 +100,7 @@ export const ActionHeader = ({ banner, children}) => {
               routerDirection="forward"
               target="_self"
             >
-              Login
+              Sign In
             </IonButton>
           )}
           <UserPopover />
