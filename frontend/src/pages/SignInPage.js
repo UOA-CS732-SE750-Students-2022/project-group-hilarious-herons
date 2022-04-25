@@ -62,16 +62,16 @@ export const SignInPage = () => {
             <br />
             <br />
             <br />
-            <IonRow className="sign-up">
+            {/* <IonRow className="sign-up">
               <IonText>Don't have an account?&nbsp;&nbsp;</IonText>
               <IonButton 
                 mode="ios" 
                 size="small" 
-                onClick={SignInWithGoogle}
+                onClick={}
               >
                 Sign Up
               </IonButton>
-            </IonRow>
+            </IonRow> */}
           </div>
         </div>
         <div className="image-content">
