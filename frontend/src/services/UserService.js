@@ -18,7 +18,10 @@ async function getUser (firebaseUID)  {
 
     return result;
   } catch (err) {
-    return err.response.status;
+    if(err.response) {
+      return err.response.status;
+    }
+    
   }
 };
 
@@ -33,6 +36,8 @@ async function createUser (newUser) {
 
     return result;
   } catch (err) {
-    return err.response.status;
+    if(err.response) {
+      return err.response.status;
+    }
   }
 };

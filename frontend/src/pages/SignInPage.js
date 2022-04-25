@@ -5,7 +5,7 @@ import {
   IonButton,
   IonIcon,
   IonText,
-  IonRow,
+  useIonToast,
 } from "@ionic/react";
 import { logoGoogle } from "ionicons/icons";
 import "./SignInPage.css";
@@ -13,11 +13,25 @@ import { signIn } from "../firebase";
 import { userService } from '../services/UserService';
 
 export const SignInPage = () => {
-
+  const [present] = useIonToast();
+  const createWarning = (message) => {
+    return present({
+      message: message,
+      mode: "ios",
+      color: "dark",
+      duration: 2000,
+    });
+  }
   const SignInWithGoogle = () => {
     signIn(async (ok, user) => {
       if (ok) {
         const dbUser = await userService.getUser(user.uid);
+
+        console.log(dbUser);
+        if(!dbUser) {
+          createWarning("Not start the backend");
+          return ;
+        }
 
         if (dbUser === 404) {
           const newUserObj = {
@@ -29,14 +43,14 @@ export const SignInPage = () => {
             favourites: [],
             followingUsers: [],
           };
-           await userService.createUser(newUserObj);      
-      
+           await userService.createUser(newUserObj);
         }
-
         localStorage.setItem('isLoggedIn', true);
         localStorage.setItem("displayName", user.displayName);
         localStorage.setItem('uid', user.uid);
         window.location.href = '/';
+      } else {
+        createWarning("Signin with Google Unsuccessfully");
       }
       
     });
