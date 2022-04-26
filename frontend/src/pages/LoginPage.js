@@ -1,10 +1,5 @@
-import { IonPage } from "@ionic/react";
-import { ActionHeader } from "../components/ActionHeader";
+import { FoodPage } from "../components/FoodPage";
 
 export const LoginPage = () => {
-  return (
-    <IonPage>
-      <ActionHeader />
-    </IonPage>
-  );
+  return <FoodPage></FoodPage>;
 };

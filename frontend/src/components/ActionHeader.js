@@ -15,7 +15,6 @@ import { UserPopover } from "./UserPopover";
 import "./ActionHeader.css";
 
 export const ActionHeader = ({ banner, children }) => {
-  const bannerUrl = `url("https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80")`;
   const [headerVisible, setHeaderVisible] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -52,14 +51,8 @@ export const ActionHeader = ({ banner, children }) => {
       onIonScroll={(event) => handleScroll(event)}
     >
       <div>
-        <div
-          className="header-bg"
-          style={{
-            background: banner
-              ? `linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), ${bannerUrl}`
-              : "#ff9f1c",
-          }}
-        />
+        {banner ? <div className="header-bg" /> : null}
+
         <div
           className="header"
           id="header"
@@ -80,7 +73,10 @@ export const ActionHeader = ({ banner, children }) => {
                 style={{ margin: "0 5%" }}
               >
                 <IonAvatar>
-                  <img src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg" />
+                  <img
+                    src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg"
+                    alt="user"
+                  />
                 </IonAvatar>
                 <IonLabel>Username</IonLabel>
               </IonChip>
