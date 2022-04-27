@@ -69,7 +69,7 @@ afterAll(async () => {
   await mongoose.disconnect();
   await mongod.stop();
 });
-jest.setTimeout(15000);
+jest.setTimeout(30000);
 
 describe("GET /posts", () => {
   it("GET /posts", (done) => {
@@ -79,13 +79,33 @@ describe("GET /posts", () => {
       .expect(200)
       .end((err, res) => {
         if (err) {
+          console.log(err);
           return done(err);
         }
-        console.log(res.body);
         expect(res.body);
 
         expect(res.body[0].foodName).toBe("Fries");
         expect(res.body.length).toBe(10);
+        return done();
+      });
+  });
+});
+
+describe("GET /posts", () => {
+  it("GET /posts with posts request number", (done) => {
+    request(app)
+      .get("/api/posts")
+      .send({ lat: -36.91042, long: 174.7698112, numberOfposts: 11 })
+      .expect(200)
+      .end((err, res) => {
+        if (err) {
+          console.log(err);
+          return done(err);
+        }
+        expect(res.body);
+
+        expect(res.body[0].foodName).toBe("Fries");
+        expect(res.body.length).toBe(11);
         return done();
       });
   });

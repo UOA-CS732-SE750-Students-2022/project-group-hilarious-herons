@@ -165,7 +165,7 @@ const getPostFromGoogle = async (
   lat,
   long,
   range,
-  numReqPost = 9,
+  numberOfposts = 9,
   postPerRestaurant = 2
 ) => {
   try {
@@ -239,11 +239,14 @@ const getPostFromGoogle = async (
               distance: distance,
             };
             allPosts = [...allPosts, post];
-            numReqPost--;
+            numberOfposts--;
           }
         }
+        if (numberOfposts <= 0) {
+          break;
+        }
       }
-      if (numReqPost <= 0) {
+      if (numberOfposts <= 0) {
         break;
       }
     }
@@ -256,16 +259,19 @@ const getPostFromGoogle = async (
 
 exports.getPosts = async (req, res) => {
   try {
-    const { lat, long, desktop } = req.body;
-    let { range } = req.body; //km
+    const { lat, long } = req.body;
+    let { range, numberOfposts } = req.body; //km
 
     if (!range) {
       range = 10;
     }
+    if (!numberOfposts || numberOfposts < 10) {
+      numberOfposts = 10;
+    }
     let posts = await getPostsFromDB(lat, long, range);
     range = range * 1000; //convert to meter
-    if (posts.length < 10) {
-      const num = 10 - posts.length;
+    if (posts.length < numberOfposts) {
+      const num = numberOfposts - posts.length;
 
       const googleposts = await getPostFromGoogle(lat, long, range, num);
 
