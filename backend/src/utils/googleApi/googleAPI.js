@@ -6,12 +6,16 @@ const axios = require("axios");
  * @param {*} long
  * @returns
  */
-const getNearbyPlace = async (lat, long) => {
+const getNearbyPlace = async (lat, long, range) => {
   const key = process.env.GOOGLE_API_KEY;
+  if (typeof range === "undefined" || range === null) {
+    range = 10000;
+  }
+  console.log(range);
 
   const config = {
     method: "get",
-    url: `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${long}&rankby=distance&type=restaurant&key=${key}`,
+    url: `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${long}&type=restaurant&radius=${range}&key=${key}`,
     headers: {},
   };
 
@@ -49,15 +53,14 @@ const getRestaurant = async (placeId) => {
  * return neaby restaurnt information including reviews and photo
  * https://developers.google.com/maps/documentation/places/web-service/details#PlaceDetailsResponses
  */
-const getReivewfromGoogle = async (lat, long) => {
+const getReivewfromGoogle = async (lat, long, range) => {
   try {
-    const response = await getNearbyPlace(lat, long);
+    const response = await getNearbyPlace(lat, long, range);
+
     const placeDetails = response.results.map(async (res) => {
       const detail = await getRestaurant(res.place_id);
-
       return detail.result;
     });
-    // const placeResponse = await getRestaurant("ChIJST6enOVHDW0RG9tjM7E9zDg");
 
     const result = await Promise.all(placeDetails);
 
@@ -87,7 +90,29 @@ const getRestaurantByText = async (name) => {
   }
 };
 
+const getGooglePhoto = async (ref) => {
+  const key = process.env.GOOGLE_API_KEY;
+  try {
+    var config = {
+      method: "get",
+      url: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${ref}&key=${key}`,
+      headers: {},
+    };
+
+    const response = await axios(config).catch(function (error) {
+      console.log(error);
+      throw error;
+    });
+
+    return response.request.res.responseUrl;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};
+
 exports.getPlace = getRestaurant;
 exports.getNearbyPlace = getNearbyPlace;
 exports.getReivewfromGoogle = getReivewfromGoogle;
 exports.getRestaurantByText = getRestaurantByText;
+exports.getGooglePhoto = getGooglePhoto;
