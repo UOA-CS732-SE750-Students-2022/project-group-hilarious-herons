@@ -1,12 +1,10 @@
-import { IonPage } from "@ionic/react";
-import { ActionHeader } from "../components/ActionHeader";
 import { Error404 } from "../components/Error404";
+import { FoodPage } from "../components/FoodPage";
 
 export const ErrorPage = () => {
   return (
-    <IonPage>
-      <ActionHeader />
+    <FoodPage>
       <Error404 />
-    </IonPage>
+    </FoodPage>
   );
 };
