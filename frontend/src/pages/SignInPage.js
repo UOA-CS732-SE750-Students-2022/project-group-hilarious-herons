@@ -27,7 +27,6 @@ export const SignInPage = () => {
       if (ok) {
         const dbUser = await userService.getUser(user.uid);
 
-        console.log(dbUser);
         if(!dbUser) {
           createWarning("Not start the backend");
           return ;

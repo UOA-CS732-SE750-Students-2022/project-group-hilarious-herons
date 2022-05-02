@@ -19,8 +19,6 @@ async function signIn (callback) {
     try {
         const result = await signInWithPopup(auth, new GoogleAuthProvider())
         const user = result.user
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
     
         if(user) { 
             callback(true, user);
