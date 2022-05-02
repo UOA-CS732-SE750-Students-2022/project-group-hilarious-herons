@@ -91,6 +91,9 @@ export const ActionHeader = ({ banner, children }) => {
                 color="light"
                 style={{ margin: "0 5%" }}
                 mode="ios"
+                routerLink="/auth"
+                routerDirection="forward"
+                target="_self"
               >
                 Login
               </IonButton>
