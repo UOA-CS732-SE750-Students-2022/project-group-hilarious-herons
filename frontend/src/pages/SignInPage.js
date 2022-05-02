@@ -66,8 +66,8 @@ export const SignInPage = () => {
             <br />
             <IonButton
               className="login-button"
-              expand="full"
               size="large"
+              mode="ios"
               onClick={SignInWithGoogle}
             >
               <IonIcon slot="start" icon={logoGoogle} color="light" />
