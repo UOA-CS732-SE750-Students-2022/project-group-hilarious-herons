@@ -82,7 +82,7 @@ export const ActionHeader = ({ banner, children }) => {
                     alt="user"
                   />
                 </IonAvatar>
-                <IonLabel>Username</IonLabel>
+                <IonLabel>{ displayName }</IonLabel>
               </IonChip>
             ) : (
               <IonButton
