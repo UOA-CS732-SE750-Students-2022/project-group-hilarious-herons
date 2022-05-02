@@ -1,7 +1,6 @@
 import {
   IonButton,
   IonContent,
-  IonHeader,
   IonTitle,
   IonToolbar,
   IonChip,
@@ -13,45 +12,38 @@ import { createAnimation } from "@ionic/react";
 import { useEffect, useState } from "react";
 import { Searchbar } from "./Searchbar";
 import { UserPopover } from "./UserPopover";
+import "./ActionHeader.css";
 
-export const ActionHeader = ({ banner, children}) => {
-  const bannerUrl = `url('/header.jpg')`;
+export const ActionHeader = ({ banner, children }) => {
   const [headerVisible, setHeaderVisible] = useState(true);
   const [displayName, setDisplayName] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const shrinkAnimation = createAnimation()
-    .addElement(document.querySelector(".toolbar"))
-    .duration(500)
-    .easing("ease-out")
-    .fromTo("height", "300px", "0")
-    .fromTo("transform", "translateY(0px)", "translateY(-500px)")
-    .fromTo("opacity", "1", "0");
-
-  const growAnimation = createAnimation()
-    .addElement(document.querySelector(".toolbar"))
-    .duration(500)
-    .easing("ease-in")
-    .fromTo("height", "0", "300px")
-    .fromTo("transform", "translateY(-300px)", "translateY(0px)")
-    .fromTo("opacity", "0", "1");
-
   const colorInAnimation = createAnimation()
-    .addElement(document.querySelector(".header"))
-    .duration(500)
+    .addElement(document.querySelector("#header"))
+    .duration(200)
     .easing("ease-in")
     .to("background", "#ff9f1c");
 
   const colorOutAnimation = createAnimation()
-    .addElement(document.querySelector(".header"))
-    .duration(500)
+    .addElement(document.querySelector("#header"))
+    .duration(200)
     .easing("ease-out")
-    .to(
-      "background",
-      `linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), ${bannerUrl}`
-    )
-    .to("backgroundRepeat", "no-repeat")
-    .to("backgroundSize", "cover");
+    .to("background", `transparent`);
+
+  const handleScroll = (event) => {
+    if (banner) {
+      if (event.detail.scrollTop === 0 && !headerVisible) {
+        setHeaderVisible(true);
+        colorOutAnimation.play();
+      }
+
+      if (event.detail.scrollTop > 0 && headerVisible) {
+        setHeaderVisible(false);
+        colorInAnimation.play();
+      }
+    }
+  };
 
     useEffect(() => {
       setDisplayName(localStorage.getItem('displayName'));
@@ -59,58 +51,60 @@ export const ActionHeader = ({ banner, children}) => {
     } , [])
 
   return (
-    <>
-      <IonHeader
-        class="header"
-        style={{
-          background: banner
-            ? `linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), ${bannerUrl}`
-            : "#ff9f1c",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-        }}
-      >
-        <IonToolbar color="transparent">
-          <IonText slot="start" style={{ color: "white", margin: "0 5%" }}>
-            <h2>FUNTER</h2>
-          </IonText>
+    <IonContent
+      style={{ minHeight: "50rem" }}
+      scrollEvents={true}
+      onIonScroll={(event) => handleScroll(event)}
+    >
+      <div>
+        {banner ? <div className="header-bg" /> : null}
 
-          <Searchbar />
+        <div
+          className="header"
+          id="header"
+          style={{ background: banner ? "transparent" : "#ff9f1c" }}
+        >
+          <IonToolbar color="transparent">
+            <IonText slot="start" style={{ color: "white", margin: "0 5%" }}>
+              <h2>FUNTER</h2>
+            </IonText>
+            <Searchbar />
+            {isLoggedIn ? (
+              <IonChip
+                id="user-avatar"
+                slot="end"
+                color="light"
+                style={{ margin: "0 5%" }}
+              >
+                <IonAvatar>
+                  <img
+                    src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg"
+                    alt="user"
+                  />
+                </IonAvatar>
+                <IonLabel>Username</IonLabel>
+              </IonChip>
+            ) : (
+              <IonButton
+                slot="end"
+                shape="round"
+                color="light"
+                style={{ margin: "0 5%" }}
+                mode="ios"
+              >
+                Login
+              </IonButton>
+            )}
+            <UserPopover />
+          </IonToolbar>
+        </div>
 
-          {isLoggedIn ? (
-            <IonChip
-              id="user-avatar"
-              slot="end"
-              color="light"
-              style={{ margin: "0 5%" }}
-            >
-              <IonAvatar>
-                <img src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg" />
-              </IonAvatar>
-              <IonLabel>{displayName}</IonLabel>
-            </IonChip>
-          ) : (
-            <IonButton
-              slot="end"
-              shape="round"
-              color="light"
-              style={{ margin: "0 5%" }}
-              mode="ios"
-              routerLink="/auth"
-              routerDirection="forward"
-              target="_self"
-            >
-              Sign In
-            </IonButton>
-          )}
-          <UserPopover />
-        </IonToolbar>
 
-        { banner ? (
-          <IonToolbar class="toolbar" color="transparent">
+        {banner ? (
+          <header className="banner">
             <IonTitle
               slot="start"
-              style={{ fontSize: "2.25em", color: "white", margin: "0 5%" }}
+              style={{ fontSize: "2.25em", color: "white", margin: "5%" }}
             >
               <h1>
                 START YOUR FOOD
@@ -118,33 +112,10 @@ export const ActionHeader = ({ banner, children}) => {
                 HUNTING JOURNEY.
               </h1>
             </IonTitle>
-          </IonToolbar>
+          </header>
         ) : null}
-      </IonHeader>
-
-      { banner ? (
-        <IonContent
-          scrollEvents={true}
-          onIonScroll={(event) => {
-            if (event.detail.scrollTop === 0 && !headerVisible) {
-              setHeaderVisible(true);
-              growAnimation.play();
-              if (banner) {
-                colorOutAnimation.play();
-              }
-            }
-            if (event.detail.scrollTop > 0 && headerVisible) {
-              setHeaderVisible(false);
-              shrinkAnimation.play();
-              if (banner) {
-                colorInAnimation.play();
-              }
-            }
-          }}
-        >
-          {children}
-        </IonContent>
-      ) : null}
-    </>
+        {children}
+      </div>
+    </IonContent>
   );
 };
