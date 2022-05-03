@@ -36,7 +36,6 @@ export const AddPostModal = () => {
   const [dietaries, setDietaries] = useState([]);
   const [tag, setTag] = useState("");
   const [tagsList, setTagsList] = useState([]);
-  const [show, setShow] = useState(false);
   const [present] = useIonToast();
 
   function getFiveStarRating() {

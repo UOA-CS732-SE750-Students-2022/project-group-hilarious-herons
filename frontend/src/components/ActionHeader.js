@@ -9,13 +9,14 @@ import {
   IonText,
 } from "@ionic/react";
 import { createAnimation } from "@ionic/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Searchbar } from "./Searchbar";
 import { UserPopover } from "./UserPopover";
 import "./ActionHeader.css";
 
 export const ActionHeader = ({ banner, children }) => {
   const [headerVisible, setHeaderVisible] = useState(true);
+  const [displayName, setDisplayName] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const colorInAnimation = createAnimation()
@@ -44,6 +45,11 @@ export const ActionHeader = ({ banner, children }) => {
     }
   };
 
+    useEffect(() => {
+      setDisplayName(localStorage.getItem('displayName'));
+      setIsLoggedIn(localStorage.getItem("isLoggedIn"));
+    } , [])
+
   return (
     <IonContent
       style={{ minHeight: "50rem" }}
@@ -62,9 +68,7 @@ export const ActionHeader = ({ banner, children }) => {
             <IonText slot="start" style={{ color: "white", margin: "0 5%" }}>
               <h2>FUNTER</h2>
             </IonText>
-
             <Searchbar />
-
             {isLoggedIn ? (
               <IonChip
                 id="user-avatar"
@@ -78,7 +82,7 @@ export const ActionHeader = ({ banner, children }) => {
                     alt="user"
                   />
                 </IonAvatar>
-                <IonLabel>Username</IonLabel>
+                <IonLabel>{ displayName }</IonLabel>
               </IonChip>
             ) : (
               <IonButton
@@ -87,6 +91,8 @@ export const ActionHeader = ({ banner, children }) => {
                 color="light"
                 style={{ margin: "0 5%" }}
                 mode="ios"
+                href="/auth"
+                routerDirection="forward"
               >
                 Login
               </IonButton>
@@ -94,6 +100,7 @@ export const ActionHeader = ({ banner, children }) => {
             <UserPopover />
           </IonToolbar>
         </div>
+
 
         {banner ? (
           <header className="banner">

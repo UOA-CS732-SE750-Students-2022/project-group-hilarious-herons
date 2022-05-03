@@ -26,23 +26,24 @@ import {
   heartOutline,
   openOutline,
 } from "ionicons/icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { postService  } from '../services/PostService';
 
 export const FoodDetailsCard = () => {
   const [liked, setLiked] = useState(false);
   const [present, dismiss] = useIonToast();
+  const [foodData, setFoodData] = useState({});
+
+  useEffect(() => {
+    postService.getPostDetails("626268a4797a487bcc773b08").then((res) => {
+      setFoodData(res)
+    })
+  }, []);
+
 
   const getData = () => {
     return {
-      foodName: "Food post name",
-      rating: 4,
       timestamp: new Date(),
-      image:
-        "https://images.unsplash.com/photo-1561758033-d89a9ad46330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-      tags: ["burger", "fast food", "fries", "meat"],
-      dietryRequirements: ["Vegan", "Gluten-free", "Vegetarian"],
-      bodyText:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
       restaurant: {
         name: "Restaurant name",
         address: "23 Lorem ipsum dolor, sit amet, 1010",
@@ -52,35 +53,30 @@ export const FoodDetailsCard = () => {
           weekends: "10:00am - 5:00pm",
         },
       },
-      numberOfLikes: "1.2k",
     };
   };
 
   const {
-    foodName,
-    rating,
     timestamp,
-    image,
-    tags,
-    dietryRequirements,
-    bodyText,
     restaurant,
-    numberOfLikes,
   } = getData();
 
-  const getRating = () => {
-    const filledStars = [...Array(rating + 1).keys()].slice(1);
-    const emptyStars = [...Array(5 - rating + 1).keys()].slice(1);
-    return (
-      <>
-        {filledStars.map((num) => {
-          return <IonIcon icon={star} key={num} />;
-        })}
-        {emptyStars.map((num) => {
-          return <IonIcon icon={starOutline} key={num} />;
-        })}
-      </>
-    );
+  const getRating = (rating) => {
+    if(rating) {
+      const filledStars = [...Array(rating + 1).keys()].slice(1);
+      const emptyStars = [...Array(5 - rating + 1).keys()].slice(1);
+      return (
+        <>
+          {filledStars.map((num) => {
+            return <IonIcon icon={star} key={num} />;
+          })}
+          {emptyStars.map((num) => {
+            return <IonIcon icon={starOutline} key={num} />;
+          })}
+        </>
+      );
+
+    }
   };
 
   const addToLikedPosts = () => {
@@ -102,7 +98,7 @@ export const FoodDetailsCard = () => {
         <IonRow>
           <IonCol size="12" sizeLg="6">
             <IonImg
-              src={image}
+              src={foodData.imageURLs}
               style={{ borderRadius: "1rem", overflow: "hidden" }}
             />
           </IonCol>
@@ -110,7 +106,7 @@ export const FoodDetailsCard = () => {
           <IonCol size="12" sizeLg="6">
             <IonItem lines="none">
               <IonCardTitle>
-                <b>{foodName}</b>
+                <b>{foodData.foodName}</b>
                 <IonCardSubtitle style={{ marginTop: "0.5rem" }}>
                   {timestamp.toLocaleDateString()}
                 </IonCardSubtitle>
@@ -125,20 +121,21 @@ export const FoodDetailsCard = () => {
               </IonAvatar>
             </IonItem>
 
-            <IonItem lines="none">{getRating()}</IonItem>
+            <IonItem lines="none">{getRating(foodData.rating)}</IonItem>
 
             <IonItemGroup style={{pointerEvents: 'none'}}>
-              {tags.map((tag, idx) => {
+              { foodData.tags && foodData.tags.map((tag, idx) => {
                 return (
                   <IonChip color="primary" key={idx}>
                     <IonLabel>{tag}</IonLabel>
                   </IonChip>
                 );
-              })}
+              })
+              }
             </IonItemGroup>
 
             <IonItemGroup  style={{pointerEvents: 'none'}}>
-              {dietryRequirements.map((diet, idx) => {
+              {foodData.dietryRequirements && foodData.dietryRequirements.map((diet, idx) => {
                 return (
                   <IonChip color="primary" outline key={idx}>
                     <IonLabel>{diet}</IonLabel>
@@ -147,7 +144,7 @@ export const FoodDetailsCard = () => {
               })}
             </IonItemGroup>
 
-            <IonItem lines="none">{bodyText}</IonItem>
+            <IonItem lines="none">{foodData.bodyText}</IonItem>
 
             <IonItem lines="none">
               <IonIcon icon={locationOutline} slot="start" />
@@ -202,7 +199,7 @@ export const FoodDetailsCard = () => {
               >
                 <IonRow style={{ display: 'inline-block'}}>
                   <IonIcon size="large" icon={liked ? heart : heartOutline} style={{ verticalAlign: "middle" }}/>
-                  <IonText color="dark">{ numberOfLikes }</IonText>
+                  <IonText color="dark">{ foodData.numberOfLikes }</IonText>
                 </IonRow>
               </IonButton>
             </IonItem>
