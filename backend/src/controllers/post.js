@@ -4,7 +4,6 @@ const {
   createPost,
 } = require("../models/Post/posts-dao");
 const Restaurant = require("../models/Restaurant/RestaurantSchema");
-const { retrieveRestaurant } = require("../models/Restaurant/restaurant-dao");
 const mongoose = require("mongoose");
 const {
   distanceCalculation,
@@ -14,8 +13,10 @@ const {
   getReivewfromGoogle,
   getGooglePhoto,
 } = require("../utils/googleApi/googleAPI");
-const { createRestaurant } = require("../models/Restaurant/restaurant-dao");
-const { post } = require("../routes");
+const {
+  retrieveRestaurant,
+  createRestaurant,
+} = require("../models/Restaurant/restaurant-dao");
 
 exports.getPost = async (req, res) => {
   try {
@@ -23,8 +24,11 @@ exports.getPost = async (req, res) => {
     const post = await retrievePost(id);
 
     if (post === undefined || post === null || post.length === 0) {
-      res.status(404);
+      res.status(404).json({ success: false });
     }
+
+    const restaurant = await retrieveRestaurant(post.restaurant);
+    post.restaurant = restaurant;
 
     res.send(post);
   } catch (e) {
@@ -152,10 +156,11 @@ const getPostsFromDB = async (lat, long, range) => {
   let posts = [];
   for (i of distancesObj) {
     const response = await Post.find({ restaurant: i.id });
-    const processedData = response.map((data) => {
-      return { ...data._doc, distance: i.distance };
-    });
-    posts = posts.concat(processedData);
+    for (data of response) {
+      const restaurant = await retrieveRestaurant(data.restaurant);
+      data.restaurant = restaurant;
+      posts = [...posts, data];
+    }
   }
 
   return posts;
