@@ -105,11 +105,7 @@ exports.createPost = async (req, res) => {
       restaurantId,
     } = req.body;
 
-    console.log(req);
-
     const restaurant = await retrieveRestaurant(restaurantId);
-    console.log(req.body);
-    console.log(req.body.file);
 
     const postObj = {
       foodName,
