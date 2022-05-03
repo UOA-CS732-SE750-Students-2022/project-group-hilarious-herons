@@ -27,6 +27,7 @@ import {
   openOutline,
 } from "ionicons/icons";
 import { useEffect, useState } from "react";
+import {postService}  from '../services/PostService';
 import { useParams } from "react-router-dom";
 
 export const FoodDetailsCard = () => {
@@ -34,14 +35,12 @@ export const FoodDetailsCard = () => {
   const [present, dismiss] = useIonToast();
   const [foodData, setFoodData] = useState({});
   const foodID = useParams().id;
-
+  
   useEffect(() => {
-    postService.getPostDetails("6270b67d8d4768ebf7d75889").then((res) => {
+    postService.getPostDetails(foodID).then((res) => {
       setFoodData(res)
     })
   }, []);
-
-
 
   const getData = () => {
     return {
