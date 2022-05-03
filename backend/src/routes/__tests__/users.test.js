@@ -73,6 +73,36 @@ describe("GET user /api/user/:id", () => {
   });
 });
 
+describe("GET user /api/user/firebase/:id", () => {
+  it("successful get user", (done) => {
+    request(app)
+      .get("/api/users/firebase/ID_1")
+      .send()
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err);
+
+        expect(res.body);
+        expect(res.body.displayName).toBe("user1");
+        expect(res.body.firstName).toBe("first");
+        expect(res.body.lastName).toBe("user");
+
+        return done();
+      });
+  });
+
+  it("user does not exist", (done) => {
+    request(app)
+      .get("/api/users/firebase/ID_3")
+      .send()
+      .expect(404)
+      .end((err, res) => {
+        expect(err);
+        return done();
+      });
+  });
+});
+
 describe("POST user /api/users/", () => {
   it("post valid user", (done) => {
     const newUser = {

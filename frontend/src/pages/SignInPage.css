@@ -1,0 +1,76 @@
+.login-content {
+    --background: none;
+    background: url('/public/login.jpg');
+    background-repeat: no-repeat;
+    background-size: 50% 100%;
+    background-position: right top;
+    display: flex;
+}
+
+@media only screen and (max-width: 600px) {
+    .login-content {
+        --background: #ffff;
+    }
+    .image-content {
+        display: none;
+    }
+}
+
+.image-content {
+    position: absolute;
+    left: 50%; 
+    width: 50%; 
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4)
+}
+
+.component {
+    position: absolute;
+    width: 50%; 
+    height: 100%;
+    display: flex;
+}
+
+.componentx {
+    display: grid;
+    margin: auto;
+}
+.componentx ion-title {
+    justify-self: center;
+    align-self: center
+}
+
+.componentx .login-button {
+    justify-self: center;
+    align-self: center;
+}
+
+.componentx .sign-up {
+    justify-self: center;
+    align-self: center
+}
+
+.image-content {
+    color: #ffff;    
+}
+
+.image-content h1 {
+    font-size: 50px;  
+}
+
+.image-content ion-title {
+    font-size: 2.25em;
+    margin: 0 5%
+}
+
+.sign-up ion-text {
+    font-weight: bold
+}
+
+.sign-up {
+    display: inline-block
+}
+
+.sign-up ion-button {
+    vertical-align: middle
+}
