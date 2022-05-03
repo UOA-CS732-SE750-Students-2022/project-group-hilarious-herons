@@ -28,7 +28,7 @@ import {
 } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { postService  } from '../services/PostService';
+// import { postService  } from '../services/PostService';
 
 export const FoodDetailsCard = () => {
   const [liked, setLiked] = useState(false);
@@ -36,11 +36,11 @@ export const FoodDetailsCard = () => {
   const [foodData, setFoodData] = useState({});
   const foodID = useParams().id;
 
-  useEffect(() => {
-    postService.getPostDetails("626268a4797a487bcc773b08").then((res) => {
-      setFoodData(res)
-    })
-  }, []);
+  // useEffect(() => {
+  //   postService.getPostDetails("626268a4797a487bcc773b08").then((res) => {
+  //     setFoodData(res)
+  //   })
+  // }, []);
 
 
   const getData = () => {
