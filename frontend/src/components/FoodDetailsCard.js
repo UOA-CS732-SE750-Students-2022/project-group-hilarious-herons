@@ -27,10 +27,12 @@ import {
   openOutline,
 } from "ionicons/icons";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 
 export const FoodDetailsCard = () => {
   const [liked, setLiked] = useState(false);
   const [present, dismiss] = useIonToast();
+  const foodID = useParams().id;
 
   const getData = () => {
     return {
