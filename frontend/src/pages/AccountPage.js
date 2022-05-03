@@ -18,12 +18,20 @@ export const AccountPage = () => {
   };
 
   useEffect(() => {
-    // Call backend api to fetch user liked or created posts
     fetchPosts();
-  }, [option]);
+    console.log("useEffect");
+  }, []);
 
   const handleSegmentClick = async (e) => {
-    setOption(e.detail.value);
+    // Call backend api to fetch user liked or created posts
+    const option = e.detail.value;
+    setOption(option);
+
+    if (option === "liked") {
+      console.log("Segment selected", option);
+    } else {
+      console.log("Segment selected", option);
+    }
   };
 
   return (
