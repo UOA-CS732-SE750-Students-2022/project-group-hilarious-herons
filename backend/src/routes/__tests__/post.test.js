@@ -4,6 +4,7 @@ const routes = require("../index");
 const { MongoMemoryServer } = require("mongodb-memory-server");
 const mongoose = require("mongoose");
 const Post = require("../../models/Post/PostSchema");
+const Restaurant = require("../../models/Restaurant/RestaurantSchema");
 require("dotenv").config();
 
 const app = express();
@@ -12,10 +13,32 @@ app.use("/", routes);
 
 let mongod;
 
+const mockRestaurant = {
+  _id: new mongoose.Types.ObjectId("000000000000000000000001"),
+  name: "Paradise Takeaway",
+  address: "581 Sandringham Road, Sandringham, Auckland",
+  coordinates: {
+    lat: -36.91042,
+    long: 174.7698112,
+  },
+  googlePlaceId: "ChIJcT4y8llGDW0RfP72WCE-SF0",
+  googleMapsURL: "https://maps.google.com/?cid=6721690756797890172",
+  openHours: [
+    "Monday: 5:00 AM – 11:00 PM",
+    "Tuesday: 5:00 AM – 11:00 PM",
+    "Wednesday: 5:00 AM – 11:00 PM",
+    "Thursday: 5:00 AM – 11:00 PM",
+    "Friday: 5:00 AM – 11:00 PM",
+    "Saturday: 5:00 AM – 11:00 PM",
+    "Sunday: 5:00 AM – 11:00 PM",
+  ],
+};
+
 const mockPost = {
   _id: new mongoose.Types.ObjectId("000000000000000000000002"),
   foodName: "Fries",
   bodyText: "This is a really nice Fries",
+  restaurant: new mongoose.Types.ObjectId("000000000000000000000001"),
   tags: ["Fast food", "fries"],
   numberOfLikes: 2,
   rating: 2,
@@ -42,7 +65,10 @@ beforeEach(async () => {
   await mongoose.connection.db.dropDatabase();
 
   const coll = await mongoose.connection.db.createCollection("posts");
-  // console.log(coll);
+  await mongoose.connection.db.createCollection("restaurants");
+
+  const restaurant = new Restaurant(mockRestaurant);
+  await restaurant.save();
   const post = new Post(mockPost);
   await post.save();
 });
@@ -61,6 +87,7 @@ describe("GET /api/posts/:id", () => {
       .end((err, res) => {
         if (err) return done(err);
         expect(res.body);
+        expect(res.body.restaurant.name).toBe("Paradise Takeaway");
         expect(res.body.foodName).toBe("Fries");
         return done();
       });
