@@ -4,6 +4,7 @@ import {
     IonItem,
     IonLabel,
  } from "@ionic/react";
+import { logOut } from "../firebase";
 
 export const UserPopover = () => {
     const LabelStyle ={
@@ -22,7 +23,11 @@ export const UserPopover = () => {
                     detail={false} 
                     href="/"
                     onClick={() => {
-                        console.log('logout click.')
+                        logOut(async (isLogout) => {
+                            if(isLogout) {
+                                localStorage.clear();
+                            }
+                        });               
                     }} >
                     <IonLabel color='primary' style={LabelStyle}>Log out</IonLabel>
                 </IonItem>

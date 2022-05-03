@@ -16,7 +16,7 @@ exports.getRestaurantDetail = async (req, res) => {
       for (data of response.candidates) {
         const result = await getPlace(data.place_id);
         const place = result.result;
-        const location = place.geometry;
+        const location = place.geometry.location;
         const restaurantObj = {
           name: place.name,
           address: place.vicinity,
