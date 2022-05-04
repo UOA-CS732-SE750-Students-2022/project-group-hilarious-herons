@@ -15,7 +15,6 @@ const {
   getGooglePhoto,
 } = require("../utils/googleApi/googleAPI");
 const { createRestaurant } = require("../models/Restaurant/restaurant-dao");
-const { post } = require("../routes");
 
 exports.getPost = async (req, res) => {
   try {
