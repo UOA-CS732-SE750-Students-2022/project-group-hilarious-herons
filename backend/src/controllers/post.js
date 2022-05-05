@@ -291,7 +291,6 @@ exports.getPosts = async (req, res) => {
 
 exports.searchPost = async (req, res) => {
   const { lat, long, searchKeyWord } = req.body;
-  console.log(searchKeyWord);
 
   const result = await Post.find({
     $or: [
@@ -300,7 +299,9 @@ exports.searchPost = async (req, res) => {
     ],
   });
 
-  console.log(result);
+  if (result.length == 0) {
+    return res.status(404).json({});
+  }
 
   const distantMap = new Map();
   let resultWithDistance = [];
@@ -319,7 +320,6 @@ exports.searchPost = async (req, res) => {
 
     data = { ...data._doc, distance: distance };
     resultWithDistance = [...resultWithDistance, data];
-    console.log(data);
   }
   resultWithDistance = resultWithDistance.sort((a, b) => {
     return a.distance - b.distance;

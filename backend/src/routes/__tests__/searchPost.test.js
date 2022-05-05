@@ -125,3 +125,18 @@ describe("GET /posts/search", () => {
       });
   });
 });
+
+describe("GET /posts/search", () => {
+  it("GET /posts/search no result", (done) => {
+    request(app)
+      .get("/api/posts/search")
+      .send({ lat: -36.91042, long: 174.7698112, searchKeyWord: "0" })
+      .expect(404)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        return done();
+      });
+  });
+});
