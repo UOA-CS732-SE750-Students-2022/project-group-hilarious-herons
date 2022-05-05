@@ -15,7 +15,6 @@ const {
   getGooglePhoto,
 } = require("../utils/googleApi/googleAPI");
 const { createRestaurant } = require("../models/Restaurant/restaurant-dao");
-const { post } = require("../routes");
 
 exports.getPost = async (req, res) => {
   try {
@@ -288,4 +287,42 @@ exports.getPosts = async (req, res) => {
       info: err.message,
     });
   }
+};
+
+exports.searchPost = async (req, res) => {
+  const { lat, long, searchKeyWord } = req.body;
+  console.log(searchKeyWord);
+
+  const result = await Post.find({
+    $or: [
+      { foodName: { $regex: `(?i)${searchKeyWord}` } },
+      { tags: searchKeyWord },
+    ],
+  });
+
+  console.log(result);
+
+  const distantMap = new Map();
+  let resultWithDistance = [];
+  for (let data of result) {
+    const restaurant = await retrieveRestaurant(data.restaurant);
+    const restaurantLat = restaurant.coordinates.lat;
+    const restaurantLong = restaurant.coordinates.long;
+    const mapResult = distantMap.get(restaurantLat + restaurantLong);
+    let distance;
+    if (mapResult == null || mapResult == undefined) {
+      distance = distanceCalculation(lat, long, restaurantLat, restaurantLong);
+      distantMap.set(restaurantLat + restaurantLong, distance);
+    } else {
+      distance = mapResult;
+    }
+
+    data = { ...data._doc, distance: distance };
+    resultWithDistance = [...resultWithDistance, data];
+    console.log(data);
+  }
+  resultWithDistance = resultWithDistance.sort((a, b) => {
+    return a.distance - b.distance;
+  });
+  res.send(resultWithDistance);
 };
