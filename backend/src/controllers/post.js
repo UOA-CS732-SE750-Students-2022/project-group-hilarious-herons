@@ -296,7 +296,7 @@ exports.searchPost = async (req, res) => {
   const result = await Post.find({
     $or: [
       { foodName: { $regex: `(?i)${searchKeyWord}` } },
-      { tags: searchKeyWord },
+      { tags: { $regex: `(?i)${searchKeyWord}` } },
     ],
   });
 

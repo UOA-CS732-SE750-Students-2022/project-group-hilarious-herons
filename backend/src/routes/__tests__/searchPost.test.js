@@ -89,10 +89,29 @@ describe("GET /posts/search", () => {
 });
 
 describe("GET /posts/search", () => {
-  it("GET /posts/search within array", (done) => {
+  it("GET /posts/search within array with partial string", (done) => {
     request(app)
       .get("/api/posts/search")
       .send({ lat: -36.91042, long: 174.7698112, searchKeyWord: "ood" })
+      .expect(200)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        expect(res.body);
+        console.log(res.body);
+
+        expect(res.body[0].foodName).toBe("Fries");
+        return done();
+      });
+  });
+});
+
+describe("GET /posts/search", () => {
+  it("GET /posts/search within array with partial string case insensitive", (done) => {
+    request(app)
+      .get("/api/posts/search")
+      .send({ lat: -36.91042, long: 174.7698112, searchKeyWord: "FA" })
       .expect(200)
       .end((err, res) => {
         if (err) {
