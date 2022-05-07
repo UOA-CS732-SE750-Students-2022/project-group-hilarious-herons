@@ -6,7 +6,7 @@ firebaseAdmin.initializeApp({
 });
 
 exports.checkAuth = (req, res, next) => {
-  const authToken = req.headers.authToken;
+  const authToken = req.headers.authorization;
 
   if (!authToken) {
     res.status(403).send("Unauthorized");
@@ -14,7 +14,11 @@ exports.checkAuth = (req, res, next) => {
     firebaseAdmin
       .auth()
       .verifyIdToken(authToken)
-      .then(next())
-      .catch(res.status(403).send("Unauthorized"));
+      .then((res) => {
+        next();
+      })
+      .catch((err) => {
+        res.status(403).send("Unauthorized");
+      });
   }
 };
