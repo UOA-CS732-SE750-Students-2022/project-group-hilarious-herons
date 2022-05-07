@@ -83,7 +83,7 @@ describe("GET /posts", () => {
           return done(err);
         }
         expect(res.body);
-
+        expect(res.body[0].restaurant.name).toBe("Paradise Takeaway");
         expect(res.body[0].foodName).toBe("Fries");
         expect(res.body.length).toBe(10);
         return done();
