@@ -8,7 +8,7 @@ import {
 import { firebaseConfig } from "./firebase_config"
 
 const app = initializeApp(firebaseConfig)
-const auth = getAuth(app)
+export const auth = getAuth(app)
 
 export {
     signIn,
