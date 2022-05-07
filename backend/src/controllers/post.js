@@ -13,6 +13,7 @@ const {
   getReivewfromGoogle,
   getGooglePhoto,
 } = require("../utils/googleApi/googleAPI");
+
 const {
   retrieveRestaurant,
   createRestaurant,
@@ -289,4 +290,42 @@ exports.getPosts = async (req, res) => {
       info: err.message,
     });
   }
+};
+
+exports.searchPost = async (req, res) => {
+  const { lat, long, searchKeyWord } = req.body;
+
+  const result = await Post.find({
+    $or: [
+      { foodName: { $regex: `(?i)${searchKeyWord}` } },
+      { tags: { $regex: `(?i)${searchKeyWord}` } },
+    ],
+  });
+
+  if (result.length == 0) {
+    return res.status(404).json({});
+  }
+
+  const distantMap = new Map();
+  let resultWithDistance = [];
+  for (let data of result) {
+    const restaurant = await retrieveRestaurant(data.restaurant);
+    const restaurantLat = restaurant.coordinates.lat;
+    const restaurantLong = restaurant.coordinates.long;
+    const mapResult = distantMap.get(restaurantLat + restaurantLong);
+    let distance;
+    if (mapResult == null || mapResult == undefined) {
+      distance = distanceCalculation(lat, long, restaurantLat, restaurantLong);
+      distantMap.set(restaurantLat + restaurantLong, distance);
+    } else {
+      distance = mapResult;
+    }
+
+    data = { ...data._doc, distance: distance };
+    resultWithDistance = [...resultWithDistance, data];
+  }
+  resultWithDistance = resultWithDistance.sort((a, b) => {
+    return a.distance - b.distance;
+  });
+  res.send(resultWithDistance);
 };

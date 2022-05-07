@@ -5,7 +5,7 @@ import { Redirect, Route } from "react-router-dom";
 import "@ionic/react/css/core.css";
 import { HomePage } from "./pages/HomePage";
 import { FoodDetailsPage } from "./pages/FoodDetailsPage";
-import { LoginPage } from "./pages/LoginPage";
+import { SignInPage } from "./pages/SignInPage";
 import { AccountPage } from "./pages/AccountPage";
 import { ErrorPage } from "./pages/ErrorPage";
 
@@ -31,11 +31,11 @@ function App() {
       <IonReactRouter>
         <IonRouterOutlet>
           <Route path="/" exact component={HomePage} />
-          <Route path="/Food" exact component={FoodDetailsPage} />
-          <Route path="/Login" exact component={LoginPage} />
-          <Route path="/Account" exact component={AccountPage} />
-          <Route path="/NotFound" exact component={ErrorPage} />
-          <Route render={() => <Redirect to={"/NotFound"} />} />
+          <Route path="/food/:id" exact component={FoodDetailsPage} />
+          <Route path="/auth" exact component={SignInPage} />
+          <Route path="/account" exact component={AccountPage} />
+          <Route path="/notFound" exact component={ErrorPage} />
+          <Route render={() => <Redirect to={"/notFound"} />} />
         </IonRouterOutlet>
       </IonReactRouter>
     </IonApp>
