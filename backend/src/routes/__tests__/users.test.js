@@ -32,7 +32,6 @@ beforeAll(async () => {
   const connectionString = mongod.getUri();
   await mongoose.connect(connectionString, { useNewUrlParser: true });
 
-  //re-retrieve token incase it has been wiped
   token = await getTestAuthToken();
 });
 

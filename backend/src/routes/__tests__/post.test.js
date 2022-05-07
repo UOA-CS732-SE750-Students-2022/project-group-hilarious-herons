@@ -4,6 +4,8 @@ const routes = require("../index");
 const { MongoMemoryServer } = require("mongodb-memory-server");
 const mongoose = require("mongoose");
 const Post = require("../../models/Post/PostSchema");
+const { getTestAuthToken } = require("../../utils/testing/utils");
+
 require("dotenv").config();
 
 const app = express();
@@ -11,6 +13,7 @@ app.use(express.json());
 app.use("/", routes);
 
 let mongod;
+let token;
 
 const mockPost = {
   _id: new mongoose.Types.ObjectId("000000000000000000000002"),
@@ -36,6 +39,7 @@ beforeAll(async () => {
 
   const connectionString = mongod.getUri();
   await mongoose.connect(connectionString, { useNewUrlParser: true });
+  token = await getTestAuthToken();
 });
 
 beforeEach(async () => {
@@ -85,11 +89,23 @@ describe("POST /posts", () => {
     request(app)
       .post("/api/posts")
       .set("Accept", "application/json")
+      .set("Authorization", token)
       .send(post1)
       .expect(201)
       .end((err, res) => {
         expect(res.body);
         expect(res.body.foodName).toBe("Steak");
+        return done();
+      });
+  });
+
+  it("fails if no auth token", (done) => {
+    request(app)
+      .post("/api/posts")
+      .set("Accept", "application/json")
+      .send(post1)
+      .expect(403)
+      .end((err, res) => {
         return done();
       });
   });
