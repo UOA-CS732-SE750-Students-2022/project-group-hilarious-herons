@@ -261,8 +261,8 @@ const getPostFromGoogle = async (
 
 exports.getPosts = async (req, res) => {
   try {
-    const { lat, long } = req.body;
-    let { range, numberOfposts } = req.body; //km
+    const { lat, long } = req.query;
+    let { range, numberOfposts } = req.query; //km
 
     if (!range) {
       range = 10;
