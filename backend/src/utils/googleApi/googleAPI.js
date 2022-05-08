@@ -74,9 +74,11 @@ const getRestaurantByText = async (name) => {
   try {
     const key = process.env.GOOGLE_API_KEY;
 
+    const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurants%20${name}&pageToken&key=${key}`;
+
     var config = {
       method: "get",
-      url: `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${name}&inputtype=textquery&key=${key}`,
+      url: url,
       headers: {},
     };
 

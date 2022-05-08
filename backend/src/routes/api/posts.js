@@ -5,6 +5,7 @@ const {
   likePost,
   unlikePost,
   getPosts,
+  searchPost,
 } = require("../../controllers/post");
 const { upload } = require("../../controllers/uploadImage");
 const { checkAuth } = require("../../utils/middleware/checkAuth");
@@ -12,6 +13,8 @@ const { checkAuth } = require("../../utils/middleware/checkAuth");
 const router = express.Router();
 
 router.get("/", getPosts);
+router.post("/", createPost);
+router.get("/search", searchPost);
 router.get("/:id", getPost);
 
 router.use(checkAuth);
