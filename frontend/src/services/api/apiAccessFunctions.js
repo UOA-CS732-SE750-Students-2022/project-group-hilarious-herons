@@ -16,9 +16,9 @@ const getToken = async () => {
  * @returns
  */
 const apiGET = async (endpoint, data = "") => {
-  const headers = { Authorization: await getToken() };
-  const response = await axios.get(`${BASE_URL}${endpoint}`, { params: data }, { headers: headers, })
-  console.log(response.data)
+  // const headers = { Authorization: await getToken() };
+  const headers = "";
+  const response = await axios.get(`${BASE_URL}${endpoint}`, { params: data }, { headers: headers })
   return response.data;
 };
 
