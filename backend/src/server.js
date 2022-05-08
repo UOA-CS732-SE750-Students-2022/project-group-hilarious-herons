@@ -14,7 +14,6 @@ app.use(cors());
 
 //Setting up routes
 app.use("/", routes);
-app.use("/api", require("./routes/index"));
 
 mongoose
   .connect(`${process.env.MONGO_DB_URI}`, { useNewUrlParser: true })

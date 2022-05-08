@@ -1,6 +1,13 @@
 import axios from "axios";
+import { auth } from "../../firebase";
 
 const BASE_URL = "http://localhost:3001/api";
+
+const getToken = async () => {
+  const token = await auth.currentUser.getIdToken();
+
+  return token ? token : null;
+};
 
 /**
  * Makes a call to backend server to retrieve a resource
@@ -9,7 +16,9 @@ const BASE_URL = "http://localhost:3001/api";
  * @returns
  */
 const apiGET = async (endpoint, data = "") => {
-  const response = await axios.get(`${BASE_URL}${endpoint}`, { params: data })
+  const headers = { Authorization: await getToken() };
+  const response = await axios.get(`${BASE_URL}${endpoint}`, { params: data }, { headers: headers, })
+  console.log(response.data)
   return response.data;
 };
 
@@ -20,7 +29,13 @@ const apiGET = async (endpoint, data = "") => {
  * @returns
  */
 const apiPOST = async (endpoint, data) => {
-  const response = await axios.post(`${BASE_URL}${endpoint}`, data);
+  const headers = {
+    Authorization: await getToken(),
+  };
+
+  const response = await axios.post(`${BASE_URL}${endpoint}`, data, {
+    headers: headers,
+  });
   return response.data;
 };
 
@@ -31,7 +46,13 @@ const apiPOST = async (endpoint, data) => {
  * @returns
  */
 const apiPUT = async (endpoint, data) => {
-  const response = await axios.put(`${BASE_URL}${endpoint}`);
+  const headers = {
+    Authorization: await getToken(),
+  };
+
+  const response = await axios.put(`${BASE_URL}${endpoint}`, data, {
+    headers: headers,
+  });
 
   return response.data;
 };
