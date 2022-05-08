@@ -23,7 +23,7 @@ const infoStyle = {
     top: '59%',
 }
 
-const FoodCard = ({ id = 0, foodName = "Food Name", rating = 5, timestamp = "21/04/2022", numberOfLikes = 1200, postLiked = false }) => {
+const FoodCard = ({ id = 0, image = "/mock.svg", foodName = "Food Name", rating = 5, timestamp = "21/04/2022", numberOfLikes = 1200, postLiked = false }) => {
     const [liked, setLiked] = useState(postLiked);
     const [totalLikes, setTotalLikes] = useState(numberOfLikes);
     const updateLike = () => {
@@ -39,9 +39,8 @@ const FoodCard = ({ id = 0, foodName = "Food Name", rating = 5, timestamp = "21/
     return (
         <IonCard className="food-card">
             <div className='iamge-rate-distanse'>
-                <NavLink to={"/"}>
-                    {/* Need top change to={"/"} to something with id */}
-                    <img src="/mock.svg" alt="food-img" className='food-img' />
+                <NavLink to={"/food/" + id}>
+                    <img src={image} alt="food-img" className='food-img' />
                 </NavLink>
                 <IonRow style={infoStyle}>
                     {/* Unsure if distance chip needed */}
