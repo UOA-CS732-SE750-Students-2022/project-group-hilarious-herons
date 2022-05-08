@@ -8,8 +8,8 @@ const BASE_URL = "http://localhost:3001/api";
  * @param {*} data
  * @returns
  */
-const apiGET = async (endpoint, data) => {
-  const response = await axios.get(`${BASE_URL}${endpoint}`);
+const apiGET = async (endpoint, data = "") => {
+  const response = await axios.get(`${BASE_URL}${endpoint}`, { params: data })
   return response.data;
 };
 
