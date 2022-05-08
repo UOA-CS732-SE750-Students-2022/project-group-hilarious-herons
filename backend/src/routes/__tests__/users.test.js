@@ -4,6 +4,8 @@ const routes = require("../index");
 const { MongoMemoryServer } = require("mongodb-memory-server");
 const mongoose = require("mongoose");
 const User = require("../../models/User/UserSchema");
+const { getTestAuthToken } = require("../../utils/testing/utils");
+
 require("dotenv").config();
 
 const app = express();
@@ -11,6 +13,7 @@ app.use(express.json());
 app.use("/", routes);
 
 let mongod;
+let token;
 
 let mockUser = {
   _id: new mongoose.Types.ObjectId("000000000000000000000001"),
@@ -28,6 +31,8 @@ beforeAll(async () => {
 
   const connectionString = mongod.getUri();
   await mongoose.connect(connectionString, { useNewUrlParser: true });
+
+  token = await getTestAuthToken();
 });
 
 beforeEach(async () => {
@@ -47,6 +52,8 @@ describe("GET user /api/user/:id", () => {
   it("successful get user", (done) => {
     request(app)
       .get("/api/users/000000000000000000000001")
+      .set("Accept", "application/json")
+      .set("Authorization", token)
       .send()
       .expect(200)
       .end((err, res) => {
@@ -57,6 +64,16 @@ describe("GET user /api/user/:id", () => {
         expect(res.body.firstName).toBe("first");
         expect(res.body.lastName).toBe("user");
 
+        return done();
+      });
+  });
+
+  it("Unauthorized if no auth token", (done) => {
+    request(app)
+      .get("/api/users/000000000000000000000001")
+      .send()
+      .expect(403)
+      .end((err, res) => {
         return done();
       });
   });
@@ -77,6 +94,8 @@ describe("GET user /api/user/firebase/:id", () => {
   it("successful get user", (done) => {
     request(app)
       .get("/api/users/firebase/ID_1")
+      .set("Accept", "application/json")
+      .set("Authorization", token)
       .send()
       .expect(200)
       .end((err, res) => {
@@ -87,6 +106,16 @@ describe("GET user /api/user/firebase/:id", () => {
         expect(res.body.firstName).toBe("first");
         expect(res.body.lastName).toBe("user");
 
+        return done();
+      });
+  });
+
+  it("Unauthorized if no auth token", (done) => {
+    request(app)
+      .get("/api/users/firebase/ID_1")
+      .send()
+      .expect(403)
+      .end((err, res) => {
         return done();
       });
   });
@@ -118,6 +147,7 @@ describe("POST user /api/users/", () => {
     request(app)
       .post("/api/users")
       .set("Accept", "application/json")
+      .set("Authorization", token)
       .send(newUser)
       .expect(201)
       .end((err, res) => {
@@ -125,6 +155,26 @@ describe("POST user /api/users/", () => {
         expect(res.body.displayName).toBe("user2");
         expect(res.body.firstName).toBe("second");
         expect(res.body.lastName).toBe("person");
+        return done();
+      });
+  });
+
+  it("Returns unauthorized if no auth token", (done) => {
+    const newUser = {
+      firebaseUUID: "ID_2",
+      displayName: "user2",
+      firstName: "second",
+      lastName: "person",
+      posts: ["000000000000000000000001"],
+      favourites: ["000000000000000000000001"],
+      followingUsers: ["000000000000000000000001"],
+    };
+
+    request(app)
+      .post("/api/users")
+      .send(newUser)
+      .expect(403)
+      .end((err, res) => {
         return done();
       });
   });
@@ -233,14 +283,34 @@ describe("PUT user /api/users/:id", () => {
     await request(app)
       .put("/api/users/000000000000000000000001")
       .set("Accept", "application/json")
+      .set("Authorization", token)
       .send(updatedUser)
       .expect(204);
 
     const { body: updatedDBUser } = await request(app)
       .get("/api/users/000000000000000000000001")
+      .set("Accept", "application/json")
+      .set("Authorization", token)
       .send()
       .expect(200);
 
     expect(updatedDBUser.firstName).toBe("updated");
+  });
+
+  it("Unauthorized if no auth token", async () => {
+    const updatedUser = {
+      firebaseUUID: "ID_1",
+      displayName: "user1",
+      firstName: "updated",
+      lastName: "user",
+      posts: ["000000000000000000000001"],
+      favourites: ["000000000000000000000001"],
+      followingUsers: ["000000000000000000000001"],
+    };
+
+    await request(app)
+      .put("/api/users/000000000000000000000001")
+      .send(updatedUser)
+      .expect(403);
   });
 });
