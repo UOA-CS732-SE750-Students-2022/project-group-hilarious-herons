@@ -4,7 +4,6 @@ const {
   createPost,
 } = require("../models/Post/posts-dao");
 const Restaurant = require("../models/Restaurant/RestaurantSchema");
-const { retrieveRestaurant } = require("../models/Restaurant/restaurant-dao");
 const mongoose = require("mongoose");
 const {
   distanceCalculation,
@@ -14,8 +13,11 @@ const {
   getReivewfromGoogle,
   getGooglePhoto,
 } = require("../utils/googleApi/googleAPI");
-const { createRestaurant } = require("../models/Restaurant/restaurant-dao");
-const { post } = require("../routes");
+
+const {
+  retrieveRestaurant,
+  createRestaurant,
+} = require("../models/Restaurant/restaurant-dao");
 
 exports.getPost = async (req, res) => {
   try {
@@ -23,8 +25,11 @@ exports.getPost = async (req, res) => {
     const post = await retrievePost(id);
 
     if (post === undefined || post === null || post.length === 0) {
-      res.status(404);
+      res.status(404).json({ success: false });
     }
+
+    const restaurant = await retrieveRestaurant(post.restaurant);
+    post.restaurant = restaurant;
 
     res.send(post);
   } catch (e) {
@@ -101,11 +106,7 @@ exports.createPost = async (req, res) => {
       restaurantId,
     } = req.body;
 
-    console.log(req);
-
     const restaurant = await retrieveRestaurant(restaurantId);
-    console.log(req.body);
-    console.log(req.body.file);
 
     const postObj = {
       foodName,
@@ -152,10 +153,11 @@ const getPostsFromDB = async (lat, long, range) => {
   let posts = [];
   for (i of distancesObj) {
     const response = await Post.find({ restaurant: i.id });
-    const processedData = response.map((data) => {
-      return { ...data._doc, distance: i.distance };
-    });
-    posts = posts.concat(processedData);
+    for (data of response) {
+      const restaurant = await retrieveRestaurant(data.restaurant);
+      data.restaurant = restaurant;
+      posts = [...posts, data];
+    }
   }
 
   return posts;
@@ -259,8 +261,8 @@ const getPostFromGoogle = async (
 
 exports.getPosts = async (req, res) => {
   try {
-    const { lat, long } = req.body;
-    let { range, numberOfposts } = req.body; //km
+    const { lat, long } = req.query;
+    let { range, numberOfposts } = req.query; //km
 
     if (!range) {
       range = 10;
@@ -288,4 +290,42 @@ exports.getPosts = async (req, res) => {
       info: err.message,
     });
   }
+};
+
+exports.searchPost = async (req, res) => {
+  const { lat, long, searchKeyWord } = req.body;
+
+  const result = await Post.find({
+    $or: [
+      { foodName: { $regex: `(?i)${searchKeyWord}` } },
+      { tags: { $regex: `(?i)${searchKeyWord}` } },
+    ],
+  });
+
+  if (result.length == 0) {
+    return res.status(404).json({});
+  }
+
+  const distantMap = new Map();
+  let resultWithDistance = [];
+  for (let data of result) {
+    const restaurant = await retrieveRestaurant(data.restaurant);
+    const restaurantLat = restaurant.coordinates.lat;
+    const restaurantLong = restaurant.coordinates.long;
+    const mapResult = distantMap.get(restaurantLat + restaurantLong);
+    let distance;
+    if (mapResult == null || mapResult == undefined) {
+      distance = distanceCalculation(lat, long, restaurantLat, restaurantLong);
+      distantMap.set(restaurantLat + restaurantLong, distance);
+    } else {
+      distance = mapResult;
+    }
+
+    data = { ...data._doc, distance: distance };
+    resultWithDistance = [...resultWithDistance, data];
+  }
+  resultWithDistance = resultWithDistance.sort((a, b) => {
+    return a.distance - b.distance;
+  });
+  res.send(resultWithDistance);
 };

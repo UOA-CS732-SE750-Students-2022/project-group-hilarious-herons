@@ -27,18 +27,20 @@ import {
   openOutline,
 } from "ionicons/icons";
 import { useEffect, useState } from "react";
-import { postService  } from '../services/PostService';
+import { useParams } from "react-router-dom";
+// import { postService  } from '../services/PostService';
 
 export const FoodDetailsCard = () => {
   const [liked, setLiked] = useState(false);
   const [present, dismiss] = useIonToast();
   const [foodData, setFoodData] = useState({});
+  const foodID = useParams().id;
 
-  useEffect(() => {
-    postService.getPostDetails("626268a4797a487bcc773b08").then((res) => {
-      setFoodData(res)
-    })
-  }, []);
+  // useEffect(() => {
+  //   postService.getPostDetails("626268a4797a487bcc773b08").then((res) => {
+  //     setFoodData(res)
+  //   })
+  // }, []);
 
 
   const getData = () => {
