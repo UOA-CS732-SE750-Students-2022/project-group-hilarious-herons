@@ -4,6 +4,7 @@ import { auth } from "../../firebase";
 const BASE_URL = "http://localhost:3001/api";
 
 const getToken = async () => {
+  if (!auth.currentUser) return null;
   const token = await auth.currentUser.getIdToken();
 
   return token ? token : null;
@@ -16,9 +17,11 @@ const getToken = async () => {
  * @returns
  */
 const apiGET = async (endpoint, data = "") => {
-  // const headers = { Authorization: await getToken() };
-  const headers = "";
-  const response = await axios.get(`${BASE_URL}${endpoint}`, { params: data }, { headers: headers })
+  const headers = { Authorization: await getToken() };
+  const response = await axios.get(`${BASE_URL}${endpoint}`, {
+    params: data,
+    headers: headers,
+  });
   return response.data;
 };
 
