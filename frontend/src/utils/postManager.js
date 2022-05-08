@@ -1,5 +1,5 @@
 import { PostService } from "../services/PostService"
-import { formatLocaleString } from "./helper"
+import { getTimestampFromId } from "./helper"
 
 export const postDataForFoodCard = async (bodyJson = {
     "lat": -36.91042,
@@ -10,9 +10,7 @@ export const postDataForFoodCard = async (bodyJson = {
     let dataToReturn = []
     const result = await PostService.getPosts(bodyJson)
     result.forEach((data, index) => {
-        let timestamp = data._id.toString().substring(0, 8)
-        let date = new Date(parseInt(timestamp, 16) * 1000)
-        let formattedDate = formatLocaleString(date.toLocaleDateString())
+        let formattedDate = getTimestampFromId(data._id)
         let jsonForFoodCard = {
             id: data._id,
             foodName: data.foodName,
