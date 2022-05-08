@@ -8,3 +8,17 @@ export const getDateAsString = (providedDate) => {
     const formattedDate = date + "/" + month + "/" + providedDate.getFullYear().toString()
     return formattedDate
 }
+
+export const formatLocaleString = (localeDateString) => {
+    let splitString = localeDateString.split("/")
+    let month = splitString[0]
+    let day = splitString[1]
+    let year = splitString[2]
+    if (month.length === 1) {
+        month = "0"+month
+    }
+    if (day.length === 1) {
+        day = "0"+day
+    }
+    return day+"/"+month+"/"+year
+}
