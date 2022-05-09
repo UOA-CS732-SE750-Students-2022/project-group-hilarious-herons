@@ -2,6 +2,7 @@ import {
   IonAvatar,
   IonButton,
   IonCard,
+  IonCardContent,
   IonCardSubtitle,
   IonCardTitle,
   IonChip,
@@ -85,6 +86,7 @@ export const FoodDetailsCard = () => {
 
   return (
     <IonCard>
+      <IonCardContent>
       <IonGrid>
         <IonRow>
           <IonCol size="12" sizeLg="6">
@@ -191,9 +193,12 @@ export const FoodDetailsCard = () => {
                 </IonRow>
               </IonButton>
             </IonItem>
+
+            <IonItem lines="none" />
           </IonCol>
         </IonRow>
       </IonGrid>
+      </IonCardContent>
     </IonCard>
   );
 };
