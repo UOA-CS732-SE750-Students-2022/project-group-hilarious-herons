@@ -15,6 +15,7 @@ import { star, heart, heartOutline } from "ionicons/icons";
 import { NavLink } from "react-router-dom";
 import { PostService } from "../services/PostService";
 import { userService } from "../services/UserService";
+import { SignInModal } from "./SignInModal";
 
 const infoStyle = {
   position: "absolute",
@@ -32,31 +33,39 @@ const FoodCard = ({
 }) => {
   const [liked, setLiked] = useState(postLiked);
   const [totalLikes, setTotalLikes] = useState(numberOfLikes);
+  const [showModal, setShowModal] = useState(false);
 
   const updateLike = async () => {
-    const user = await userService.getUser(localStorage.getItem("uid"));
-    const uid = user._id;
-    const favouritePosts = user.favourites;
+    const userId = localStorage.getItem("uid");
 
-    if (!liked) {
-      setTotalLikes(totalLikes + 1);
+    // Fetch the user if signed in
+    if (userId !== null) {
+      const user = await userService.getUser(localStorage.getItem("uid"));
+      const uid = user._id;
+      const favouritePosts = user.favourites;
 
-      // update server
-      PostService.likePost(id);
-      favouritePosts.push(id);
-      userService.updateUser(uid, user);
+      if (!liked) {
+        setTotalLikes(totalLikes + 1);
+
+        // update server
+        PostService.likePost(id);
+        favouritePosts.push(id);
+        userService.updateUser(uid, user);
+      } else {
+        setTotalLikes(totalLikes - 1);
+
+        // update server
+        PostService.unlikePost(id);
+        const idx = favouritePosts.indexOf(id);
+        favouritePosts.splice(idx, 1);
+        userService.updateUser(uid, user);
+      }
+
+      setLiked(!liked);
+      console.log("after", user);
     } else {
-      setTotalLikes(totalLikes - 1);
-
-      // update server
-      PostService.unlikePost(id);
-      const idx = favouritePosts.indexOf(id);
-      favouritePosts.splice(idx, 1);
-      userService.updateUser(uid, user);
+      setShowModal(true);
     }
-
-    setLiked(!liked);
-    console.log("after", user);
   };
 
   return (
@@ -88,6 +97,7 @@ const FoodCard = ({
               icon={liked ? heart : heartOutline}
               size="small"
             />
+            <SignInModal showModal={showModal} setShowModal={setShowModal} />
             <IonLabel>{totalLikes}</IonLabel>
           </IonRow>
         </IonRow>

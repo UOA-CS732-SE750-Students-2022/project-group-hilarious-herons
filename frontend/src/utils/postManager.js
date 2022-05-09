@@ -11,12 +11,17 @@ export const postDataForFoodCard = async (
   }
 ) => {
   let dataToReturn = [];
+  let user;
   const result = await PostService.getPosts(bodyJson);
   const uid = localStorage.getItem("uid");
-  const user = await userService.getUser(uid);
+
+  // Fetch the user if signed in
+  if (uid !== null) {
+    user = await userService.getUser(uid);
+  }
 
   result.forEach((data, index) => {
-    const liked = user.favourites.indexOf(data._id) > -1;
+    const liked = user ? user.favourites.indexOf(data._id) > -1 : false;
     let formattedDate = getTimestampFromId(data._id);
     let jsonForFoodCard = {
       id: data._id,
