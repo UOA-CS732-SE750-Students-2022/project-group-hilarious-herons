@@ -45,21 +45,11 @@ export const FoodDetailsCard = () => {
   const getData = () => {
     return {
       timestamp: new Date(),
-      restaurant: {
-        name: "Restaurant name",
-        address: "23 Lorem ipsum dolor, sit amet, 1010",
-        mapLink: "https://www.google.com/maps",
-        hours: {
-          weekdays: "9:00am - 6:00pm",
-          weekends: "10:00am - 5:00pm",
-        },
-      },
     };
   };
 
   const {
     timestamp,
-    restaurant
   } = getData();
 
   const getRating = (rating) => {
