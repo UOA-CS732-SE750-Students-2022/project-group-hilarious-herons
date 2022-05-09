@@ -75,7 +75,7 @@ describe("GET /posts", () => {
   it("GET /posts", (done) => {
     request(app)
       .get("/api/posts")
-      .send({ lat: -36.91042, long: 174.7698112 })
+      .query({ lat: -36.91042, long: 174.7698112 })
       .expect(200)
       .end((err, res) => {
         if (err) {
@@ -95,7 +95,7 @@ describe("GET /posts", () => {
   it("GET /posts with posts request number", (done) => {
     request(app)
       .get("/api/posts")
-      .send({ lat: -36.91042, long: 174.7698112, numberOfposts: 11 })
+      .query({ lat: -36.91042, long: 174.7698112, numberOfposts: 11 })
       .expect(200)
       .end((err, res) => {
         if (err) {
