@@ -4,7 +4,6 @@ import {
   IonTitle,
   IonButton,
   IonIcon,
-  IonText,
   useIonToast,
   IonRow,
   IonCol,
