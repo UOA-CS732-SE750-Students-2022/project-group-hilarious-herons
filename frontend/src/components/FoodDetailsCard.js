@@ -38,7 +38,7 @@ export const FoodDetailsCard = () => {
   const foodID = useParams().id;
   
   useEffect(() => {
-    PostService.getPostDetails(foodID.substring(1)).then((res) => {
+    PostService.getPostDetails(foodID).then((res) => {
       setFoodData(res)
     })
   }, []);
