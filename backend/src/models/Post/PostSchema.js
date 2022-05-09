@@ -15,7 +15,7 @@ const postSchema = new Schema(
     imageURLs: [{ type: String }],
   },
   {
-    timestamp: {},
+    timestamps: {},
   }
 );
 
