@@ -2,6 +2,7 @@ import { apiGET, apiPOST } from "./api/apiAccessFunctions";
 
 export const PostService = {
   getPosts,
+  getPostDetails,
   likePost,
   unlikePost,
 };
@@ -56,6 +57,17 @@ async function unlikePost(id) {
   try {
     const result = await apiPOST("/posts/unlike-post", bodyJson);
     console.log(result);
+    return result;
+  } catch (err) {
+    if (err.response) {
+      return err.response.status;
+    }
+  }
+}
+
+async function getPostDetails(id) {
+  try {
+    const result = await apiGET("/posts/" + id);
     return result;
   } catch (err) {
     if (err.response) {
