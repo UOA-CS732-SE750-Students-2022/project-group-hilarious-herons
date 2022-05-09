@@ -41,7 +41,7 @@ export const FoodDetailsCard = () => {
     PostService.getPostDetails(foodID).then((res) => {
       setFoodData(res)
     })
-  }, []);
+  });
 
   const getData = () => {
     return {
