@@ -1,8 +1,9 @@
-import { apiGET } from "./api/apiAccessFunctions";
+import { apiGET, apiPOST } from "./api/apiAccessFunctions";
 
 export const PostService = {
-    getPosts，
-    
+    getPosts,
+    getPostDetails,
+    addPost,
 }
 
 /**
@@ -27,7 +28,6 @@ async function getPosts (bodyJson = {
 
 async function getPostDetails(id) {
   try {
-    console.log("call");
     const result = await apiGET("/posts/" + id);
     return result;
   } catch (err) {

@@ -27,7 +27,7 @@ import {
   openOutline,
 } from "ionicons/icons";
 import { useEffect, useState } from "react";
-import {postService}  from '../services/PostService';
+import { PostService}  from '../services/PostService';
 import { useParams } from "react-router-dom";
 
 export const FoodDetailsCard = () => {
@@ -37,7 +37,7 @@ export const FoodDetailsCard = () => {
   const foodID = useParams().id;
   
   useEffect(() => {
-    postService.getPostDetails(foodID).then((res) => {
+    PostService.getPostDetails(foodID.substring(1)).then((res) => {
       setFoodData(res)
     })
   }, []);
@@ -59,11 +59,11 @@ export const FoodDetailsCard = () => {
 
   const {
     timestamp,
-    restaurant,
+    restaurant
   } = getData();
 
   const getRating = (rating) => {
-    console.log(foodData)
+    console.log(foodData);
     if(rating) {
       const filledStars = [...Array(rating + 1).keys()].slice(1);
       const emptyStars = [...Array(5 - rating + 1).keys()].slice(1);
@@ -100,7 +100,7 @@ export const FoodDetailsCard = () => {
         <IonRow>
           <IonCol size="12" sizeLg="6">
             <IonImg
-              src={foodData.imageURLs}
+              src={ foodData.imageURLs }
               style={{ borderRadius: "1rem", overflow: "hidden" }}
             />
           </IonCol>
@@ -157,15 +157,15 @@ export const FoodDetailsCard = () => {
 
             <IonItem lines="none">
               <IonText>
-                {restaurant.name}
+                {foodData?.restaurant?.name}
                 <br />
-                {restaurant.address}
+                {foodData?.restaurant?.address}
               </IonText>
               <IonButton
                 fill="clear"
                 color="light"
                 style={{ marginTop: "1rem" }}
-                href={restaurant.mapLink}
+                href={foodData?.restaurant?.googleMapURL}
                 target="_blank"
               >
                 <IonIcon icon={openOutline} slot="end" size="md" />
@@ -181,14 +181,11 @@ export const FoodDetailsCard = () => {
 
             <IonItem lines="none">
               <IonText slot="start">
-                Mon - Fri
-                <br />
-                Sat - Sun
               </IonText>
               <IonText>
-                {restaurant.hours.weekdays}
-                <br />
-                {restaurant.hours.weekends}
+                {foodData?.restaurant?.openHours.map((day) => {
+                  return <p key={day}>{day} <br/></p>
+                })}
               </IonText>
             </IonItem>
 
