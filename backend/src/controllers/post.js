@@ -102,6 +102,7 @@ exports.createPost = async (req, res) => {
       tags,
       numberOfLikes,
       rating,
+      dietryRequirements,
       numberOfReviews,
       restaurantId,
     } = req.body;
@@ -113,6 +114,7 @@ exports.createPost = async (req, res) => {
       bodyText,
       tags,
       numberOfLikes,
+      dietryRequirements,
       rating,
       numberOfReviews,
       restaurant,
