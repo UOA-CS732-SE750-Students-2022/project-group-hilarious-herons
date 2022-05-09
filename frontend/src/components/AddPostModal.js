@@ -26,6 +26,7 @@ import { useState } from "react";
 import { DietariesSelect } from "./DietariesSelect";
 import "./AddPostModal.css";
 import { LocationSearchbar } from "./LocationSearchbar";
+import { PostService } from "../services/PostService";
 
 export const AddPostModal = ({ isModalOpen, setIsModalOpen }) => {
   const [foodName, setFoodName] = useState("");
@@ -126,13 +127,19 @@ export const AddPostModal = ({ isModalOpen, setIsModalOpen }) => {
 
   function handleSubmitPost() {
     let postJson = {
-      foodName: "",
-      rate: getRateOfFood(),
-      timestamp: new Date(),
+      foodName: foodName,
       bodyText: experienceText,
-      imgs: images,
-      restaurant: restaurantName,
+      tags: tagsList,
+      dietaries: dietaries,
+      numberOfLikes: 0,
+      rating: getRateOfFood(),
+      numberOfReviews :0,
+      timestamp: new Date(),
+      restaurantId: "626268a2797a487bcc773af8",
     };
+
+    console.log(images[0]);
+    PostService.addPost(postJson, images[0]);
 
     setIsModalOpen(false);
     handleReset();

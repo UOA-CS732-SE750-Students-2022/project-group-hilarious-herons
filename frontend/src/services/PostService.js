@@ -86,13 +86,14 @@ async function searchPosts(
   }
 }
 
-async function addPost(postJSON, image, dietaries) {
+async function addPost(postJSON, image) {
   try {
     const result = await apiPOST("/posts/", postJSON);
-    console.log(result);
-    const res = await apiPOST("/posts/image", image);
 
-    console.log(dietaries);
+    //upload the image
+    const imageData = new FormData();
+    imageData.append("file", image);
+    const res = await apiPOST("/posts/image", imageData);
 
     console.log(result);
     return result;
