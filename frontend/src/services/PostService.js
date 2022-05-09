@@ -3,7 +3,6 @@ import { apiGET, apiPOST } from "./api/apiAccessFunctions";
 export const PostService = {
     getPosts,
     getPostDetails,
-    addPost,
 }
 
 /**
