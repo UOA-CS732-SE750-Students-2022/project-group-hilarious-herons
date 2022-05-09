@@ -3,9 +3,10 @@ import {
   IonCardContent,
   IonCardSubtitle,
   IonCardTitle,
-  IonItem,
-  IonLabel,
+  IonCol,
+  IonGrid,
   IonModal,
+  IonRow,
 } from "@ionic/react";
 import { NavLink } from "react-router-dom";
 import "./SignInModal.css";
@@ -27,25 +28,34 @@ export const SignInModal = ({ showModal, setShowModal }) => {
 
         <img src="pablita-886.png" alt="Natasha Remarchuk" />
 
-        <IonItem lines="none">
-          <p slot="start" className="img-attribution">
-            Illustration by{" "}
-            <a href="https://icons8.com/illustrations/author/u7l2K4BCiAa9">
-              Natasha Remarchuk
-            </a>{" "}
-            from <a href="https://icons8.com/illustrations">Ouch!</a>
-          </p>
-          <NavLink to="/auth" slot="end">
-            <IonButton
-              size="large"
-              shape="round"
-              mode="ios"
-              onClick={() => setShowModal(false)}
-            >
-              Sign In
-            </IonButton>
-          </NavLink>
-        </IonItem>
+        <IonGrid>
+          <IonRow>
+            <IonCol>
+              <p className="img-attribution">
+                Illustration by{" "}
+                <a href="https://icons8.com/illustrations/author/u7l2K4BCiAa9">
+                  Natasha Remarchuk
+                </a>{" "}
+                from <a href="https://icons8.com/illustrations">Ouch!</a>
+              </p>
+              {/* 1 */}
+            </IonCol>
+
+            <IonCol size="auto">
+              <NavLink to="/auth">
+                <IonButton
+                  size="large"
+                  shape="round"
+                  mode="ios"
+                  onClick={() => setShowModal(false)}
+                >
+                  Sign In
+                </IonButton>
+              </NavLink>
+              {/* 2 */}
+            </IonCol>
+          </IonRow>
+        </IonGrid>
       </IonCardContent>
     </IonModal>
   );
