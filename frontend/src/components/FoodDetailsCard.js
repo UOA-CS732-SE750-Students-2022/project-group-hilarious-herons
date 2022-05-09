@@ -63,7 +63,6 @@ export const FoodDetailsCard = () => {
   } = getData();
 
   const getRating = (rating) => {
-    console.log(foodData);
     if(rating) {
       const filledStars = [...Array(rating + 1).keys()].slice(1);
       const emptyStars = [...Array(5 - rating + 1).keys()].slice(1);
@@ -100,7 +99,7 @@ export const FoodDetailsCard = () => {
         <IonRow>
           <IonCol size="12" sizeLg="6">
             <IonImg
-              src={ foodData.imageURLs }
+              src={ foodData?.imageURLs }
               style={{ borderRadius: "1rem", overflow: "hidden" }}
             />
           </IonCol>
@@ -108,7 +107,7 @@ export const FoodDetailsCard = () => {
           <IonCol size="12" sizeLg="6">
             <IonItem lines="none">
               <IonCardTitle>
-                <b>{foodData.foodName}</b>
+                <b>{foodData?.foodName}</b>
                 <IonCardSubtitle style={{ marginTop: "0.5rem" }}>
                   {timestamp.toLocaleDateString()}
                 </IonCardSubtitle>
@@ -123,10 +122,10 @@ export const FoodDetailsCard = () => {
               </IonAvatar>
             </IonItem>
 
-            <IonItem lines="none">{getRating(foodData.rating)}</IonItem>
+            <IonItem lines="none">{getRating(foodData?.rating)}</IonItem>
 
             <IonItemGroup style={{pointerEvents: 'none'}}>
-              { foodData.tags && foodData.tags.map((tag, idx) => {
+              { foodData?.tags && foodData?.tags.map((tag, idx) => {
                 return (
                   <IonChip color="primary" key={idx}>
                     <IonLabel>{tag}</IonLabel>
@@ -137,7 +136,7 @@ export const FoodDetailsCard = () => {
             </IonItemGroup>
 
             <IonItemGroup  style={{pointerEvents: 'none'}}>
-              {foodData.dietryRequirements && foodData.dietryRequirements.map((diet, idx) => {
+              {foodData?.dietryRequirements && foodData?.dietryRequirements.map((diet, idx) => {
                 return (
                   <IonChip color="primary" outline key={idx}>
                     <IonLabel>{diet}</IonLabel>
@@ -146,7 +145,7 @@ export const FoodDetailsCard = () => {
               })}
             </IonItemGroup>
 
-            <IonItem lines="none">{foodData.bodyText}</IonItem>
+            <IonItem lines="none">{foodData?.bodyText}</IonItem>
 
             <IonItem lines="none">
               <IonIcon icon={locationOutline} slot="start" />
@@ -165,7 +164,7 @@ export const FoodDetailsCard = () => {
                 fill="clear"
                 color="light"
                 style={{ marginTop: "1rem" }}
-                href={foodData?.restaurant?.googleMapURL}
+                href={foodData?.restaurant?.googleMapsURL}
                 target="_blank"
               >
                 <IonIcon icon={openOutline} slot="end" size="md" />
@@ -198,7 +197,7 @@ export const FoodDetailsCard = () => {
               >
                 <IonRow style={{ display: 'inline-block'}}>
                   <IonIcon size="large" icon={liked ? heart : heartOutline} style={{ verticalAlign: "middle" }}/>
-                  <IonText color="dark">{ foodData.numberOfLikes }</IonText>
+                  <IonText color="dark">{ foodData?.numberOfLikes }</IonText>
                 </IonRow>
               </IonButton>
             </IonItem>
