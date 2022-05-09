@@ -23,6 +23,7 @@ const infoStyle = {
 
 const FoodCard = ({
   id = 0,
+  image = "/mock.svg",
   foodName = "Food Name",
   rating = 5,
   timestamp = "21/04/2022",
@@ -60,10 +61,9 @@ const FoodCard = ({
 
   return (
     <IonCard className="food-card">
-      <div>
-        <NavLink to={"/"}>
-          {/* Need top change to={"/"} to something with id */}
-          <img src="/mock.svg" alt="food-img" className="food-img" />
+      <div className="iamge-rate-distanse">
+        <NavLink to={"/food/" + id}>
+          <img src={image} alt="food-img" className="food-img" />
         </NavLink>
         <IonRow style={infoStyle}>
           {/* Unsure if distance chip needed */}
