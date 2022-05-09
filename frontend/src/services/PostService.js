@@ -6,6 +6,7 @@ export const PostService = {
   likePost,
   unlikePost,
   searchPosts,
+  addPost,
 };
 
 /**
@@ -82,5 +83,23 @@ async function searchPosts(
     return result;
   } catch (err) {
     processError(err);
+  }
+}
+
+async function addPost(postJSON, image, dietaries) {
+  try {
+    const result = await apiPOST("/posts/", postJSON);
+    console.log(result);
+    const res = await apiPOST("/posts/image", image);
+
+    console.log(dietaries);
+
+    console.log(result);
+    return result;
+  } catch (err) {
+    if (err.response) {
+      console.log(err);
+      return err.response.status;
+    }
   }
 }
