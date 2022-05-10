@@ -38,6 +38,15 @@ export const AddPostModal = ({ isModalOpen, setIsModalOpen }) => {
   const [tagsList, setTagsList] = useState([]);
   const [present] = useIonToast();
 
+  const createWarning = (message) => {
+    return present({
+      message: message,
+      mode: "ios",
+      color: "dark",
+      duration: 2000,
+    });
+  };
+
   function getFiveStarRating() {
     const greyStars = [...Array(6).keys()].slice(1);
 
@@ -102,12 +111,7 @@ export const AddPostModal = ({ isModalOpen, setIsModalOpen }) => {
           </IonRow>
         );
       } else {
-        present({
-          message: "Share up to 9 photos in one post.",
-          mode: "ios",
-          color: "dark",
-          duration: 2000,
-        });
+        createWarning("Share up to 9 photos in one post.");
       }
     }
   }
@@ -125,7 +129,7 @@ export const AddPostModal = ({ isModalOpen, setIsModalOpen }) => {
     });
   }
 
-  function handleSubmitPost() {
+  async function handleSubmitPost() {
     let postJson = {
       foodName: foodName,
       bodyText: experienceText,
@@ -138,9 +142,13 @@ export const AddPostModal = ({ isModalOpen, setIsModalOpen }) => {
       restaurantId: "626268a2797a487bcc773af8",
     };
 
-    console.log(images[0]);
-    PostService.addPost(postJson, images[0]);
-
+    const res = await PostService.addPost(postJson, images[0]);
+    console.log(res);
+    if(!res || res != 200) {
+      createWarning("Add post uncessefully");
+    } else {
+      createWarning("Add post successfully");
+    }
     setIsModalOpen(false);
     handleReset();
   }
@@ -153,12 +161,7 @@ export const AddPostModal = ({ isModalOpen, setIsModalOpen }) => {
         if (tagsList.length < 5) {
           setTagsList([...tagsList, tag]);
         } else {
-          present({
-            message: "Maximum 5 tags per post only",
-            mode: "ios",
-            color: "dark",
-            duration: 2000,
-          });
+          createWarning("Maximum 5 tags per post only")
         }
       }
     }

@@ -66,16 +66,13 @@ async function unlikePost(id) {
       imageData.append("file", image);
       const res = await apiPOST("/posts/image", imageData);  
 
+      //add new post
       postJSON = {...postJSON, imageURLs:[res]}
       const result = await apiPOST("/posts/", postJSON);
-      console.log(result);
-
-      console.log(res);
 
       return result;
       } catch (err) {
         if(err.response) {
-          console.log(err);
           return err.response.status;
       }
 >>>>>>> e86362a (Upload image successful)
