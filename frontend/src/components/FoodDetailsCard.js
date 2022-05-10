@@ -55,6 +55,7 @@ export const FoodDetailsCard = () => {
 
   const getRating = (rating) => {
     if(rating) {
+      rating = Math.round(rating);
       const filledStars = [...Array(rating + 1).keys()].slice(1);
       const emptyStars = [...Array(5 - rating + 1).keys()].slice(1);
       return (
