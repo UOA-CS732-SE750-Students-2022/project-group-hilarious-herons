@@ -105,6 +105,7 @@ exports.createPost = async (req, res) => {
       dietryRequirements,
       numberOfReviews,
       restaurantId,
+      imageURLs,
     } = req.body;
 
     const restaurant = await retrieveRestaurant(restaurantId);
@@ -118,6 +119,7 @@ exports.createPost = async (req, res) => {
       rating,
       numberOfReviews,
       restaurant,
+      imageURLs,
     };
 
     const newPost = await createPost(postObj);

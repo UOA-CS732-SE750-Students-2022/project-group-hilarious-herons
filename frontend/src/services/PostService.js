@@ -29,6 +29,7 @@ async function getPosts(
   }
 }
 
+<<<<<<< HEAD
 /**
  * Update the given post with a new like.
  * @param id The id of the post.
@@ -57,6 +58,27 @@ async function unlikePost(id) {
   } catch (err) {
     if (err.response) {
       processError(err);
+=======
+  async function addPost(postJSON, image) {
+    try {
+      //upload the image
+      const imageData = new FormData();
+      imageData.append("file", image);
+      const res = await apiPOST("/posts/image", imageData);  
+
+      postJSON = {...postJSON, imageURLs:[res]}
+      const result = await apiPOST("/posts/", postJSON);
+      console.log(result);
+
+      console.log(res);
+
+      return result;
+      } catch (err) {
+        if(err.response) {
+          console.log(err);
+          return err.response.status;
+      }
+>>>>>>> e86362a (Upload image successful)
     }
   }
 }
