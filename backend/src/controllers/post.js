@@ -139,8 +139,6 @@ const getPostsFromDB = async (lat, long, range) => {
   for (i of response) {
     const distLat = i.coordinates.lat;
     const distLong = i.coordinates.long;
-    console.log(lat);
-    console.log(long);
     const distance = distanceCalculation(lat, long, distLat, distLong);
 
     if (distance < range) {
