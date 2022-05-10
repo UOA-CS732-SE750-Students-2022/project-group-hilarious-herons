@@ -293,7 +293,14 @@ exports.getPosts = async (req, res) => {
 };
 
 exports.searchPost = async (req, res) => {
-  const { lat, long, searchKeyWord, dietryRequirements } = req.body;
+  const {
+    lat,
+    long,
+    searchKeyWord,
+    dietryRequirements,
+    sortByDistance = false,
+    sortByRating = false,
+  } = req.body;
 
   let result;
   if (!dietryRequirements) {
@@ -336,8 +343,16 @@ exports.searchPost = async (req, res) => {
     data = { ...data._doc, distance: distance };
     resultWithDistance = [...resultWithDistance, data];
   }
-  resultWithDistance = resultWithDistance.sort((a, b) => {
-    return a.distance - b.distance;
-  });
+
+  if (sortByRating) {
+    resultWithDistance = resultWithDistance.sort((a, b) => {
+      return b.rating - a.rating;
+    });
+  } else {
+    resultWithDistance = resultWithDistance.sort((a, b) => {
+      return a.distance - b.distance;
+    });
+  }
+
   res.send(resultWithDistance);
 };
