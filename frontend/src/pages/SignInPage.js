@@ -4,14 +4,13 @@ import {
   IonTitle,
   IonButton,
   IonIcon,
-  IonText,
   useIonToast,
   IonRow,
   IonCol,
 } from "@ionic/react";
 import { logoGoogle } from "ionicons/icons";
 import "./SignInPage.css";
-import { signIn } from "../firebase";
+import { signIn } from "../utils/firebase";
 import { userService } from "../services/UserService";
 // import loginPage from "../asset/login.jpg";
 

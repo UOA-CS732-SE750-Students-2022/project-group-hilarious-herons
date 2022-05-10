@@ -1,5 +1,5 @@
 import axios from "axios";
-import { auth } from "../../firebase";
+import { auth } from "../../utils/firebase";
 
 const BASE_URL = "http://localhost:3001/api";
 
