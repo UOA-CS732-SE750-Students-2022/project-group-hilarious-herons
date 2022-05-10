@@ -93,7 +93,7 @@ export const AddPostModal = () => {
                   id={num}
                   key={num}
                   src={imgUrl}
-                  alt="your image"
+                  alt="your"
                   width="120px"
                   style={{ objectFit: "cover" }}
                 />

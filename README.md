@@ -1,8 +1,8 @@
 # Food app
 
 ## About
-* **Project**: Food appplication, look at the food on your feed and proceed to feed yourself. 
-* **Team Nam**: SE750-hilarious-herons
+* **Project**: Funter, the food application, look at the food on your feed and proceed to feed yourself. 
+* **Team Name**: SE750-hilarious-herons
 * For more Documentation, please check the wiki pages.
 
 Frontend is developed by using:

@@ -22,15 +22,7 @@ const infoStyle = {
   top: "59%",
 };
 
-const FoodCard = ({
-  id = 0,
-  image = "/mock.svg",
-  foodName = "Food Name",
-  rating = 5,
-  timestamp = "21/04/2022",
-  numberOfLikes = 1200,
-  postLiked = false,
-}) => {
+const FoodCard = ({ id = 0, image = "/no_image.jpg", foodName = "Food Name", rating = 5, timestamp = "21/04/2022", numberOfLikes = 1200, postLiked = false }) => {
   const [liked, setLiked] = useState(postLiked);
   const [totalLikes, setTotalLikes] = useState(numberOfLikes);
   const [showModal, setShowModal] = useState(false);
