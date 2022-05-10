@@ -1,19 +1,21 @@
-import { createContext, useState } from "react";
+import { 
+  createContext,
+  useState 
+} from "react";
 
-const SearchContext = createContext({
-  searchInput: "",
+const SearchContext = createContext( {
+  searchKeyword: "",
 });
 
 const SearchContextProvider = ({ children }) => {
   const [searchKeyword, setSearchKeyword] = useState("");
-
 
   const updateSearchKeyword = (searchKeyword) => {
     setSearchKeyword(searchKeyword);
   };
 
   const clearInput = () => {
-      setSearchKeyword("");
+    setSearchKeyword("");
   }
 
   const context = {

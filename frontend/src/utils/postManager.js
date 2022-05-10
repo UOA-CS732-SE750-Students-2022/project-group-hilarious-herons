@@ -1,14 +1,21 @@
 import { PostService } from "../services/PostService"
 import { getTimestampFromId } from "./helper"
 
-export const postDataForFoodCard = async (bodyJson = {
+export const postDataForFoodCard = async (keyword, bodyJson = {
     "lat": -36.91042,
     "long": 174.7698112,
     "range": 20,
     "numberOfposts": 2
 }) => {
-    let dataToReturn = []
-    const result = await PostService.getPosts(bodyJson)
+    let result, dataToReturn = []
+    
+    if(keyword === "") {
+        result = await PostService.getPosts(bodyJson)
+    } else {
+        result = await PostService.searchPosts(keyword);
+    }
+
+
     result.forEach((data, index) => {
         let formattedDate = getTimestampFromId(data._id)
         let jsonForFoodCard = {

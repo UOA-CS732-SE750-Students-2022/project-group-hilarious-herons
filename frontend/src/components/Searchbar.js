@@ -11,13 +11,14 @@ import {
 } from "@ionic/react";
 import { search, filter } from "ionicons/icons";
 import { useContext, useEffect, useState } from "react";
-import { SearchContext } from "../context/searchContext";
+import { SearchContext } from "../context/SearchContext";
+import { userService } from "../services/UserService";
 import { SearchbarFilter } from "./SearchbarFilter";
 
 // ionic md breakpoint
 const mdBreakpoint = "(min-width: 576px)";
 
-export const Searchbar = (setSearchKeyword) => {
+export const Searchbar = () => {
   const [isMdBreakpoint, setIsMdBreakpoint] = useState(
     window.matchMedia(mdBreakpoint).matches
   );
@@ -25,14 +26,13 @@ export const Searchbar = (setSearchKeyword) => {
   const [searchInput, setSearchInput] = useState("");
   const { updateSearchKeyword } = useContext(SearchContext);
 
-  console.log(updateSearchKeyword);
-
   const placeholder = isMdBreakpoint
     ? "Search for a dish, cuisine or restaurant"
     : "Search";
-
-  function doSearch () {
+    
+  const doSearch = () => {
     updateSearchKeyword(searchInput);
+
     console.log(
       "search for results with the filters: ",
       `shortest distance: ${localStorage.getItem("byDistance")}`,
@@ -72,7 +72,7 @@ export const Searchbar = (setSearchKeyword) => {
             pattern="search"
             inputMode="search"
             type="search"
-            clearInput
+            clear-input={false}
             placeholder={placeholder}
             mode="ios"
             onKeyUp={(e) => {

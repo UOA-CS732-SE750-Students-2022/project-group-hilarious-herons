@@ -4,11 +4,14 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ServiceWorkerProvider } from "./context/serviceWorkerContext";
+import { SearchContextProvider } from "./context/SearchContext";
 
 ReactDOM.render(
   <React.StrictMode>
     <ServiceWorkerProvider>
+      <SearchContextProvider value={{ searchKeyword: ""}}>
         <App />
+      </SearchContextProvider>
     </ServiceWorkerProvider>
   </React.StrictMode>,
   document.getElementById("root")
