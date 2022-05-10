@@ -293,15 +293,27 @@ exports.getPosts = async (req, res) => {
 };
 
 exports.searchPost = async (req, res) => {
-  const { lat, long, searchKeyWord } = req.body;
+  const { lat, long, searchKeyWord, dietryRequirements } = req.body;
 
-  const result = await Post.find({
-    $or: [
-      { foodName: { $regex: `(?i)${searchKeyWord}` } },
-      { tags: { $regex: `(?i)${searchKeyWord}` } },
-    ],
-  });
-
+  let result;
+  if (!dietryRequirements) {
+    result = await Post.find({
+      $or: [
+        { foodName: { $regex: `(?i)${searchKeyWord}` } },
+        { tags: { $regex: `(?i)${searchKeyWord}` } },
+      ],
+    });
+  } else {
+    console.log(dietryRequirements);
+    result = await Post.find({
+      $or: [
+        { foodName: { $regex: `(?i)${searchKeyWord}` } },
+        { tags: { $regex: `(?i)${searchKeyWord}` } },
+      ],
+      dietryRequirements: { $in: dietryRequirements },
+    });
+  }
+  console.log(result);
   if (result.length == 0) {
     return res.status(404).json({});
   }
