@@ -23,7 +23,7 @@ export const postDataForFoodCard = async (keyword, bodyJson = {
             foodName: data.foodName,
             image: data.imageURLs[0],
             numberOfLikes: data.numberOfLikes,
-            rating: data.rating,
+            rating: Math.round(data.rating),
             timestamp: formattedDate,
             postLiked: false // Need to add user connected status later
         }
