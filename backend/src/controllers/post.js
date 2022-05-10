@@ -293,7 +293,7 @@ exports.getPosts = async (req, res) => {
 };
 
 exports.searchPost = async (req, res) => {
-  const { lat, long, searchKeyWord } = req.body;
+  const { lat, long, searchKeyWord } = req.query;
 
   const result = await Post.find({
     $or: [

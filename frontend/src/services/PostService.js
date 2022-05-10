@@ -33,15 +33,14 @@ async function getPostDetails(id) {
   }
 }
 
-async function searchPosts(keyword) {
+async function searchPosts(keyword, bodyJson = {
+  "lat":-36.91042,
+  "long":174.7698112,
+  "searchKeyWord": keyword,
+}) {
   try {
-    const bodyJson = {
-      "lat":-36.91042,
-      "long":174.7698112,
-      "searchKeyword": keyword,
-    }
-
     console.log(keyword);
+    console.log(bodyJson);
 
     const result = await apiGET("/posts/search", bodyJson);
     console.log(result);
