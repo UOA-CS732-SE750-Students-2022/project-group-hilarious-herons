@@ -12,7 +12,6 @@ import {
 import { search, filter } from "ionicons/icons";
 import { useContext, useEffect, useState } from "react";
 import { SearchContext } from "../context/SearchContext";
-import { userService } from "../services/UserService";
 import { SearchbarFilter } from "./SearchbarFilter";
 
 // ionic md breakpoint

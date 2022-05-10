@@ -3,7 +3,6 @@ import { postDataForFoodCard } from "../utils/postManager";
 import { PostsLayout } from "../components/PostsLayout";
 import { useContext, useEffect, useState } from "react";
 import { AddPostButton } from "../components/AddPostButton";
-import { PostService } from "../services/PostService";
 import { SearchContext } from "../context/SearchContext";
 
 export const HomePage = () => {
