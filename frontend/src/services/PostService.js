@@ -3,6 +3,7 @@ import { apiGET, apiPOST } from "./api/apiAccessFunctions";
 export const PostService = {
     getPosts,
     getPostDetails,
+    searchPosts,
 }
 
 /**
@@ -19,9 +20,7 @@ async function getPosts (bodyJson = {
       const result = await apiGET("/posts", bodyJson);
       return result;
     } catch (err) {
-      if(err.response) {
-        return err.response.status;
-      }
+      processError(err);
     }
   };
 
@@ -30,8 +29,32 @@ async function getPostDetails(id) {
     const result = await apiGET("/posts/" + id);
     return result;
   } catch (err) {
-    if(err.response) {
-      return err.response.status;
-    }
+    processError(err);
   }
 }
+
+async function searchPosts(keyword) {
+  try {
+    const bodyJson = {
+      "lat":-36.91042,
+      "long":174.7698112,
+      "searchKeyword": keyword,
+    }
+
+    console.log(keyword);
+
+    const result = await apiGET("/posts/search", bodyJson);
+    console.log(result);
+    return result;
+  } catch (err) {
+    processError(err);
+  }
+}
+
+function processError(err) {
+  console.log(err);
+  if(err.response) {
+    return err.response.status;
+  }
+}
+

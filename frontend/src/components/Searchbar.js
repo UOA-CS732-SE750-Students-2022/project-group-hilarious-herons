@@ -11,6 +11,7 @@ import {
 } from "@ionic/react";
 import { search, filter } from "ionicons/icons";
 import { useEffect, useState } from "react";
+import { PostService } from "../services/PostService";
 import { SearchbarFilter } from "./SearchbarFilter";
 
 // ionic md breakpoint
@@ -26,7 +27,7 @@ export const Searchbar = () => {
     ? "Search for a dish, cuisine or restaurant"
     : "Search";
 
-  const doSearch = () => {
+  function doSearch (searchInput) {
     console.log(
       "search for results with the filters: ",
       `shortest distance: ${localStorage.getItem("byDistance")}`,
@@ -35,7 +36,10 @@ export const Searchbar = () => {
       `rating: ${localStorage.getItem("rating")}`,
       `dietary: ${JSON.parse(localStorage.getItem("dietaries"))}`
     );
-    return [];
+    
+    PostService.searchPosts(searchInput).then((res) => {
+      return res;
+    })
   };
 
   // listen for window resize events
@@ -65,14 +69,13 @@ export const Searchbar = () => {
             pattern="search"
             inputMode="search"
             type="search"
-            clear-input={false}
+            clearInput
             placeholder={placeholder}
             mode="ios"
             onKeyUp={(e) => {
               if (e.code === "Enter") {
                 setShowMobileModal(false);
-                doSearch();
-                console.log(searchInput);
+                doSearch(searchInput);
               }
             }}
             onIonChange={(e) => {
