@@ -139,6 +139,8 @@ const getPostsFromDB = async (lat, long, range) => {
   for (i of response) {
     const distLat = i.coordinates.lat;
     const distLong = i.coordinates.long;
+    console.log(lat);
+    console.log(long);
     const distance = distanceCalculation(lat, long, distLat, distLong);
 
     if (distance < range) {
@@ -181,6 +183,15 @@ const getPostFromGoogle = async (
         data.geometry.location.lat,
         data.geometry.location.lng
       );
+      if (
+        data.photos == undefined ||
+        data.opening_hours == undefined ||
+        data.name == undefined ||
+        data.formatted_address == undefined ||
+        data.geometry == undefined
+      ) {
+        continue;
+      }
       for (let i = 0; i < postPerRestaurant; i++) {
         const existPostName = await Post.find({
           foodName: data.name,
@@ -229,7 +240,7 @@ const getPostFromGoogle = async (
               bodyText: data.name,
               tags: [data.name, "Restaurant", "Food"],
               numberOfLikes: 0,
-              rating: 0,
+              rating: data.rating == undefined ? 0 : data.rating,
               numberOfReviews: 0,
               imageURLs: [imageURL],
               restaurant: restaurant,
@@ -262,19 +273,19 @@ const getPostFromGoogle = async (
 exports.getPosts = async (req, res) => {
   try {
     const { lat, long } = req.query;
-    let { range, numberOfposts } = req.query; //km
-
+    let { range, numberOfposts } = req.query;
     if (!range) {
       range = 10;
     }
     if (!numberOfposts || numberOfposts < 10) {
       numberOfposts = 10;
     }
+
     let posts = await getPostsFromDB(lat, long, range);
+
     range = range * 1000; //convert to meter
     if (posts.length < numberOfposts) {
       const num = numberOfposts - posts.length;
-
       const googleposts = await getPostFromGoogle(lat, long, range, num);
 
       posts = posts.concat(googleposts);
@@ -311,7 +322,6 @@ exports.searchPost = async (req, res) => {
       ],
     });
   } else {
-    console.log(dietryRequirements);
     result = await Post.find({
       $or: [
         { foodName: { $regex: `(?i)${searchKeyWord}` } },
@@ -320,7 +330,6 @@ exports.searchPost = async (req, res) => {
       dietryRequirements: { $in: dietryRequirements },
     });
   }
-  console.log(result);
   if (result.length == 0) {
     return res.status(404).json({});
   }
