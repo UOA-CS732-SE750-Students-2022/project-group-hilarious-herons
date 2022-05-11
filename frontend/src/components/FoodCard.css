@@ -1,5 +1,5 @@
 .food-card {
-    width: fit-content;
+    width: auto;
     height: fit-content;
 }
 
@@ -9,7 +9,7 @@
 }
 
 .img-continer{
-  width: 365px;
+  width: auto;
   text-align: center;
 }
 

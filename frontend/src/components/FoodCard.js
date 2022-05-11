@@ -62,7 +62,7 @@ const FoodCard = ({
         <IonCardHeader>
           <IonCardTitle>
             {foodName.length >= 33
-              ? foodName.substring(0, 30) + "...."
+              ? foodName.substring(0, 25) + "...."
               : foodName}
           </IonCardTitle>
         </IonCardHeader>
