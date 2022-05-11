@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import { Searchbar } from "./Searchbar";
 import { UserPopover } from "./UserPopover";
 import "./ActionHeader.css";
+import { Link } from "react-router-dom";
 
 export const ActionHeader = ({ banner, children }) => {
   const [headerVisible, setHeaderVisible] = useState(true);
@@ -66,7 +67,13 @@ export const ActionHeader = ({ banner, children }) => {
         >
           <IonToolbar color="transparent">
             <IonText slot="start" style={{ color: "white", margin: "0 5%" }}>
-              <h2>FUNTER</h2>
+              <Link
+                replace
+                to={"/"}
+                style={{ textDecoration: "none", color: "white" }}
+              >
+                <h2>FUNTER</h2>
+              </Link>
             </IonText>
             <Searchbar />
             {isLoggedIn ? (
