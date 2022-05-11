@@ -13,7 +13,7 @@ export const PostsLayout = ({ dataForCards = [] }) => {
                 // sizeLg="auto"
                 key={index}
                 class="no-padding text-center ion-item "
-                style={{ width: "365px" }}
+                style={{ maxWidth: "365px" }}
               >
                 <FoodCard
                   id={cardData.id}
