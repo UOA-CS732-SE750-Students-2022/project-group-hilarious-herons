@@ -67,13 +67,7 @@ export const ActionHeader = ({ banner, children }) => {
         >
           <IonToolbar color="transparent">
             <IonText slot="start" style={{ color: "white", margin: "0 5%" }}>
-              <Link
-                replace
-                to={"/"}
-                style={{ textDecoration: "none", color: "white" }}
-              >
-                <h2>FUNTER</h2>
-              </Link>
+              <h2>FUNTER</h2>
             </IonText>
             <Searchbar />
             {isLoggedIn ? (
