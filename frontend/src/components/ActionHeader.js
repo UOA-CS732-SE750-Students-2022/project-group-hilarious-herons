@@ -13,10 +13,11 @@ import { useEffect, useState } from "react";
 import { Searchbar } from "./Searchbar";
 import { UserPopover } from "./UserPopover";
 import "./ActionHeader.css";
+import { Link } from "react-router-dom";
 
 export const ActionHeader = ({ banner, children, canSearch }) => {
   const [headerVisible, setHeaderVisible] = useState(true);
-  const [displayName, setDisplayName] = useState('');
+  const [displayName, setDisplayName] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const colorInAnimation = createAnimation()
@@ -45,10 +46,10 @@ export const ActionHeader = ({ banner, children, canSearch }) => {
     }
   };
 
-    useEffect(() => {
-      setDisplayName(localStorage.getItem('displayName'));
-      setIsLoggedIn(localStorage.getItem("isLoggedIn"));
-    } , [])
+  useEffect(() => {
+    setDisplayName(localStorage.getItem("displayName"));
+    setIsLoggedIn(localStorage.getItem("isLoggedIn"));
+  }, []);
 
   return (
     <IonContent
@@ -82,7 +83,7 @@ export const ActionHeader = ({ banner, children, canSearch }) => {
                     alt="user"
                   />
                 </IonAvatar>
-                <IonLabel>{ displayName }</IonLabel>
+                <IonLabel>{displayName}</IonLabel>
               </IonChip>
             ) : (
               <IonButton
@@ -101,14 +102,13 @@ export const ActionHeader = ({ banner, children, canSearch }) => {
           </IonToolbar>
         </div>
 
-
         {banner ? (
           <header className="banner">
             <IonTitle
               slot="start"
               style={{ fontSize: "2.25em", color: "white", margin: "5%" }}
             >
-              <h1>
+              <h1 className="header-text">
                 START YOUR FOOD
                 <br />
                 HUNTING JOURNEY.

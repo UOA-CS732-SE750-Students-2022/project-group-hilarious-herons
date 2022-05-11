@@ -6,11 +6,11 @@ export const PostsLayout = ({ dataForCards = [], isNoSearchResult }) => {
     if(!isNoSearchResult) {
         return (
                 <IonGrid>
-                <IonRow>
+                <IonRow class="ion-justify-content-center no-padding">
                     {dataForCards.map((cardData, index) => {
                         if (typeof cardData.image !== 'undefined') {
                             return (
-                                <IonCol size='auto' key={index}>
+                                <IonCol size='auto' key={index} class="no-padding text-center ion-item " style={{ maxWidth: "365px", minWidth: "365px" }}>
                                     <FoodCard id={cardData.id} image={cardData.image} foodName={cardData.foodName} rating={cardData.rating} timestamp={cardData.timestamp} numberOfLikes={cardData.numberOfLikes} postLiked={cardData.postLiked} />
                                 </IonCol>
                         );
