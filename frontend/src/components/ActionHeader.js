@@ -14,7 +14,7 @@ import { Searchbar } from "./Searchbar";
 import { UserPopover } from "./UserPopover";
 import "./ActionHeader.css";
 
-export const ActionHeader = ({ banner, children }) => {
+export const ActionHeader = ({ banner, children, canSearch }) => {
   const [headerVisible, setHeaderVisible] = useState(true);
   const [displayName, setDisplayName] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -68,7 +68,7 @@ export const ActionHeader = ({ banner, children }) => {
             <IonText slot="start" style={{ color: "white", margin: "0 5%" }}>
               <h2>FUNTER</h2>
             </IonText>
-            <Searchbar />
+            { canSearch ? (<Searchbar />): (<></>)}
             {isLoggedIn ? (
               <IonChip
                 id="user-avatar"

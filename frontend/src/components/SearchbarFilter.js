@@ -13,7 +13,6 @@ import {
 } from "@ionic/react";
 import { useState } from "react";
 import { DietariesSelect } from "./DietariesSelect";
-import { LocationSearchbar } from "./LocationSearchbar";
 
 export const SearchbarFilter = ({ setShowMobileModal, doSearch }) => {
   const [showModal, setShowModal] = useState(false);
