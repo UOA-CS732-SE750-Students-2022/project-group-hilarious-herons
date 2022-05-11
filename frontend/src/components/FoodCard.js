@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./FoodCard.css";
 import {
   IonCard,
@@ -11,55 +11,24 @@ import {
   IonRow,
   IonIcon,
 } from "@ionic/react";
-import { star, heart, heartOutline } from "ionicons/icons";
+import { star } from "ionicons/icons";
 import { NavLink } from "react-router-dom";
-import { PostService } from "../services/PostService";
-import { userService } from "../services/UserService";
-import { SignInModal } from "./SignInModal";
+import { LikeButton } from "./LikeButton";
 
 const infoStyle = {
   position: "absolute",
   top: "59%",
 };
 
-const FoodCard = ({ id = 0, image = "/no_image.jpg", foodName = "Food Name", rating = 5, timestamp = "21/04/2022", numberOfLikes = 1200, postLiked = false }) => {
-  const [liked, setLiked] = useState(postLiked);
-  const [totalLikes, setTotalLikes] = useState(numberOfLikes);
-  const [showModal, setShowModal] = useState(false);
-
-  const updateLike = async () => {
-    const userId = localStorage.getItem("uid");
-
-    // Fetch the user if signed in
-    if (userId !== null) {
-      const user = await userService.getUser(localStorage.getItem("uid"));
-      const uid = user._id;
-      const favouritePosts = user.favourites;
-
-      if (!liked) {
-        setTotalLikes(totalLikes + 1);
-
-        // update server
-        PostService.likePost(id);
-        favouritePosts.push(id);
-        userService.updateUser(uid, user);
-      } else {
-        setTotalLikes(totalLikes - 1);
-
-        // update server
-        PostService.unlikePost(id);
-        const idx = favouritePosts.indexOf(id);
-        favouritePosts.splice(idx, 1);
-        userService.updateUser(uid, user);
-      }
-
-      setLiked(!liked);
-      console.log("after", user);
-    } else {
-      setShowModal(true);
-    }
-  };
-
+const FoodCard = ({
+  id = 0,
+  image = "/no_image.jpg",
+  foodName = "Food Name",
+  rating = 5,
+  timestamp = "21/04/2022",
+  numberOfLikes = 1200,
+  postLiked = false,
+}) => {
   return (
     <IonCard className="food-card">
       <div className="iamge-rate-distanse">
@@ -84,13 +53,11 @@ const FoodCard = ({ id = 0, image = "/no_image.jpg", foodName = "Food Name", rat
         <IonRow className="like-food">
           <IonCardSubtitle>{timestamp}</IonCardSubtitle>
           <IonRow className="likes">
-            <IonIcon
-              onClick={() => updateLike()}
-              icon={liked ? heart : heartOutline}
-              size="small"
+            <LikeButton
+              id={id}
+              postLiked={postLiked}
+              numberOfLikes={numberOfLikes}
             />
-            <SignInModal showModal={showModal} setShowModal={setShowModal} />
-            <IonLabel>{totalLikes}</IonLabel>
           </IonRow>
         </IonRow>
       </IonCardContent>

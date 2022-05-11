@@ -17,7 +17,6 @@ export const SignInModal = ({ showModal, setShowModal }) => {
       isOpen={showModal}
       swipeToClose={true}
       onDidDismiss={() => setShowModal(false)}
-      // showBackdrop={false}
       mode="ios"
     >
       <IonCardContent>
@@ -26,7 +25,7 @@ export const SignInModal = ({ showModal, setShowModal }) => {
           Sign in now to start saving posts
         </IonCardSubtitle>
 
-        <img src="pablita-886.png" alt="Natasha Remarchuk" />
+        <img src="/login-prompt-img.png" alt="Natasha Remarchuk" />
 
         <IonGrid>
           <IonRow>

@@ -38,7 +38,6 @@ async function likePost(id) {
   const bodyJson = { id: id };
   try {
     const result = await apiPOST("/posts/like-post", bodyJson);
-    console.log(result);
     return result;
   } catch (err) {
     if (err.response) {
@@ -56,7 +55,6 @@ async function unlikePost(id) {
   const bodyJson = { id: id };
   try {
     const result = await apiPOST("/posts/unlike-post", bodyJson);
-    console.log(result);
     return result;
   } catch (err) {
     if (err.response) {
