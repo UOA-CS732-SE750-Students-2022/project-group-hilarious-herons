@@ -1,0 +1,42 @@
+.title-msg {
+  font-size: medium;
+}
+
+.subtitle-msg {
+  font-size: small;
+  font-weight: bold;
+}
+
+.img {
+  width: 60%;
+}
+
+.img-attribution {
+  font-size: 10px !important;
+  color: var(--ion-color-medium);
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: var(--ion-color-primary);
+}
+
+@media only screen and (min-width: 768px) and (min-height: 600px) {
+  .title-msg {
+    font-size: large;
+  }
+
+  .subtitle-msg {
+    font-size: medium;
+    font-weight: bold;
+  }
+
+  .img {
+    width: 30%;
+  }
+
+  .img-attribution {
+    font-size: 11px !important;
+  }
+}
