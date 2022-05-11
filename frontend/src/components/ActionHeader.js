@@ -13,7 +13,6 @@ import { useEffect, useState } from "react";
 import { Searchbar } from "./Searchbar";
 import { UserPopover } from "./UserPopover";
 import "./ActionHeader.css";
-import { Link } from "react-router-dom";
 
 export const ActionHeader = ({ banner, children }) => {
   const [headerVisible, setHeaderVisible] = useState(true);
@@ -53,7 +52,6 @@ export const ActionHeader = ({ banner, children }) => {
 
   return (
     <IonContent
-      style={{ minHeight: "50rem" }}
       scrollEvents={true}
       onIonScroll={(event) => handleScroll(event)}
     >
@@ -66,7 +64,7 @@ export const ActionHeader = ({ banner, children }) => {
           style={{ background: banner ? "transparent" : "#ff9f1c" }}
         >
           <IonToolbar color="transparent">
-            <IonText slot="start" style={{ color: "white", margin: "0 5%" }}>
+            <IonText slot="start" className="funter">
               <h2>FUNTER</h2>
             </IonText>
             <Searchbar />
@@ -104,10 +102,7 @@ export const ActionHeader = ({ banner, children }) => {
 
         {banner ? (
           <header className="banner">
-            <IonTitle
-              slot="start"
-              style={{ fontSize: "2.25em", color: "white", margin: "5%" }}
-            >
+            <IonTitle slot="start" className="slogan">
               <h1 className="header-text">
                 START YOUR FOOD
                 <br />
@@ -116,7 +111,7 @@ export const ActionHeader = ({ banner, children }) => {
             </IonTitle>
           </header>
         ) : null}
-        {children}
+        <div className="content">{children}</div>
       </div>
     </IonContent>
   );
