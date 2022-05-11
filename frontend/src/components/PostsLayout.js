@@ -34,8 +34,10 @@ export const PostsLayout = ({ dataForCards = [], isNoSearchResult }) => {
         )
     } else {
         return ( 
-            <IonGrid>
-                <IonText>
+            <IonGrid style={{ textAlign: "center" }}>
+                <IonText 
+                  color="ionContentHeaderText" 
+                  style={{ fontSize: "xx-large" }}>
                     <h1>None of the posts match the search</h1>
                     <p>Please try another search</p>
                 </IonText>
