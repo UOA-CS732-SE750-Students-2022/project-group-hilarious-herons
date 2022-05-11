@@ -28,20 +28,34 @@ import {
   openOutline,
 } from "ionicons/icons";
 import { useEffect, useState } from "react";
-import { PostService}  from '../services/PostService';
+import { PostService } from "../services/PostService";
 import { useParams } from "react-router-dom";
 
 export const FoodDetailsCard = () => {
   const [liked, setLiked] = useState(false);
   const [present, dismiss] = useIonToast();
   const [foodData, setFoodData] = useState({});
+  const [loading, setLoading] = useState(false);
   const foodID = useParams().id;
-  
+
   useEffect(() => {
-    PostService.getPostDetails(foodID).then((res) => {
-      setFoodData(res)
-    })
-  });
+    setLoading(true);
+
+    PostService.getPostDetails(foodID)
+      .then((res) => {
+        if (!loading) return null;
+        setFoodData(res);
+      })
+      .catch((error) => {
+        if (!loading) return null;
+        setLoading(false);
+        throw error;
+      });
+
+    return () => {
+      setLoading(false);
+    };
+  }, [foodID, loading]);
 
   const getData = () => {
     return {
@@ -49,12 +63,10 @@ export const FoodDetailsCard = () => {
     };
   };
 
-  const {
-    timestamp,
-  } = getData();
+  const { timestamp } = getData();
 
   const getRating = (rating) => {
-    if(rating) {
+    if (rating) {
       rating = Math.round(rating);
       const filledStars = [...Array(rating + 1).keys()].slice(1);
       const emptyStars = [...Array(5 - rating + 1).keys()].slice(1);
@@ -68,7 +80,6 @@ export const FoodDetailsCard = () => {
           })}
         </>
       );
-
     }
   };
 
@@ -88,117 +99,125 @@ export const FoodDetailsCard = () => {
   return (
     <IonCard>
       <IonCardContent>
-      <IonGrid>
-        <IonRow>
-          <IonCol size="12" sizeLg="6">
-            <IonImg
-              src={ foodData?.imageURLs }
-              style={{ borderRadius: "1rem", overflow: "hidden" }}
-            />
-          </IonCol>
+        <IonGrid>
+          <IonRow>
+            <IonCol size="12" sizeLg="6">
+              <IonImg
+                src={foodData?.imageURLs}
+                style={{ borderRadius: "1rem", overflow: "hidden" }}
+              />
+            </IonCol>
 
-          <IonCol size="12" sizeLg="6">
-            <IonItem lines="none">
-              <IonCardTitle>
-                <b>{foodData?.foodName}</b>
-                <IonCardSubtitle style={{ marginTop: "0.5rem" }}>
-                  {timestamp.toLocaleDateString()}
+            <IonCol size="12" sizeLg="6">
+              <IonItem lines="none">
+                <IonCardTitle>
+                  <b>{foodData?.foodName}</b>
+                  <IonCardSubtitle style={{ marginTop: "0.5rem" }}>
+                    {timestamp.toLocaleDateString()}
+                  </IonCardSubtitle>
+                </IonCardTitle>
+
+                <IonAvatar slot="end">
+                  <IonIcon
+                    icon={personCircle}
+                    size="large"
+                    color="ionContentHeaderText"
+                  />
+                </IonAvatar>
+              </IonItem>
+
+              <IonItem lines="none">{getRating(foodData?.rating)}</IonItem>
+
+              <IonItemGroup style={{ pointerEvents: "none" }}>
+                {foodData?.tags &&
+                  foodData?.tags.map((tag, idx) => {
+                    return (
+                      <IonChip color="primary" key={idx}>
+                        <IonLabel>{tag}</IonLabel>
+                      </IonChip>
+                    );
+                  })}
+              </IonItemGroup>
+
+              <IonItemGroup style={{ pointerEvents: "none" }}>
+                {foodData?.dietryRequirements &&
+                  foodData?.dietryRequirements.map((diet, idx) => {
+                    return (
+                      <IonChip color="primary" outline key={idx}>
+                        <IonLabel>{diet}</IonLabel>
+                      </IonChip>
+                    );
+                  })}
+              </IonItemGroup>
+
+              <IonItem lines="none">{foodData?.bodyText}</IonItem>
+
+              <IonItem lines="none">
+                <IonIcon icon={locationOutline} slot="start" />
+                <IonCardSubtitle color="dark">
+                  <b>Location</b>
                 </IonCardSubtitle>
-              </IonCardTitle>
+              </IonItem>
 
-              <IonAvatar slot="end">
-                <IonIcon
-                  icon={personCircle}
-                  size="large"
-                  color="ionContentHeaderText"
-                />
-              </IonAvatar>
-            </IonItem>
+              <IonItem lines="none">
+                <IonText>
+                  {foodData?.restaurant?.name}
+                  <br />
+                  {foodData?.restaurant?.address}
+                </IonText>
+                <IonButton
+                  fill="clear"
+                  color="light"
+                  style={{ marginTop: "1rem" }}
+                  href={foodData?.restaurant?.googleMapsURL}
+                  target="_blank"
+                >
+                  <IonIcon icon={openOutline} slot="end" size="md" />
+                </IonButton>
+              </IonItem>
 
-            <IonItem lines="none">{getRating(foodData?.rating)}</IonItem>
+              <IonItem lines="none">
+                <IonIcon icon={timeOutline} slot="start" />
+                <IonCardSubtitle color="dark">
+                  <b>Opening hours</b>
+                </IonCardSubtitle>
+              </IonItem>
 
-            <IonItemGroup style={{pointerEvents: 'none'}}>
-              { foodData?.tags && foodData?.tags.map((tag, idx) => {
-                return (
-                  <IonChip color="primary" key={idx}>
-                    <IonLabel>{tag}</IonLabel>
-                  </IonChip>
-                );
-              })
-              }
-            </IonItemGroup>
+              <IonItem lines="none">
+                <IonText slot="start"></IonText>
+                <IonText>
+                  {foodData?.restaurant?.openHours.map((day) => {
+                    return (
+                      <p key={day}>
+                        {day} <br />
+                      </p>
+                    );
+                  })}
+                </IonText>
+              </IonItem>
 
-            <IonItemGroup  style={{pointerEvents: 'none'}}>
-              {foodData?.dietryRequirements && foodData?.dietryRequirements.map((diet, idx) => {
-                return (
-                  <IonChip color="primary" outline key={idx}>
-                    <IonLabel>{diet}</IonLabel>
-                  </IonChip>
-                );
-              })}
-            </IonItemGroup>
+              <IonItem lines="none">
+                <IonButton
+                  slot="end"
+                  fill="clear"
+                  color="light"
+                  onClick={() => addToLikedPosts()}
+                >
+                  <IonRow style={{ display: "inline-block" }}>
+                    <IonIcon
+                      size="large"
+                      icon={liked ? heart : heartOutline}
+                      style={{ verticalAlign: "middle" }}
+                    />
+                    <IonText color="dark">{foodData?.numberOfLikes}</IonText>
+                  </IonRow>
+                </IonButton>
+              </IonItem>
 
-            <IonItem lines="none">{foodData?.bodyText}</IonItem>
-
-            <IonItem lines="none">
-              <IonIcon icon={locationOutline} slot="start" />
-              <IonCardSubtitle color="dark">
-                <b>Location</b>
-              </IonCardSubtitle>
-            </IonItem>
-
-            <IonItem lines="none">
-              <IonText>
-                {foodData?.restaurant?.name}
-                <br />
-                {foodData?.restaurant?.address}
-              </IonText>
-              <IonButton
-                fill="clear"
-                color="light"
-                style={{ marginTop: "1rem" }}
-                href={foodData?.restaurant?.googleMapsURL}
-                target="_blank"
-              >
-                <IonIcon icon={openOutline} slot="end" size="md" />
-              </IonButton>
-            </IonItem>
-
-            <IonItem lines="none">
-              <IonIcon icon={timeOutline} slot="start" />
-              <IonCardSubtitle color="dark">
-                <b>Opening hours</b>
-              </IonCardSubtitle>
-            </IonItem>
-
-            <IonItem lines="none">
-              <IonText slot="start">
-              </IonText>
-              <IonText>
-                {foodData?.restaurant?.openHours.map((day) => {
-                  return <p key={day}>{day} <br/></p>
-                })}
-              </IonText>
-            </IonItem>
-
-            <IonItem lines="none">
-              <IonButton
-                slot="end"
-                fill="clear"
-                color="light"
-                onClick={() => addToLikedPosts()}
-              >
-                <IonRow style={{ display: 'inline-block'}}>
-                  <IonIcon size="large" icon={liked ? heart : heartOutline} style={{ verticalAlign: "middle" }}/>
-                  <IonText color="dark">{ foodData?.numberOfLikes }</IonText>
-                </IonRow>
-              </IonButton>
-            </IonItem>
-
-            <IonItem lines="none" />
-          </IonCol>
-        </IonRow>
-      </IonGrid>
+              <IonItem lines="none" />
+            </IonCol>
+          </IonRow>
+        </IonGrid>
       </IonCardContent>
     </IonCard>
   );

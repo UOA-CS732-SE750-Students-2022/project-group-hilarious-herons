@@ -50,12 +50,12 @@ const FoodCard = ({
 
           <IonRow style={infoStyle}>
             {/* Unsure if distance chip needed */}
-            {/* <IonChip className='rate'>
-                        <IonLabel>1.2km</IonLabel>
-                    </IonChip> */}
+            {/* <IonChip className="distance">
+              <IonLabel className="label">1.2km</IonLabel>
+            </IonChip> */}
             <IonChip className="rate">
               <IonIcon icon={star} />
-              <IonLabel>{rating}/5</IonLabel>
+              <IonLabel className="label">{rating} / 5</IonLabel>
             </IonChip>
           </IonRow>
         </div>
