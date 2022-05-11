@@ -10,7 +10,7 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import { search, filter } from "ionicons/icons";
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { SearchContext } from "../context/SearchContext";
 import { SearchbarFilter } from "./SearchbarFilter";
 
@@ -23,7 +23,7 @@ export const Searchbar = () => {
   );
   const [showMobileModal, setShowMobileModal] = useState(false);
   const [searchInput, setSearchInput] = useState("");
-  const { updateSearchKeyword } = useContext(SearchContext);
+  const { updateSearchKeyword, clearInput } = useContext(SearchContext);
 
   const placeholder = isMdBreakpoint
     ? "Search for a dish, cuisine or restaurant"
@@ -71,7 +71,7 @@ export const Searchbar = () => {
             pattern="search"
             inputMode="search"
             type="search"
-            clear-input
+            clearInput={true}
             placeholder={placeholder}
             mode="ios"
             onKeyUp={(e) => {
@@ -81,6 +81,10 @@ export const Searchbar = () => {
               }
             }}
             onIonChange={(e) => {
+              if(e.cancelable) {
+                clearInput();
+                e.preventDefault();
+              }
               const input = e.detail.value;
               if (input.trim().length > 0) {
                 setSearchInput(e.detail.value);

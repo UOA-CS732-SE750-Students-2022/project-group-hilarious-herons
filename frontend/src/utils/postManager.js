@@ -8,16 +8,18 @@ export const postDataForFoodCard = async ( setIsNoSearchResults, keyword, bodyJs
     "numberOfposts": 2
 }) => {
     let result, dataToReturn = []
-    
+
     if(keyword === "") {
-        console.log("call")
         result = await PostService.getPosts(bodyJson)
+        setIsNoSearchResults(false);
     } else {
         result = await PostService.searchPosts(keyword);
-       
+    
         if(!result) { // no search results
             setIsNoSearchResults(true);
             result = [];
+        } else {
+            setIsNoSearchResults(false);
         }
     }
 
