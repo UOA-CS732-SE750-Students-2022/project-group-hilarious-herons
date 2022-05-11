@@ -64,16 +64,14 @@ export const SignInPage = () => {
             <IonRow>
               <IonCol size="0" sizeXs="12">
                 <IonTitle>
-                  <h2>FUNTER</h2>
+                  <h1>FUNTER</h1>
                 </IonTitle>
               </IonCol>
-
               <IonCol size="12" className="title-text-spacing">
                 <IonTitle className="description-text">
-                  <h1>
-                    START YOUR FOOD
-                    <br /> HUNTING JOURNEY
-                  </h1>
+                  <h2>
+                    START YOUR FOOD HUNTING JOURNEY
+                  </h2>
                 </IonTitle>
               </IonCol>
               <IonCol className="small-screen-login-button">

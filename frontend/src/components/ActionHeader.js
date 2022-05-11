@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import { Searchbar } from "./Searchbar";
 import { UserPopover } from "./UserPopover";
 import "./ActionHeader.css";
+import { Link } from "react-router-dom";
 
 export const ActionHeader = ({ banner, children }) => {
   const [headerVisible, setHeaderVisible] = useState(true);
@@ -107,7 +108,7 @@ export const ActionHeader = ({ banner, children }) => {
               slot="start"
               style={{ fontSize: "2.25em", color: "white", margin: "5%" }}
             >
-              <h1>
+              <h1 className="header-text">
                 START YOUR FOOD
                 <br />
                 HUNTING JOURNEY.
