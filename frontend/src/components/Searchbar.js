@@ -71,7 +71,7 @@ export const Searchbar = () => {
             pattern="search"
             inputMode="search"
             type="search"
-            clear-input={false}
+            clear-input
             placeholder={placeholder}
             mode="ios"
             onKeyUp={(e) => {

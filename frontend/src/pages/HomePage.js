@@ -8,6 +8,7 @@ import { SearchContext } from "../context/SearchContext";
 export const HomePage = () => {
   const [data, updateData] = useState();
   const { searchKeyword, clearInput } = useContext(SearchContext);
+  const [isNoSearchResults, setIsNoSearchResults] = useState(false);
 
   useEffect(() => {
     if (sessionStorage.getItem("is_reloaded")) {
@@ -15,17 +16,17 @@ export const HomePage = () => {
     }
     
     const getData = async () => {
-    const resp = await postDataForFoodCard(searchKeyword);
+      const resp = await postDataForFoodCard(setIsNoSearchResults, searchKeyword);
       updateData(resp);
     }
+    
     getData();
- 
   }, [searchKeyword]);
 
 
   return (
     <FoodPage banner>
-      <PostsLayout dataForCards={data} />
+      <PostsLayout dataForCards={data} isNoSearchResult={isNoSearchResults}/>
       <AddPostButton/>
     </FoodPage>
   );
