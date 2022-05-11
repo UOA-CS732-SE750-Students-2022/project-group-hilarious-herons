@@ -37,7 +37,6 @@ export const SignInModal = ({ showModal, setShowModal }) => {
                 </a>{" "}
                 from <a href="https://icons8.com/illustrations">Ouch!</a>
               </p>
-              {/* 1 */}
             </IonCol>
 
             <IonCol size="auto">
@@ -51,7 +50,6 @@ export const SignInModal = ({ showModal, setShowModal }) => {
                   Sign In
                 </IonButton>
               </NavLink>
-              {/* 2 */}
             </IonCol>
           </IonRow>
         </IonGrid>

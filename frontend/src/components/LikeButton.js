@@ -1,4 +1,4 @@
-import { IonIcon, IonRow, IonText, useIonToast } from "@ionic/react";
+import { IonIcon, IonRow, IonText } from "@ionic/react";
 import { useEffect, useState } from "react";
 import { PostService } from "../services/PostService";
 import { userService } from "../services/UserService";
@@ -10,7 +10,6 @@ export const LikeButton = ({ id, postLiked, numberOfLikes }) => {
   const [liked, setLiked] = useState(postLiked);
   const [showModal, setShowModal] = useState(false);
   const [totalLikes, setTotalLikes] = useState(numberOfLikes);
-  const [present, dismiss] = useIonToast();
 
   useEffect(() => {
     setTotalLikes(numberOfLikes);
@@ -44,18 +43,6 @@ export const LikeButton = ({ id, postLiked, numberOfLikes }) => {
       }
 
       setLiked(!liked);
-
-      // Close current toasts if any and show new toast message
-      dismiss().then(() => {
-        present({
-          message: !liked
-            ? "Added to liked posts!"
-            : "Removed from liked posts",
-          mode: "ios",
-          color: "dark",
-          duration: 2000,
-        });
-      });
     } else {
       setShowModal(true);
     }

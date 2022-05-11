@@ -16,7 +16,7 @@ import "./ActionHeader.css";
 
 export const ActionHeader = ({ banner, children }) => {
   const [headerVisible, setHeaderVisible] = useState(true);
-  const [displayName, setDisplayName] = useState('');
+  const [displayName, setDisplayName] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const colorInAnimation = createAnimation()
@@ -45,10 +45,10 @@ export const ActionHeader = ({ banner, children }) => {
     }
   };
 
-    useEffect(() => {
-      setDisplayName(localStorage.getItem('displayName'));
-      setIsLoggedIn(localStorage.getItem("isLoggedIn"));
-    } , [])
+  useEffect(() => {
+    setDisplayName(localStorage.getItem("displayName"));
+    setIsLoggedIn(localStorage.getItem("isLoggedIn"));
+  }, []);
 
   return (
     <IonContent
@@ -56,7 +56,7 @@ export const ActionHeader = ({ banner, children }) => {
       scrollEvents={true}
       onIonScroll={(event) => handleScroll(event)}
     >
-      <div>
+      <div style={{ justifyContent: "center" }}>
         {banner ? <div className="header-bg" /> : null}
 
         <div
@@ -82,7 +82,7 @@ export const ActionHeader = ({ banner, children }) => {
                     alt="user"
                   />
                 </IonAvatar>
-                <IonLabel>{ displayName }</IonLabel>
+                <IonLabel>{displayName}</IonLabel>
               </IonChip>
             ) : (
               <IonButton
@@ -100,7 +100,6 @@ export const ActionHeader = ({ banner, children }) => {
             <UserPopover />
           </IonToolbar>
         </div>
-
 
         {banner ? (
           <header className="banner">

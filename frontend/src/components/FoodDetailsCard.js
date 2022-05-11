@@ -80,15 +80,28 @@ export const FoodDetailsCard = () => {
   };
 
   return (
-    <IonCard>
+    <IonCard
+      style={{
+        height: "fit-content",
+        borderRadius: "1rem",
+        margin: "2rem 5%",
+      }}
+    >
       <IonCardContent>
         <IonGrid>
           <IonRow>
-            <IonCol size="12" sizeLg="6">
-              <IonImg
-                src={foodData?.imageURLs}
-                style={{ borderRadius: "1rem", overflow: "hidden" }}
-              />
+            <IonCol
+              size="12"
+              sizeLg="6"
+              class="ion-justify-content-center"
+              style={{ display: "flex" }}
+            >
+              <div style={{ width: "100%" }}>
+                <IonImg
+                  src={foodData?.imageURLs}
+                  style={{ borderRadius: "1rem", overflow: "hidden" }}
+                />
+              </div>
             </IonCol>
 
             <IonCol size="12" sizeLg="6">
