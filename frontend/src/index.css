@@ -143,7 +143,7 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-tint: var(--ion-color-ionWhite-tint);
 }
 
-@media () {
+@media (prefers-color-scheme: dark) {
   /*
    * Dark Colors
    * -------------------------------------------
