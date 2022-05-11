@@ -31,41 +31,41 @@ const FoodCard = ({
 }) => {
   return (
     <IonCard className="food-card">
-      <NavLink to={"/food/" + id} style={{ textDecoration: "none" }}>
-        <div className="iamge-rate-distanse">
+      <div className="iamge-rate-distanse">
+        <NavLink to={"/food/" + id} style={{ textDecoration: "none" }}>
           <img src={image} alt="food-img" className="food-img" />
-          <IonRow style={infoStyle}>
-            {/* Unsure if distance chip needed */}
-            {/* <IonChip className='rate'>
+        </NavLink>
+        <IonRow style={infoStyle}>
+          {/* Unsure if distance chip needed */}
+          {/* <IonChip className='rate'>
                         <IonLabel>1.2km</IonLabel>
                     </IonChip> */}
-            <IonChip className="rate">
-              <IonIcon icon={star} />
-              <IonLabel>{rating}/5</IonLabel>
-            </IonChip>
-          </IonRow>
-        </div>
-        <IonCardHeader>
-          <IonCardTitle>
-            {foodName.length >= 33
-              ? foodName.substring(0, 25) + "...."
-              : foodName}
-          </IonCardTitle>
-        </IonCardHeader>
+          <IonChip className="rate">
+            <IonIcon icon={star} />
+            <IonLabel>{rating}/5</IonLabel>
+          </IonChip>
+        </IonRow>
+      </div>
+      <IonCardHeader>
+        <IonCardTitle>
+          {foodName.length >= 33
+            ? foodName.substring(0, 25) + "...."
+            : foodName}
+        </IonCardTitle>
+      </IonCardHeader>
 
-        <IonCardContent>
-          <IonRow className="like-food">
-            <IonCardSubtitle>{timestamp}</IonCardSubtitle>
-            <IonRow className="likes">
-              <LikeButton
-                id={id}
-                postLiked={postLiked}
-                numberOfLikes={numberOfLikes}
-              />
-            </IonRow>
+      <IonCardContent>
+        <IonRow className="like-food">
+          <IonCardSubtitle>{timestamp}</IonCardSubtitle>
+          <IonRow className="likes">
+            <LikeButton
+              id={id}
+              postLiked={postLiked}
+              numberOfLikes={numberOfLikes}
+            />
           </IonRow>
-        </IonCardContent>
-      </NavLink>
+        </IonRow>
+      </IonCardContent>
     </IonCard>
   );
 };
