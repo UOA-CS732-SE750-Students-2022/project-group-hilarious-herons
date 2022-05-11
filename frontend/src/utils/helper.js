@@ -32,7 +32,6 @@ export const getTimestampFromId = (id) => {
 
 
 export const processError = (err) => {
-    console.log(err);
     if(err.response) {
       return err.response.status;
     }

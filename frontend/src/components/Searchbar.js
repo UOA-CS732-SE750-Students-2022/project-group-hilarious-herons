@@ -10,9 +10,8 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import { search, filter } from "ionicons/icons";
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { SearchContext } from "../context/SearchContext";
-import { SearchbarFilter } from "./SearchbarFilter";
 
 // ionic md breakpoint
 const mdBreakpoint = "(min-width: 576px)";
@@ -91,15 +90,7 @@ export const Searchbar = () => {
               }
             }}
           />
-          <IonButton slot="end" color="light" fill="clear" id="searchbar">
-            <IonIcon icon={filter} />
-          </IonButton>
         </IonItem>
-
-        <SearchbarFilter
-          setShowMobileModal={setShowMobileModal}
-          doSearch={doSearch}
-        />
       </>
     );
   };
