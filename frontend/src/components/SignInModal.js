@@ -14,6 +14,7 @@ import "./SignInModal.css";
 export const SignInModal = ({ showModal, setShowModal }) => {
   return (
     <IonModal
+      className="sign-in-modal"
       isOpen={showModal}
       swipeToClose={true}
       onDidDismiss={() => setShowModal(false)}
