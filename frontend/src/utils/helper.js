@@ -29,3 +29,11 @@ export const getTimestampFromId = (id) => {
     let formattedDate = formatLocaleString(date.toLocaleDateString())
     return formattedDate
 }
+
+
+export const processError = (err) => {
+    console.log(err);
+    if(err.response) {
+      return err.response.status;
+    }
+}

@@ -1,5 +1,5 @@
 import { apiGET, apiPOST } from "./api/apiAccessFunctions";
-
+import { processError } from "../utils/helper";
 export const PostService = {
     getPosts,
     getPostDetails,
@@ -39,21 +39,10 @@ async function searchPosts(keyword, bodyJson = {
   "searchKeyWord": keyword,
 }) {
   try {
-    console.log(keyword);
-    console.log(bodyJson);
-
     const result = await apiGET("/posts/search", bodyJson);
-    console.log(result);
     return result;
   } catch (err) {
     processError(err);
-  }
-}
-
-function processError(err) {
-  console.log(err);
-  if(err.response) {
-    return err.response.status;
   }
 }
 
