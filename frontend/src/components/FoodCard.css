@@ -4,9 +4,13 @@
 }
 
 .food-img {
-  width: 100%;
-  max-width: 250px;
-  height: auto;
+  width: auto;
+  height: 280px;
+}
+
+.img-continer{
+  width: 365px;
+  text-align: center;
 }
 
 .like-food {
@@ -27,6 +31,4 @@ ion-chip {
   --background: white;
 }
 
-.rate {
-  pointer-events: none;
-}
+
