@@ -73,7 +73,7 @@ describe("GET /restaurants", () => {
   it("do return restaurant", (done) => {
     request(app)
       .get("/api/restaurants")
-      .send({ name: "Paradise Takeaway" })
+      .query({ name: "Paradise Takeaway" })
       .expect(200)
       .end((err, res) => {
         if (err) {
@@ -92,7 +92,7 @@ describe("GET /restaurants", () => {
   it("do return restaurant", (done) => {
     request(app)
       .get("/api/restaurants")
-      .send({ name: "McDonald's" })
+      .query({ name: "McDonald's" })
       .expect(200)
       .end((err, res) => {
         if (err) {
