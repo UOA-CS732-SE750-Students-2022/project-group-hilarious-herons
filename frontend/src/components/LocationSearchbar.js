@@ -45,8 +45,8 @@ export const LocationSearchbar = ({
         const restauant = await RestaurantService.getRestaurants({
           name: value,
         });
-        console.log(restauant);
-        if (!restauant >= 400) {
+        if (restauant != 404) {
+          console.log(restauant);
           setRestaurant(restauant);
         }
       }

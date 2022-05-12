@@ -2,11 +2,16 @@ import { apiGET, apiPOST } from "./api/apiAccessFunctions";
 import { processError } from "../utils/helper";
 export const PostService = {
   getPosts,
+<<<<<<< HEAD
   getPostDetails,
   likePost,
   unlikePost,
   searchPosts,
   addPost,
+=======
+  addPost,
+  getPostDetails,
+>>>>>>> 88ccf57 (get restuarnt from google)
 };
 
 /**
@@ -25,6 +30,7 @@ async function getPosts(
     const result = await apiGET("/posts", bodyJson);
     return result;
   } catch (err) {
+<<<<<<< HEAD
     processError(err);
   }
 }
@@ -79,12 +85,40 @@ async function unlikePost(id) {
     }
   }
 }
+=======
+    console.log(err);
+    if (err.response) {
+      return err.response.status;
+    }
+  }
+}
+
+async function addPost(postJSON, image) {
+  try {
+    //upload the image
+    const imageData = new FormData();
+    imageData.append("file", image);
+    const res = await apiPOST("/posts/image", imageData);
+
+    //add new post
+    postJSON = { ...postJSON, imageURLs: [res] };
+    const result = await apiPOST("/posts/", postJSON);
+
+    return result;
+  } catch (err) {
+    if (err.response) {
+      return err.response.status;
+    }
+  }
+}
+>>>>>>> 88ccf57 (get restuarnt from google)
 
 async function getPostDetails(id) {
   try {
     const result = await apiGET("/posts/" + id);
     return result;
   } catch (err) {
+<<<<<<< HEAD
     processError(err);
   }
 }
@@ -119,6 +153,9 @@ async function addPost(postJSON, image) {
   } catch (err) {
     if (err.response) {
       console.log(err);
+=======
+    if (err.response) {
+>>>>>>> 88ccf57 (get restuarnt from google)
       return err.response.status;
     }
   }

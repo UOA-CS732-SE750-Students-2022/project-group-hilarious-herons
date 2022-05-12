@@ -51,6 +51,7 @@ export const LocationPopover = ({
                     setRestaurantId(id);
                     setShow(false);
                     setLocationText(heading);
+                    console.log(id);
                   }}
                   mode="md"
                 >
