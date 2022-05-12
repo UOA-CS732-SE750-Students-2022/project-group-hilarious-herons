@@ -3,6 +3,7 @@ import { postDataForFoodCard } from "../utils/postManager";
 import { PostsLayout } from "../components/PostsLayout";
 import { useContext, useEffect, useState } from "react";
 import { SearchContext } from "../context/SearchContext";
+import { AddPostButton } from "../components/AddPostButton";
 
 export const HomePage = () => {
   const [data, updateData] = useState();
@@ -32,6 +33,7 @@ export const HomePage = () => {
         dataForCards={data}
         isNoSearchResult={isNoSearchResults}
       />
+      <AddPostButton />
     </FoodPage>
   );
 };

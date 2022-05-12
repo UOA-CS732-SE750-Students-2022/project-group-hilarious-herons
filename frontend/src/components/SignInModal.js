@@ -11,7 +11,14 @@ import {
 import { NavLink } from "react-router-dom";
 import "./SignInModal.css";
 
-export const SignInModal = ({ showModal, setShowModal }) => {
+export const SignInModal = ({
+  showModal,
+  setShowModal,
+  title,
+  subtitle,
+  imgSrc,
+  children,
+}) => {
   return (
     <IonModal
       className="sign-in-modal"
@@ -21,24 +28,14 @@ export const SignInModal = ({ showModal, setShowModal }) => {
       mode="ios"
     >
       <IonCardContent>
-        <IonCardTitle color="primary">Like what you see?</IonCardTitle>
-        <IonCardSubtitle mode="md">
-          Sign in now to start saving posts
-        </IonCardSubtitle>
+        <IonCardTitle color="primary">{title}</IonCardTitle>
+        <IonCardSubtitle mode="md">{subtitle}</IonCardSubtitle>
 
-        <img src="/login-prompt-img.png" alt="Natasha Remarchuk" />
+        <img src={imgSrc} alt="sign-in-img" />
 
         <IonGrid>
           <IonRow>
-            <IonCol>
-              <p className="img-attribution">
-                Illustration by{" "}
-                <a href="https://icons8.com/illustrations/author/u7l2K4BCiAa9">
-                  Natasha Remarchuk
-                </a>{" "}
-                from <a href="https://icons8.com/illustrations">Ouch!</a>
-              </p>
-            </IonCol>
+            <IonCol>{children}</IonCol>
 
             <IonCol size="auto">
               <NavLink to="/auth">

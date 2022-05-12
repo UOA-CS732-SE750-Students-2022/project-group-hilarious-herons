@@ -58,7 +58,21 @@ export const LikeButton = ({ id, postLiked, numberOfLikes }) => {
       <IonText color="dark" style={{ marginLeft: "0.3rem" }}>
         {totalLikes}
       </IonText>
-      <SignInModal showModal={showModal} setShowModal={setShowModal} />
+      <SignInModal
+        showModal={showModal}
+        setShowModal={setShowModal}
+        title="Like what you see?"
+        subtitle="Sign in now to start saving posts"
+        imgSrc="/login-prompt-img.png"
+      >
+        <p className="img-attribution">
+          Illustration by{" "}
+          <a href="https://icons8.com/illustrations/author/u7l2K4BCiAa9">
+            Natasha Remarchuk
+          </a>{" "}
+          from <a href="https://icons8.com/illustrations">Ouch!</a>
+        </p>
+      </SignInModal>
     </IonRow>
   );
 };

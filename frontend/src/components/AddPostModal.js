@@ -27,8 +27,7 @@ import { DietariesSelect } from "./DietariesSelect";
 import "./AddPostModal.css";
 import { LocationSearchbar } from "./LocationSearchbar";
 
-export const AddPostModal = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+export const AddPostModal = ({ isModalOpen, setIsModalOpen }) => {
   const [foodName, setFoodName] = useState("");
   const [experienceText, setExperienceText] = useState("");
   const [images, setImages] = useState([]);
@@ -186,11 +185,9 @@ export const AddPostModal = () => {
   return (
     <IonModal
       className="add-post-modal"
-      trigger="addPost"
       isOpen={isModalOpen}
       swipeToClose
       mode="ios"
-      onDidPresent={() => setIsModalOpen(true)}
       onDidDismiss={() => {
         handleReset();
         setIsModalOpen(false);
