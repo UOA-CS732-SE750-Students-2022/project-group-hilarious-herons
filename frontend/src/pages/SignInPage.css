@@ -9,10 +9,7 @@
     flex-flow: row;
 }
 
-
-
 .image-content {
-
     background-color: #000000;
 	background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url('/public/login.jpg');
     background-position: center;
@@ -20,16 +17,19 @@
 	color: #ffffff;
 	padding: 1em;
 	text-align: center;
-
 }
 
 .title-text-spacing{
-    margin-top: 18rem;
+    margin-top: 12rem;
 }
 
 .login-button{
     margin-left: auto;
     margin-right: auto;
+}
+
+a {
+    color: #ffffff;
 }
 
 @media only screen and (max-width: 600px){

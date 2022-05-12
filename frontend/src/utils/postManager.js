@@ -3,6 +3,8 @@ import { userService } from "../services/UserService";
 import { getTimestampFromId } from "./helper";
 
 export const postDataForFoodCard = async (
+  setIsNoSearchResults,
+  keyword,
   bodyJson = {
     lat: -36.91042,
     long: 174.7698112,
@@ -10,9 +12,25 @@ export const postDataForFoodCard = async (
     numberOfposts: 2,
   }
 ) => {
-  let dataToReturn = [];
+  let result,
+    dataToReturn = [];
   let user;
-  const result = await PostService.getPosts(bodyJson);
+
+  if (keyword === "") {
+    result = await PostService.getPosts(bodyJson);
+    setIsNoSearchResults(false);
+  } else {
+    result = await PostService.searchPosts(keyword);
+
+    if (!result) {
+      // no search results
+      setIsNoSearchResults(true);
+      result = [];
+    } else {
+      setIsNoSearchResults(false);
+    }
+  }
+
   const uid = localStorage.getItem("uid");
 
   // Fetch the user if signed in
@@ -28,13 +46,11 @@ export const postDataForFoodCard = async (
       foodName: data.foodName,
       image: data.imageURLs[0],
       numberOfLikes: data.numberOfLikes,
-      rating: data.rating,
+      rating: Math.round(data.rating),
       timestamp: formattedDate,
       postLiked: liked,
     };
-
     dataToReturn[index] = jsonForFoodCard;
   });
-
   return dataToReturn;
 };
