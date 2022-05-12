@@ -9,8 +9,15 @@ export const postDataForFoodCard = async (
     numberOfposts: 2,
   }
 ) => {
-  let dataToReturn = [];
   const result = await PostService.getPosts(bodyJson);
+  let dataToReturn = convertFoodCard(result);
+
+  return dataToReturn;
+};
+
+export const convertFoodCard = (result) => {
+  let dataToReturn = [];
+
   result.forEach((data, index) => {
     let formattedDate = getTimestampFromId(data._id);
     let jsonForFoodCard = {
@@ -25,5 +32,6 @@ export const postDataForFoodCard = async (
     };
     dataToReturn[index] = jsonForFoodCard;
   });
+
   return dataToReturn;
 };
