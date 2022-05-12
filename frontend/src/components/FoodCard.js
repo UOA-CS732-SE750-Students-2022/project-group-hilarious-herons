@@ -31,28 +31,28 @@ const FoodCard = ({
 }) => {
   return (
     <IonCard className="food-card">
-      <div className="iamge-rate-distanse">
-        <NavLink to={"/food/" + id} style={{ textDecoration: "none" }}>
+      <NavLink to={"/food/" + id} style={{ textDecoration: "none" }}>
+        <div className="iamge-rate-distanse">
           <img src={image} alt="food-img" className="food-img" />
-        </NavLink>
-        <IonRow style={infoStyle}>
-          {/* Unsure if distance chip needed */}
-          {/* <IonChip className='rate'>
+          <IonRow style={infoStyle}>
+            {/* Unsure if distance chip needed */}
+            {/* <IonChip className='rate'>
                         <IonLabel>1.2km</IonLabel>
                     </IonChip> */}
-          <IonChip className="rate">
-            <IonIcon icon={star} />
-            <IonLabel>{rating}/5</IonLabel>
-          </IonChip>
-        </IonRow>
-      </div>
-      <IonCardHeader>
-        <IonCardTitle>
-          {foodName.length >= 33
-            ? foodName.substring(0, 25) + "...."
-            : foodName}
-        </IonCardTitle>
-      </IonCardHeader>
+            <IonChip className="rate">
+              <IonIcon icon={star} />
+              <IonLabel>{rating}/5</IonLabel>
+            </IonChip>
+          </IonRow>
+        </div>
+        <IonCardHeader>
+          <IonCardTitle>
+            {foodName.length >= 33
+              ? foodName.substring(0, 25) + "...."
+              : foodName}
+          </IonCardTitle>
+        </IonCardHeader>
+      </NavLink>
 
       <IonCardContent>
         <IonRow className="like-food">
