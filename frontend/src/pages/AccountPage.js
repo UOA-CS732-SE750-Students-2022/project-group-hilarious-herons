@@ -66,9 +66,8 @@ export const AccountPage = () => {
   useEffect(() => {
     const getUser = async () => {
       const uid = localStorage.getItem("uid");
-      await userService.getUser(uid).then((res) => {
-        console.log(res);
-      });
+      const user = await userService.getUser(uid);
+      setUser(user);
     };
     getUser();
 
