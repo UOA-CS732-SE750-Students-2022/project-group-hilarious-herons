@@ -6,7 +6,6 @@ import {
   IonChip,
   IonAvatar,
   IonLabel,
-  IonText,
 } from "@ionic/react";
 import { createAnimation } from "@ionic/react";
 import { useEffect, useState } from "react";
