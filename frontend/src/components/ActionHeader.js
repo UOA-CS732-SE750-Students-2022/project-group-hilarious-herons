@@ -53,7 +53,7 @@ export const ActionHeader = ({ banner, children }) => {
 
   return (
     <IonContent
-      style={{ minHeight: "50rem" }}
+      // style={{ minHeight: "50rem" }}
       scrollEvents={true}
       onIonScroll={(event) => handleScroll(event)}
     >
