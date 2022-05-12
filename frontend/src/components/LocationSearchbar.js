@@ -21,10 +21,8 @@ export const LocationSearchbar = ({
     const value = e.detail.value;
 
     if (value.length > 0) {
-      console.log("in");
       setShowLoader(true);
       setShow(true);
-      setRestaurantId("");
     }
 
     if (restauantId.length > 0) {
@@ -58,10 +56,13 @@ export const LocationSearchbar = ({
     }, 1500);
 
     if (value.length == 0) {
+      setRestaurantId("");
+
       setShow(false);
     }
     setTimer(newTimer);
   };
+  console.log(restauantId);
 
   return (
     <>

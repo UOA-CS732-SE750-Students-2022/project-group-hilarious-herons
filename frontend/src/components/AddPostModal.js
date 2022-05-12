@@ -38,6 +38,7 @@ export const AddPostModal = ({ isModalOpen, setIsModalOpen }) => {
   const [tag, setTag] = useState("");
   const [tagsList, setTagsList] = useState([]);
   const [present] = useIonToast();
+  const [tagButton, setTagButton] = useState("");
 
   const createWarning = (message) => {
     return present({
@@ -144,10 +145,12 @@ export const AddPostModal = ({ isModalOpen, setIsModalOpen }) => {
       restaurantId: restauantId,
     };
 
+    console.log(postJson);
     const res = await PostService.addPost(postJson, images[0]);
-    console.log(res);
-    if (!res || res >= 400) {
-      createWarning("Add post uncessefully");
+    if (!res || res.status >= 400) {
+      console.log(res);
+
+      createWarning("Add post uncessefully: " + res.data.message);
     } else {
       createWarning("Add post successfully");
     }
@@ -172,6 +175,17 @@ export const AddPostModal = ({ isModalOpen, setIsModalOpen }) => {
   const removeTag = (idx) => {
     tagsList.splice(idx, 1);
     setTagsList([...tagsList]);
+  };
+
+  const handleEnterButtonTag = () => {
+    setTag("");
+    if (tag.length > 0) {
+      if (tagsList.length < 5) {
+        setTagsList([...tagsList, tag]);
+      } else {
+        createWarning("Maximum 5 tags per post only");
+      }
+    }
   };
 
   return (
@@ -243,6 +257,8 @@ export const AddPostModal = ({ isModalOpen, setIsModalOpen }) => {
             onKeyUp={(e) => handleEnterTag(e)}
             onIonChange={(e) => setTag(e.detail.value)}
           />
+          <IonButton onClick={(e) => handleEnterButtonTag()}>Enter</IonButton>
+
           <IonChip color="medium" className="chip">
             {tagsList.length} / 5
           </IonChip>

@@ -107,7 +107,7 @@ async function addPost(postJSON, image) {
     return result;
   } catch (err) {
     if (err.response) {
-      return err.response.status;
+      return err.response;
     }
   }
 }

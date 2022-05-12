@@ -21,7 +21,6 @@ export const LocationPopover = ({
   notFound,
 }) => {
   const [loaderTimeOut, setLoaderTimeOut] = useState(false);
-  console.log(locations);
   const items = locations?.map((location) => {
     return {
       heading: location.name,
@@ -41,7 +40,6 @@ export const LocationPopover = ({
   }, [showLoader, show, notFound]);
 
   timeOutforLoader();
-  console.log(!loaderTimeOut, !notFound);
   return (
     <IonCard
       style={{
@@ -83,10 +81,10 @@ export const LocationPopover = ({
                   key={idx}
                   lines="none"
                   onClick={() => {
+                    console.log(id);
                     setRestaurantId(id);
                     setShow(false);
                     setLocationText(heading);
-                    console.log(id);
                   }}
                   mode="md"
                 >
