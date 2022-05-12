@@ -44,7 +44,6 @@ export const LocationSearchbar = ({
         if (restauant != 404) {
           setShowLoader(!showLoader);
           setNotFound(false);
-          console.log(restauant);
           setRestaurant(restauant);
         } else {
           setRestaurant([]);
@@ -62,7 +61,6 @@ export const LocationSearchbar = ({
     }
     setTimer(newTimer);
   };
-  console.log(restauantId);
 
   return (
     <>
