@@ -2,7 +2,6 @@ import { FoodPage } from "../components/FoodPage";
 import { postDataForFoodCard } from "../utils/postManager";
 import { PostsLayout } from "../components/PostsLayout";
 import { useContext, useEffect, useState } from "react";
-import { AddPostButton } from "../components/AddPostButton";
 import { SearchContext } from "../context/SearchContext";
 
 export const HomePage = () => {

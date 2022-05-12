@@ -2,11 +2,12 @@ import {
   IonGrid, 
   IonRow, 
   IonCol, 
+  IonText,
 } from "@ionic/react";
 import FoodCard from './FoodCard';
 import { BackHomeButton } from "./BackHomeButton";
 
-export const PostsLayout = ({ dataForCards = [], isNoSearchResult }) => {
+export const PostsLayout = ({ isHomePage=false, dataForCards = [], isNoSearchResult }) => {
     if(!isNoSearchResult) {
         return (
             <IonGrid>

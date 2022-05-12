@@ -76,7 +76,7 @@ export const ActionHeader = ({ banner, children, canSearch }) => {
               style={{ margin: "0 5%" }}
             >
               <h2>FUNTER</h2>
-            </IonText>
+            </IonButton>
             { canSearch ? (<Searchbar />): (<></>)}
             {isLoggedIn ? (
               <IonChip
