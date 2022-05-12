@@ -13,10 +13,10 @@ import { logoGoogle } from "ionicons/icons";
 import "./SignInPage.css";
 import { signIn } from "../utils/firebase";
 import { userService } from "../services/UserService";
-// import loginPage from "../asset/login.jpg";
 
 export const SignInPage = () => {
   const [present] = useIonToast();
+  
   const createWarning = (message) => {
     return present({
       message: message,
@@ -25,6 +25,7 @@ export const SignInPage = () => {
       duration: 2000,
     });
   };
+
   const SignInWithGoogle = () => {
     signIn(async (ok, user) => {
       if (ok) {

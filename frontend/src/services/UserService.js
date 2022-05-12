@@ -1,3 +1,4 @@
+import { processError } from "../utils/helper";
 import { apiGET, apiPOST } from "./api/apiAccessFunctions";
 
 
@@ -18,10 +19,7 @@ async function getUser (firebaseUID)  {
 
     return result;
   } catch (err) {
-    if(err.response) {
-      return err.response.status;
-    }
-    
+    processError(err);
   }
 };
 
@@ -36,8 +34,6 @@ async function createUser (newUser) {
 
     return result;
   } catch (err) {
-    if(err.response) {
-      return err.response.status;
-    }
+    processError(err);
   }
 };
