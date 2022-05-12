@@ -14,23 +14,17 @@ export const LocationSearchbar = ({
   const [show, setShow] = useState(false);
   const [timer, setTimer] = useState(null);
   const [restauant, setRestaurant] = useState([]);
-
-  // const filterLocations = () => {
-  //   return locations?.filter((restaurant) => {
-  //     console.log(restauant);
-  //     return Object.values(restaurant)[0]
-  //       .toLowerCase()
-  //       .includes(locationText.toLowerCase());
-  //   });
-  // };
+  const [showLoader, setShowLoader] = useState([]);
+  const [notFound, setNotFound] = useState(false);
 
   const handleRestaurantInput = (e) => {
     const value = e.detail.value;
 
     if (value.length > 0) {
       console.log("in");
-
+      setShowLoader(true);
       setShow(true);
+      setRestaurantId("");
     }
 
     if (restauantId.length > 0) {
@@ -42,12 +36,23 @@ export const LocationSearchbar = ({
 
     const newTimer = setTimeout(async () => {
       if (show && value.length > 0) {
+        setRestaurant([]);
+
+        setShowLoader(!showLoader);
+
         const restauant = await RestaurantService.getRestaurants({
           name: value,
         });
         if (restauant != 404) {
+          setShowLoader(!showLoader);
+          setNotFound(false);
           console.log(restauant);
           setRestaurant(restauant);
+        } else {
+          setRestaurant([]);
+          setShowLoader(!showLoader);
+
+          setNotFound(true);
         }
       }
     }, 1500);
@@ -80,6 +85,8 @@ export const LocationSearchbar = ({
         locations={restauant}
         setRestaurantId={setRestaurantId}
         setShow={setShow}
+        showLoader={showLoader}
+        notFound={notFound}
       />
     </>
   );

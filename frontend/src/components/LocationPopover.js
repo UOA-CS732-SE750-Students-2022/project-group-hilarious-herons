@@ -8,6 +8,8 @@ import {
   IonList,
   IonText,
 } from "@ionic/react";
+import { useEffect, useState } from "react";
+import "./LocationPopover.css";
 
 export const LocationPopover = ({
   show,
@@ -15,7 +17,11 @@ export const LocationPopover = ({
   locations,
   setShow,
   setLocationText,
+  showLoader,
+  notFound,
 }) => {
+  const [loaderTimeOut, setLoaderTimeOut] = useState(false);
+  console.log(locations);
   const items = locations?.map((location) => {
     return {
       heading: location.name,
@@ -23,6 +29,19 @@ export const LocationPopover = ({
       id: location._id,
     };
   });
+
+  const timeOutforLoader = () => {
+    setTimeout(() => {
+      setLoaderTimeOut(true);
+    }, 10000);
+  };
+
+  useEffect(() => {
+    setLoaderTimeOut(false);
+  }, [showLoader, show, notFound]);
+
+  timeOutforLoader();
+  console.log(!loaderTimeOut, !notFound);
   return (
     <IonCard
       style={{
@@ -40,6 +59,22 @@ export const LocationPopover = ({
         }}
       >
         <IonContent>
+          {!loaderTimeOut && !notFound ? (
+            <div className="loader-container">
+              <div className="loader"> </div>
+            </div>
+          ) : (
+            ""
+          )}
+
+          {notFound && !showLoader ? (
+            <div className="loader-container">
+              <p>Restaurant Not Found</p>
+            </div>
+          ) : (
+            ""
+          )}
+
           <IonList>
             {items.map(({ heading, subHeading, id }, idx) => {
               return (
