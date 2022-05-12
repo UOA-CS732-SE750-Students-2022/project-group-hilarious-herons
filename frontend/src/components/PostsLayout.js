@@ -1,9 +1,15 @@
-import { IonGrid, IonRow, IonCol } from "@ionic/react";
+import { 
+  IonGrid, 
+  IonRow, 
+  IonCol, 
+} from "@ionic/react";
+import { BackHomeButton } from "./BackHomeButton";
 import FoodCard from "./FoodCard";
 
-export const PostsLayout = ({ dataForCards = [] }) => {
+export const PostsLayout = ({isHomePage=false, dataForCards = [] }) => {
   return (
     <IonGrid>
+      { isHomePage ? <></> :<BackHomeButton /> }
       <IonRow class="ion-justify-content-center no-padding">
         {dataForCards.map((cardData, index) => {
           if (typeof cardData.image !== "undefined") {

@@ -15,7 +15,7 @@ export const HomePage = () => {
   }, []);
   return (
     <FoodPage banner>
-      <PostsLayout dataForCards={data} />
+      <PostsLayout isHomePage={true} dataForCards={data} />
     </FoodPage>
   );
 };

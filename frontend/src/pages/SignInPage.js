@@ -7,6 +7,7 @@ import {
   useIonToast,
   IonRow,
   IonCol,
+  IonText,
 } from "@ionic/react";
 import { logoGoogle } from "ionicons/icons";
 import "./SignInPage.css";
@@ -75,10 +76,21 @@ export const SignInPage = () => {
                 </IonTitle>
               </IonCol>
               <IonCol className="small-screen-login-button">
-                <IonButton size="large" mode="ios" onClick={SignInWithGoogle}>
+                <IonButton 
+                  size="large" 
+                  mode="ios" 
+                  onClick={SignInWithGoogle}
+                >
                   <IonIcon slot="start" icon={logoGoogle} color="light" />
                   Sign In with Google
                 </IonButton>
+              </IonCol>
+            </IonRow>
+            <IonRow>
+            <IonCol>
+                <a href="/" color="white">
+                    <h3>Return to Home</h3>
+                </a>
               </IonCol>
             </IonRow>
           </IonCol>
