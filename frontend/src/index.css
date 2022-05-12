@@ -108,6 +108,13 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-ionFoodCardTitle-contrast-rgb: 114, 114, 114;
   --ion-color-ionFoodCardTitle-shade: #727272;
   --ion-color-ionFoodCardTitle-tint: #000000;
+
+  --ion-color-ionLikes: #222428;
+  --ion-color-ionLikes-rgb: 34, 36, 40;
+  --ion-color-ionLikes-contrast: #727272;
+  --ion-color-ionLikes-contrast-rgb: 114, 114, 114;
+  --ion-color-ionLikes-shade: #727272;
+  --ion-color-ionLikes-tint: #000000;
 }
 
 :root ion-icon {
@@ -157,6 +164,15 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-contrast-rgb: var(--ion-color-ionFoodCardTitle-contrast-rgb);
   --ion-color-shade: var(--ion-color-ionFoodCardTitle-shade);
   --ion-color-tint: var(--ion-color-ionFoodCardTitle-tint);
+}
+
+.ion-color-ionLikes {
+  --ion-color-base: var(--ion-color-ionLikes);
+  --ion-color-base-rgb: var(--ion-color-ionLikes-rgb);
+  --ion-color-contrast: var(--ion-color-ionLikes-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-ionLikes-contrast-rgb);
+  --ion-color-shade: var(--ion-color-ionLikes-shade);
+  --ion-color-tint: var(--ion-color-ionLikes-tint);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -255,6 +271,13 @@ http://ionicframework.com/docs/theming/ */
     --ion-color-ionFoodCardTitle-contrast-rgb: 114, 114, 114;
     --ion-color-ionFoodCardTitle-shade: #727272;
     --ion-color-ionFoodCardTitle-tint: #000000;
+
+    --ion-color-ionLikes: #ffe188;
+    --ion-color-ionLikes-rgb: 255, 225, 136;
+    --ion-color-ionLikes-contrast: #727272;
+    --ion-color-ionLikes-contrast-rgb: 114, 114, 114;
+    --ion-color-ionLikes-shade: #727272;
+    --ion-color-ionLikes-tint: #000000;
   }
 
   .ion-color-ionHeaderText {
@@ -297,6 +320,15 @@ http://ionicframework.com/docs/theming/ */
     --ion-color-contrast-rgb: var(--ion-color-ionFoodCardTitle-contrast-rgb);
     --ion-color-shade: var(--ion-color-ionFoodCardTitle-shade);
     --ion-color-tint: var(--ion-color-ionFoodCardTitle-tint);
+  }
+
+  .ion-color-ionLikes {
+    --ion-color-base: var(--ion-color-ionLikes);
+    --ion-color-base-rgb: var(--ion-color-ionLikes-rgb);
+    --ion-color-contrast: var(--ion-color-ionLikes-contrast);
+    --ion-color-contrast-rgb: var(--ion-color-ionLikes-contrast-rgb);
+    --ion-color-shade: var(--ion-color-ionLikes-shade);
+    --ion-color-tint: var(--ion-color-ionLikes-tint);
   }
 
   :root ion-icon {
