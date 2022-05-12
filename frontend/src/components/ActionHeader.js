@@ -14,7 +14,7 @@ import { Searchbar } from "./Searchbar";
 import { UserPopover } from "./UserPopover";
 import "./ActionHeader.css";
 
-export const ActionHeader = ({ banner, children }) => {
+export const ActionHeader = ({ banner, children, canSearch }) => {
   const [headerVisible, setHeaderVisible] = useState(true);
   const [displayName, setDisplayName] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -55,7 +55,7 @@ export const ActionHeader = ({ banner, children }) => {
       scrollEvents={true}
       onIonScroll={(event) => handleScroll(event)}
     >
-      <div>
+      <div style={{ justifyContent: "center" }}>
         {banner ? <div className="header-bg" /> : null}
 
         <div
@@ -64,17 +64,20 @@ export const ActionHeader = ({ banner, children }) => {
           style={{ background: banner ? "transparent" : "#ff9f1c" }}
         >
           <IonToolbar color="transparent">
-            <IonText slot="start" className="funter">
+            <IonButton
+              className="funter"
+              fill="clear"
+              color="light"
+              slot="start"
+              mode="ios"
+              routerDirection="back"
+              href="/"
+            >
               <h2>FUNTER</h2>
-            </IonText>
-            <Searchbar />
+            </IonButton>
+            {canSearch ? <Searchbar /> : <></>}
             {isLoggedIn ? (
-              <IonChip
-                id="user-avatar"
-                slot="end"
-                color="light"
-                style={{ margin: "0 5%" }}
-              >
+              <IonChip id="user-avatar" slot="end" color="light">
                 <IonAvatar>
                   <img
                     src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg"

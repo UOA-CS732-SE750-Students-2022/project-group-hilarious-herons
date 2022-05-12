@@ -16,7 +16,6 @@ import {
   IonRow,
   IonSkeletonText,
   IonText,
-  useIonToast,
 } from "@ionic/react";
 import {
   personCircle,
@@ -24,41 +23,37 @@ import {
   starOutline,
   timeOutline,
   locationOutline,
-  heart,
-  heartOutline,
   openOutline,
 } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import { PostService } from "../services/PostService";
 import { useParams } from "react-router-dom";
+import { LikeButton } from "./LikeButton";
+import { userService } from "../services/UserService";
 
 export const FoodDetailsCard = () => {
-  const [liked, setLiked] = useState(false);
-  const [present, dismiss] = useIonToast();
   const [foodData, setFoodData] = useState({});
-  const [loading, setLoading] = useState(false);
   const foodID = useParams().id;
-  console.log(foodData);
-  console.log(Object.keys(foodData).length === 0);
+
+  const [liked, setLiked] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
+    const getPostData = async () => {
+      const data = await PostService.getPostDetails(foodID);
+      setFoodData(data);
 
-    PostService.getPostDetails(foodID)
-      .then((res) => {
-        if (!loading) return null;
-        setFoodData(res);
-      })
-      .catch((error) => {
-        if (!loading) return null;
-        setLoading(false);
-        throw error;
-      });
+      // Fetch the user if signed in
+      const uid = localStorage.getItem("uid");
+      if (uid !== null) {
+        const { favourites } = await userService.getUser(uid);
+        const liked = favourites.indexOf(foodID) > -1 ? true : false;
 
-    return () => {
-      setLoading(false);
+        setLiked(liked);
+      }
     };
-  }, [foodID, loading]);
+
+    getPostData();
+  }, [foodID]);
 
   const getData = () => {
     return {
@@ -86,30 +81,36 @@ export const FoodDetailsCard = () => {
     }
   };
 
-  const addToLikedPosts = () => {
-    setLiked(!liked);
-    // Close current toasts if any and show new toast message
-    dismiss().then(() => {
-      present({
-        message: !liked ? "Added to liked posts!" : "Removed from liked posts",
-        mode: "ios",
-        color: "dark",
-        duration: 2000,
-      });
-    });
-  };
-
   return (
-    <IonCard>
+    <IonCard
+      style={{
+        height: "fit-content",
+        borderRadius: "1rem",
+        margin: "1rem 5%",
+      }}
+    >
       {Object.keys(foodData).length !== 0 ? (
         <IonCardContent>
           <IonGrid>
             <IonRow>
-              <IonCol size="12" sizeLg="6">
-                <IonImg
-                  src={foodData?.imageURLs}
-                  style={{ borderRadius: "1rem", overflow: "hidden" }}
-                />
+              <IonCol
+                size="12"
+                sizeLg="6"
+                class="ion-justify-content-center"
+                style={{ display: "flex" }}
+              >
+                <div
+                  style={{
+                    width: "100%",
+                    height: "fit-content",
+                    justifyContent: "center",
+                  }}
+                >
+                  <IonImg
+                    src={foodData?.imageURLs}
+                    style={{ borderRadius: "1rem", overflow: "hidden" }}
+                  />
+                </div>
               </IonCol>
 
               <IonCol size="12" sizeLg="6">
@@ -200,22 +201,15 @@ export const FoodDetailsCard = () => {
                   </IonText>
                 </IonItem>
 
+                <IonItem lines="none" />
                 <IonItem lines="none">
-                  <IonButton
-                    slot="end"
-                    fill="clear"
-                    color="light"
-                    onClick={() => addToLikedPosts()}
-                  >
-                    <IonRow style={{ display: "inline-block" }}>
-                      <IonIcon
-                        size="large"
-                        icon={liked ? heart : heartOutline}
-                        style={{ verticalAlign: "middle" }}
-                      />
-                      <IonText color="dark">{foodData?.numberOfLikes}</IonText>
-                    </IonRow>
-                  </IonButton>
+                  <div slot="end">
+                    <LikeButton
+                      id={foodID}
+                      postLiked={liked}
+                      numberOfLikes={foodData?.numberOfLikes}
+                    />
+                  </div>
                 </IonItem>
               </IonCol>
             </IonRow>
