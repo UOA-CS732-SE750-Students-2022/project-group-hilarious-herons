@@ -22,6 +22,7 @@ export const HomePage = () => {
       );
       updateData(resp);
     };
+
     getData();
   }, [clearInput, searchKeyword]);
 
