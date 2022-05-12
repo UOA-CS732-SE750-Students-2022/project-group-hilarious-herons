@@ -1,8 +1,9 @@
 import { apiGET, apiPOST } from "./api/apiAccessFunctions";
-
+import { processError } from "../utils/helper";
 export const PostService = {
     getPosts,
     getPostDetails,
+    searchPosts,
 }
 
 /**
@@ -19,9 +20,7 @@ async function getPosts (bodyJson = {
       const result = await apiGET("/posts", bodyJson);
       return result;
     } catch (err) {
-      if(err.response) {
-        return err.response.status;
-      }
+      processError(err);
     }
   };
 
@@ -30,8 +29,20 @@ async function getPostDetails(id) {
     const result = await apiGET("/posts/" + id);
     return result;
   } catch (err) {
-    if(err.response) {
-      return err.response.status;
-    }
+    processError(err);
   }
 }
+
+async function searchPosts(keyword, bodyJson = {
+  "lat":-36.91042,
+  "long":174.7698112,
+  "searchKeyWord": keyword,
+}) {
+  try {
+    const result = await apiGET("/posts/search", bodyJson);
+    return result;
+  } catch (err) {
+    processError(err);
+  }
+}
+

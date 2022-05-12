@@ -310,7 +310,7 @@ exports.searchPost = async (req, res) => {
     dietryRequirements,
     sortByDistance = false,
     sortByRating = false,
-  } = req.body;
+  } = req.query;
 
   let result;
   if (!dietryRequirements) {
@@ -329,6 +329,7 @@ exports.searchPost = async (req, res) => {
       dietryRequirements: { $in: dietryRequirements },
     });
   }
+
   if (result.length == 0) {
     return res.status(404).json({});
   }
