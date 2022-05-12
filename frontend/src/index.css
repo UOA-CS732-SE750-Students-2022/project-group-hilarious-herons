@@ -101,6 +101,13 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-ionWhite-contrast-rgb: 114, 114, 114;
   --ion-color-ionWhite-shade: #727272;
   --ion-color-ionWhite-tint: #000000;
+
+  --ion-color-ionFoodCardTitle: #262626;
+  --ion-color-ionFoodCardTitle-rgb: 38, 38, 38;
+  --ion-color-ionFoodCardTitle-contrast: #727272;
+  --ion-color-ionFoodCardTitle-contrast-rgb: 114, 114, 114;
+  --ion-color-ionFoodCardTitle-shade: #727272;
+  --ion-color-ionFoodCardTitle-tint: #000000;
 }
 
 :root ion-icon {
@@ -141,6 +148,15 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-contrast-rgb: var(--ion-color-ionWhite-contrast-rgb);
   --ion-color-shade: var(--ion-color-ionWhite-shade);
   --ion-color-tint: var(--ion-color-ionWhite-tint);
+}
+
+.ion-color-ionFoodCardTitle {
+  --ion-color-base: var(--ion-color-ionFoodCardTitle);
+  --ion-color-base-rgb: var(--ion-color-ionFoodCardTitle-rgb);
+  --ion-color-contrast: var(--ion-color-ionFoodCardTitle-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-ionFoodCardTitle-contrast-rgb);
+  --ion-color-shade: var(--ion-color-ionFoodCardTitle-shade);
+  --ion-color-tint: var(--ion-color-ionFoodCardTitle-tint);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -232,6 +248,13 @@ http://ionicframework.com/docs/theming/ */
     --ion-color-ionWhite-contrast-rgb: 114, 114, 114;
     --ion-color-ionWhite-shade: #727272;
     --ion-color-ionWhite-tint: #000000;
+
+    --ion-color-ionFoodCardTitle: #ff9f1c;
+    --ion-color-ionFoodCardTitle-rgb: 255, 159, 28;
+    --ion-color-ionFoodCardTitle-contrast: #727272;
+    --ion-color-ionFoodCardTitle-contrast-rgb: 114, 114, 114;
+    --ion-color-ionFoodCardTitle-shade: #727272;
+    --ion-color-ionFoodCardTitle-tint: #000000;
   }
 
   .ion-color-ionHeaderText {
@@ -265,6 +288,15 @@ http://ionicframework.com/docs/theming/ */
     --ion-color-contrast-rgb: var(--ion-color-ionWhite-contrast-rgb);
     --ion-color-shade: var(--ion-color-ionWhite-shade);
     --ion-color-tint: var(--ion-color-ionWhite-tint);
+  }
+
+  .ion-color-ionFoodCardTitle {
+    --ion-color-base: var(--ion-color-ionFoodCardTitle);
+    --ion-color-base-rgb: var(--ion-color-ionFoodCardTitle-rgb);
+    --ion-color-contrast: var(--ion-color-ionFoodCardTitle-contrast);
+    --ion-color-contrast-rgb: var(--ion-color-ionFoodCardTitle-contrast-rgb);
+    --ion-color-shade: var(--ion-color-ionFoodCardTitle-shade);
+    --ion-color-tint: var(--ion-color-ionFoodCardTitle-tint);
   }
 
   :root ion-icon {

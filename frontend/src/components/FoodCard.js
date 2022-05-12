@@ -46,7 +46,7 @@ const FoodCard = ({
           </IonRow>
         </div>
         <IonCardHeader>
-          <IonCardTitle>
+          <IonCardTitle color="ionFoodCardTitle">
             {foodName.length >= 33
               ? foodName.substring(0, 25) + "...."
               : foodName}
