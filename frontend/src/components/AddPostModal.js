@@ -33,6 +33,7 @@ export const AddPostModal = ({ isModalOpen, setIsModalOpen }) => {
   const [experienceText, setExperienceText] = useState("");
   const [images, setImages] = useState([]);
   const [restaurantName, setRestaurantName] = useState("");
+  const [restauantId, setRestaurantId] = useState("");
   const [dietaries, setDietaries] = useState([]);
   const [tag, setTag] = useState("");
   const [tagsList, setTagsList] = useState([]);
@@ -124,6 +125,7 @@ export const AddPostModal = ({ isModalOpen, setIsModalOpen }) => {
     setDietaries([]);
     setTag("");
     setTagsList([]);
+    setRestaurantId("");
     document.querySelectorAll(".star-rating .star").forEach((eIcon) => {
       eIcon.classList.remove("active");
     });
@@ -139,7 +141,7 @@ export const AddPostModal = ({ isModalOpen, setIsModalOpen }) => {
       rating: getRateOfFood(),
       numberOfReviews: 0,
       timestamp: new Date(),
-      restaurantId: "626268a2797a487bcc773af8",
+      restaurantId: restauantId,
     };
 
     const res = await PostService.addPost(postJson, images[0]);
@@ -170,26 +172,6 @@ export const AddPostModal = ({ isModalOpen, setIsModalOpen }) => {
   const removeTag = (idx) => {
     tagsList.splice(idx, 1);
     setTagsList([...tagsList]);
-  };
-
-  const getLocations = () => {
-    const locations = [
-      { name: "McDonald's Ti Rakau", address: "500 Ti Rakau Dr" },
-      { name: "McDonald's Botany Town centre", address: "Botany Town Centre" },
-      { name: "McDonald's Pakuranga", address: "472 Pakuranga Rd" },
-      { name: "McDonald's Ormiston", address: "249 Ormiston Rd" },
-      { name: "Carl's Jr. Pakuranga", address: "490 Pakuranga Rd" },
-      { name: "Carl's Jr. St Johns", address: "113-117 Felton Mathew Ave" },
-      { name: "Carl's Jr.", address: "639 Great South Rd" },
-      { name: "Domino's Pizza Howick", address: "26 Moore St" },
-      {
-        name: "Domino's Pizza Highland Park NZ",
-        address: "Unit 3/5 Aviemore Dr",
-      },
-      { name: "Domino's Pizza Pakuranga", address: "2 Johns Ln" },
-    ];
-
-    return locations;
   };
 
   return (
@@ -240,7 +222,8 @@ export const AddPostModal = ({ isModalOpen, setIsModalOpen }) => {
           placeholder="Enter restaurant name"
           locationText={restaurantName}
           setLocationText={setRestaurantName}
-          locations={getLocations()}
+          setRestaurantId={setRestaurantId}
+          restauantId={restauantId}
         />
 
         {/* Adding dietaries for the food*/}

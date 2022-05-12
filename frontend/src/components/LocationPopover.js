@@ -9,11 +9,18 @@ import {
   IonText,
 } from "@ionic/react";
 
-export const LocationPopover = ({ setLocationText, locations, show }) => {
-  const items = locations.map((location) => {
+export const LocationPopover = ({
+  show,
+  setRestaurantId,
+  locations,
+  setShow,
+  setLocationText,
+}) => {
+  const items = locations?.map((location) => {
     return {
-      heading: Object.values(location)[0],
-      subHeading: Object.values(location)[1],
+      heading: location.name,
+      subHeading: location.address,
+      id: location._id,
     };
   });
   return (
@@ -34,13 +41,15 @@ export const LocationPopover = ({ setLocationText, locations, show }) => {
       >
         <IonContent>
           <IonList>
-            {items.map(({ heading, subHeading }, idx) => {
+            {items.map(({ heading, subHeading, id }, idx) => {
               return (
                 <IonItem
                   button
                   key={idx}
                   lines="none"
                   onClick={() => {
+                    setRestaurantId(id);
+                    setShow(false);
                     setLocationText(heading);
                   }}
                   mode="md"
