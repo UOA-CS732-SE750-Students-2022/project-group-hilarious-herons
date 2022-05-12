@@ -137,14 +137,14 @@ export const AddPostModal = ({ isModalOpen, setIsModalOpen }) => {
       dietaries: dietaries,
       numberOfLikes: 0,
       rating: getRateOfFood(),
-      numberOfReviews :0,
+      numberOfReviews: 0,
       timestamp: new Date(),
       restaurantId: "626268a2797a487bcc773af8",
     };
 
     const res = await PostService.addPost(postJson, images[0]);
     console.log(res);
-    if(!res || res != 200) {
+    if (!res || res >= 400) {
       createWarning("Add post uncessefully");
     } else {
       createWarning("Add post successfully");
@@ -161,7 +161,7 @@ export const AddPostModal = ({ isModalOpen, setIsModalOpen }) => {
         if (tagsList.length < 5) {
           setTagsList([...tagsList, tag]);
         } else {
-          createWarning("Maximum 5 tags per post only")
+          createWarning("Maximum 5 tags per post only");
         }
       }
     }
