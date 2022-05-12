@@ -26,8 +26,7 @@ export const HomePage = () => {
 
   return (
     <FoodPage banner>
-      <PostsLayout dataForCards={data} isNoSearchResult={isNoSearchResults}/>
-      <AddPostButton/>
+      <PostsLayout isHomePage={true} dataForCards={data} isNoSearchResult={isNoSearchResults} />
     </FoodPage>
   );
 };
