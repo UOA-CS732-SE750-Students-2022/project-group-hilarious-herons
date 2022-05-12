@@ -154,8 +154,7 @@ const getPostsFromDB = async (lat, long, range) => {
   for (i of distancesObj) {
     const response = await Post.find({ restaurant: i.id });
     for (data of response) {
-      const restaurant = await retrieveRestaurant(data.restaurant);
-      data.restaurant = restaurant;
+      data = { ...data._doc, distance: i.distance };
       posts = [...posts, data];
     }
   }
