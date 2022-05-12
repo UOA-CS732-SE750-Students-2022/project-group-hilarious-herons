@@ -7,7 +7,7 @@ const {
 
 exports.getRestaurantDetail = async (req, res) => {
   try {
-    const { name } = req.body;
+    const { name } = req.query;
 
     let resDetail = await Restaurant.find({ name: { $regex: `(?i)^${name}` } });
 

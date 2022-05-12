@@ -1,10 +1,11 @@
+import { AddPostButton } from "../components/AddPostButton";
+import { BackHomeButton } from "../components/BackHomeButton";
 import { FoodDetailsCard } from "../components/FoodDetailsCard";
 import { FoodPage } from "../components/FoodPage";
-import { AddPostButton } from "../components/AddPostButton";
-
 export const FoodDetailsPage = () => {
   return (
-    <FoodPage>
+    <FoodPage canSearch={false}>
+      <BackHomeButton />
       <FoodDetailsCard />
       <AddPostButton />
     </FoodPage>

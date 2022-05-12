@@ -13,7 +13,6 @@ const { checkAuth } = require("../../utils/middleware/checkAuth");
 const router = express.Router();
 
 router.get("/", getPosts);
-router.post("/", createPost);
 router.get("/search", searchPost);
 router.get("/:id", getPost);
 
