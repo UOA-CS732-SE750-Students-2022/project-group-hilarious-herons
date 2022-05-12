@@ -23,6 +23,7 @@ export const PostsLayout = ({ dataForCards = [] }) => {
                   timestamp={cardData.timestamp}
                   numberOfLikes={cardData.numberOfLikes}
                   postLiked={cardData.postLiked}
+                  distance={cardData.distance}
                 />
               </IonCol>
             );
