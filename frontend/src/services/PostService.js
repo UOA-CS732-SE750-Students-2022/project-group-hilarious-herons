@@ -2,16 +2,11 @@ import { apiGET, apiPOST } from "./api/apiAccessFunctions";
 import { processError } from "../utils/helper";
 export const PostService = {
   getPosts,
-<<<<<<< HEAD
   getPostDetails,
   likePost,
   unlikePost,
   searchPosts,
   addPost,
-=======
-  addPost,
-  getPostDetails,
->>>>>>> 88ccf57 (get restuarnt from google)
 };
 
 /**
@@ -30,12 +25,10 @@ async function getPosts(
     const result = await apiGET("/posts", bodyJson);
     return result;
   } catch (err) {
-<<<<<<< HEAD
     processError(err);
   }
 }
 
-<<<<<<< HEAD
 /**
  * Update the given post with a new like.
  * @param id The id of the post.
@@ -64,61 +57,15 @@ async function unlikePost(id) {
   } catch (err) {
     if (err.response) {
       processError(err);
-=======
-  async function addPost(postJSON, image) {
-    try {
-      //upload the image
-      const imageData = new FormData();
-      imageData.append("file", image);
-      const res = await apiPOST("/posts/image", imageData);  
-
-      //add new post
-      postJSON = {...postJSON, imageURLs:[res]}
-      const result = await apiPOST("/posts/", postJSON);
-
-      return result;
-      } catch (err) {
-        if(err.response) {
-          return err.response.status;
-      }
->>>>>>> e86362a (Upload image successful)
     }
   }
 }
-=======
-    console.log(err);
-    if (err.response) {
-      return err.response.status;
-    }
-  }
-}
-
-async function addPost(postJSON, image) {
-  try {
-    //upload the image
-    const imageData = new FormData();
-    imageData.append("file", image);
-    const res = await apiPOST("/posts/image", imageData);
-
-    //add new post
-    postJSON = { ...postJSON, imageURLs: [res] };
-    const result = await apiPOST("/posts/", postJSON);
-
-    return result;
-  } catch (err) {
-    if (err.response) {
-      return err.response;
-    }
-  }
-}
->>>>>>> 88ccf57 (get restuarnt from google)
 
 async function getPostDetails(id) {
   try {
     const result = await apiGET("/posts/" + id);
     return result;
   } catch (err) {
-<<<<<<< HEAD
     processError(err);
   }
 }
@@ -141,22 +88,19 @@ async function searchPosts(
 
 async function addPost(postJSON, image) {
   try {
-    const result = await apiPOST("/posts/", postJSON);
-
     //upload the image
     const imageData = new FormData();
     imageData.append("file", image);
     const res = await apiPOST("/posts/image", imageData);
 
-    console.log(result);
+    //add new post
+    postJSON = { ...postJSON, imageURLs: [res] };
+    const result = await apiPOST("/posts/", postJSON);
+
     return result;
   } catch (err) {
     if (err.response) {
-      console.log(err);
-=======
-    if (err.response) {
->>>>>>> 88ccf57 (get restuarnt from google)
-      return err.response.status;
+      return err.response;
     }
   }
 }
