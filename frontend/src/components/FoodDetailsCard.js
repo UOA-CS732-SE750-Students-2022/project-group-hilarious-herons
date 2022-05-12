@@ -14,6 +14,7 @@ import {
   IonItemGroup,
   IonLabel,
   IonRow,
+  IonSkeletonText,
   IonText,
   useIonToast,
 } from "@ionic/react";
@@ -37,6 +38,8 @@ export const FoodDetailsCard = () => {
   const [foodData, setFoodData] = useState({});
   const [loading, setLoading] = useState(false);
   const foodID = useParams().id;
+  console.log(foodData);
+  console.log(Object.keys(foodData).length === 0);
 
   useEffect(() => {
     setLoading(true);
@@ -98,127 +101,232 @@ export const FoodDetailsCard = () => {
 
   return (
     <IonCard>
-      <IonCardContent>
-        <IonGrid>
-          <IonRow>
-            <IonCol size="12" sizeLg="6">
-              <IonImg
-                src={foodData?.imageURLs}
-                style={{ borderRadius: "1rem", overflow: "hidden" }}
-              />
-            </IonCol>
+      {Object.keys(foodData).length !== 0 ? (
+        <IonCardContent>
+          <IonGrid>
+            <IonRow>
+              <IonCol size="12" sizeLg="6">
+                <IonImg
+                  src={foodData?.imageURLs}
+                  style={{ borderRadius: "1rem", overflow: "hidden" }}
+                />
+              </IonCol>
 
-            <IonCol size="12" sizeLg="6">
-              <IonItem lines="none">
-                <IonCardTitle>
-                  <b>{foodData?.foodName}</b>
-                  <IonCardSubtitle style={{ marginTop: "0.5rem" }}>
-                    {timestamp.toLocaleDateString()}
-                  </IonCardSubtitle>
-                </IonCardTitle>
+              <IonCol size="12" sizeLg="6">
+                <IonItem lines="none">
+                  <IonCardTitle>
+                    <b>{foodData?.foodName}</b>
+                    <IonCardSubtitle style={{ marginTop: "0.5rem" }}>
+                      {timestamp.toLocaleDateString()}
+                    </IonCardSubtitle>
+                  </IonCardTitle>
 
-                <IonAvatar slot="end">
-                  <IonIcon
-                    icon={personCircle}
-                    size="large"
-                    color="ionContentHeaderText"
-                  />
-                </IonAvatar>
-              </IonItem>
-
-              <IonItem lines="none">{getRating(foodData?.rating)}</IonItem>
-
-              <IonItemGroup style={{ pointerEvents: "none" }}>
-                {foodData?.tags &&
-                  foodData?.tags.map((tag, idx) => {
-                    return (
-                      <IonChip color="primary" key={idx}>
-                        <IonLabel>{tag}</IonLabel>
-                      </IonChip>
-                    );
-                  })}
-              </IonItemGroup>
-
-              <IonItemGroup style={{ pointerEvents: "none" }}>
-                {foodData?.dietryRequirements &&
-                  foodData?.dietryRequirements.map((diet, idx) => {
-                    return (
-                      <IonChip color="primary" outline key={idx}>
-                        <IonLabel>{diet}</IonLabel>
-                      </IonChip>
-                    );
-                  })}
-              </IonItemGroup>
-
-              <IonItem lines="none">{foodData?.bodyText}</IonItem>
-
-              <IonItem lines="none">
-                <IonIcon icon={locationOutline} slot="start" />
-                <IonCardSubtitle color="dark">
-                  <b>Location</b>
-                </IonCardSubtitle>
-              </IonItem>
-
-              <IonItem lines="none">
-                <IonText>
-                  {foodData?.restaurant?.name}
-                  <br />
-                  {foodData?.restaurant?.address}
-                </IonText>
-                <IonButton
-                  fill="clear"
-                  color="light"
-                  style={{ marginTop: "1rem" }}
-                  href={foodData?.restaurant?.googleMapsURL}
-                  target="_blank"
-                >
-                  <IonIcon icon={openOutline} slot="end" size="md" />
-                </IonButton>
-              </IonItem>
-
-              <IonItem lines="none">
-                <IonIcon icon={timeOutline} slot="start" />
-                <IonCardSubtitle color="dark">
-                  <b>Opening hours</b>
-                </IonCardSubtitle>
-              </IonItem>
-
-              <IonItem lines="none">
-                <IonText slot="start"></IonText>
-                <IonText>
-                  {foodData?.restaurant?.openHours.map((day) => {
-                    return (
-                      <p key={day}>
-                        {day} <br />
-                      </p>
-                    );
-                  })}
-                </IonText>
-              </IonItem>
-
-              <IonItem lines="none">
-                <IonButton
-                  slot="end"
-                  fill="clear"
-                  color="light"
-                  onClick={() => addToLikedPosts()}
-                >
-                  <IonRow style={{ display: "inline-block" }}>
+                  <IonAvatar slot="end">
                     <IonIcon
+                      icon={personCircle}
                       size="large"
-                      icon={liked ? heart : heartOutline}
-                      style={{ verticalAlign: "middle" }}
+                      color="ionContentHeaderText"
                     />
-                    <IonText color="dark">{foodData?.numberOfLikes}</IonText>
-                  </IonRow>
-                </IonButton>
-              </IonItem>
+                  </IonAvatar>
+                </IonItem>
 
-              <IonItem lines="none" />
-            </IonCol>
-          </IonRow>
-        </IonGrid>
-      </IonCardContent>
+                <IonItem lines="none">{getRating(foodData?.rating)}</IonItem>
+
+                <IonItemGroup style={{ pointerEvents: "none" }}>
+                  {foodData?.tags &&
+                    foodData?.tags.map((tag, idx) => {
+                      return (
+                        <IonChip color="primary" key={idx}>
+                          <IonLabel>{tag}</IonLabel>
+                        </IonChip>
+                      );
+                    })}
+                </IonItemGroup>
+
+                <IonItemGroup style={{ pointerEvents: "none" }}>
+                  {foodData?.dietryRequirements &&
+                    foodData?.dietryRequirements.map((diet, idx) => {
+                      return (
+                        <IonChip color="primary" outline key={idx}>
+                          <IonLabel>{diet}</IonLabel>
+                        </IonChip>
+                      );
+                    })}
+                </IonItemGroup>
+
+                <IonItem lines="none">{foodData?.bodyText}</IonItem>
+
+                <IonItem lines="none">
+                  <IonIcon icon={locationOutline} slot="start" />
+                  <IonCardSubtitle color="dark">
+                    <b>Location</b>
+                  </IonCardSubtitle>
+                </IonItem>
+
+                <IonItem lines="none">
+                  <IonText>
+                    {foodData?.restaurant?.name}
+                    <br />
+                    {foodData?.restaurant?.address}
+                  </IonText>
+                  <IonButton
+                    fill="clear"
+                    color="light"
+                    style={{ marginTop: "1rem" }}
+                    href={foodData?.restaurant?.googleMapsURL}
+                    target="_blank"
+                  >
+                    <IonIcon icon={openOutline} slot="end" size="md" />
+                  </IonButton>
+                </IonItem>
+
+                <IonItem lines="none">
+                  <IonIcon icon={timeOutline} slot="start" />
+                  <IonCardSubtitle color="dark">
+                    <b>Opening hours</b>
+                  </IonCardSubtitle>
+                </IonItem>
+
+                <IonItem lines="none">
+                  <IonText slot="start"></IonText>
+                  <IonText>
+                    {foodData?.restaurant?.openHours.map((day) => {
+                      return (
+                        <p key={day}>
+                          {day} <br />
+                        </p>
+                      );
+                    })}
+                  </IonText>
+                </IonItem>
+
+                <IonItem lines="none">
+                  <IonButton
+                    slot="end"
+                    fill="clear"
+                    color="light"
+                    onClick={() => addToLikedPosts()}
+                  >
+                    <IonRow style={{ display: "inline-block" }}>
+                      <IonIcon
+                        size="large"
+                        icon={liked ? heart : heartOutline}
+                        style={{ verticalAlign: "middle" }}
+                      />
+                      <IonText color="dark">{foodData?.numberOfLikes}</IonText>
+                    </IonRow>
+                  </IonButton>
+                </IonItem>
+              </IonCol>
+            </IonRow>
+          </IonGrid>
+        </IonCardContent>
+      ) : (
+        // Skeleton when data is not yet loaded
+        <IonCardContent>
+          <IonGrid>
+            <IonRow>
+              {/* Image */}
+              <IonCol size="12" sizeLg="6">
+                <IonSkeletonText animated style={{ height: "90%" }} />
+              </IonCol>
+              {/* Title */}
+              <IonCol size="12" sizeLg="6">
+                <IonItem lines="none">
+                  <IonSkeletonText animated style={{ height: "2rem" }} />
+                </IonItem>
+                {/* Rating */}
+                <IonItem lines="none">
+                  <IonSkeletonText
+                    animated
+                    style={{ height: "1.5rem", width: "30%" }}
+                  />
+                </IonItem>
+                {/* Tags */}
+                <IonItem lines="none">
+                  <IonSkeletonText
+                    animated
+                    style={{ height: "1.5rem", width: "80%" }}
+                  />
+                </IonItem>
+                {/* Description */}
+                <IonSkeletonText
+                  animated
+                  style={{ height: "1rem", margin: "0.5rem 1rem" }}
+                />
+                <IonSkeletonText
+                  animated
+                  style={{ height: "1rem", margin: "0.5rem 1rem" }}
+                />
+                {/* Location label */}
+                <IonItem lines="none">
+                  <IonSkeletonText
+                    animated
+                    style={{ height: "1.5rem", width: "30%" }}
+                  />
+                </IonItem>
+                {/* Location */}
+                <IonSkeletonText
+                  animated
+                  style={{ height: "1rem", margin: "0.5rem 1rem" }}
+                />
+                <IonSkeletonText
+                  animated
+                  style={{ height: "1rem", margin: "0.5rem 1rem" }}
+                />
+                {/* Opening hour label */}
+                <IonItem lines="none">
+                  <IonSkeletonText
+                    animated
+                    style={{ height: "1.5rem", width: "30%" }}
+                  />
+                </IonItem>
+                {/* Opening hours */}
+                <IonSkeletonText
+                  animated
+                  style={{
+                    height: "1rem",
+                    width: "50%",
+                    margin: "0.5rem 1rem",
+                  }}
+                />
+                <IonSkeletonText
+                  animated
+                  style={{
+                    height: "1rem",
+                    width: "50%",
+                    margin: "0.5rem 1rem",
+                  }}
+                />
+                <IonSkeletonText
+                  animated
+                  style={{
+                    height: "1rem",
+                    width: "50%",
+                    margin: "0.5rem 1rem",
+                  }}
+                />
+                <IonSkeletonText
+                  animated
+                  style={{
+                    height: "1rem",
+                    width: "50%",
+                    margin: "0.5rem 1rem",
+                  }}
+                />
+                {/* Like button */}
+                <IonItem lines="none">
+                  <IonSkeletonText
+                    slot="end"
+                    animated
+                    style={{ height: "2rem", width: "4rem" }}
+                  />
+                </IonItem>
+              </IonCol>
+            </IonRow>
+          </IonGrid>
+        </IonCardContent>
+      )}
     </IonCard>
   );
 };
