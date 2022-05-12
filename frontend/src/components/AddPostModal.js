@@ -133,29 +133,42 @@ export const AddPostModal = ({ isModalOpen, setIsModalOpen }) => {
   }
 
   async function handleSubmitPost() {
-    let postJson = {
-      foodName: foodName,
-      bodyText: experienceText,
-      tags: tagsList,
-      dietaries: dietaries,
-      numberOfLikes: 0,
-      rating: getRateOfFood(),
-      numberOfReviews: 0,
-      timestamp: new Date(),
-      restaurantId: restauantId,
-    };
-
-    console.log(postJson);
-    const res = await PostService.addPost(postJson, images[0]);
-    if (!res || res.status >= 400) {
-      console.log(res);
-
-      createWarning("Add post uncessefully: " + res.data.message);
+    if (
+      foodName == "" ||
+      tagsList.length == 0 ||
+      images.length == 0 ||
+      restauantId == ""
+    ) {
+      if (images.length == 0) {
+        createWarning("Please upload an image");
+      } else {
+        createWarning("Please enter all required field");
+      }
     } else {
-      createWarning("Add post successfully");
+      let postJson = {
+        foodName: foodName,
+        bodyText: experienceText,
+        tags: tagsList,
+        dietaries: dietaries,
+        numberOfLikes: 0,
+        rating: getRateOfFood(),
+        numberOfReviews: 0,
+        timestamp: new Date(),
+        restaurantId: restauantId,
+      };
+
+      console.log(postJson);
+      const res = await PostService.addPost(postJson, images[0]);
+      if (!res || res.status >= 400) {
+        console.log(res);
+
+        createWarning("Add post uncessefully: " + res.data.message);
+      } else {
+        createWarning("Add post successfully");
+      }
+      setIsModalOpen(false);
+      handleReset();
     }
-    setIsModalOpen(false);
-    handleReset();
   }
 
   const handleEnterTag = (e) => {
@@ -218,7 +231,7 @@ export const AddPostModal = ({ isModalOpen, setIsModalOpen }) => {
       {/* Adding food name */}
       <IonToolbar mode="ios">
         <IonItem lines="none" className="foodname">
-          <IonLabel position="fixed">Food Name</IonLabel>
+          <IonLabel position="fixed">Food Name*</IonLabel>
           <IonInput
             value={foodName}
             required={true}
@@ -232,7 +245,7 @@ export const AddPostModal = ({ isModalOpen, setIsModalOpen }) => {
 
         {/* Adding the restaurant name*/}
         <LocationSearchbar
-          label="Restaurant"
+          label="Restaurant*"
           placeholder="Enter restaurant name"
           locationText={restaurantName}
           setLocationText={setRestaurantName}
@@ -245,7 +258,7 @@ export const AddPostModal = ({ isModalOpen, setIsModalOpen }) => {
 
         {/* Adding tags*/}
         <IonItem lines="none">
-          <IonLabel position="fixed">Tags</IonLabel>
+          <IonLabel position="fixed">Tags*</IonLabel>
           <IonInput
             value={tag}
             required={true}
@@ -292,7 +305,6 @@ export const AddPostModal = ({ isModalOpen, setIsModalOpen }) => {
             border: "1px solid #ccc",
           }}
         />
-
         <div className="upload">
           <input
             id="upload-images"
