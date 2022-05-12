@@ -10,8 +10,8 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import { search, filter } from "ionicons/icons";
-import { useEffect, useState } from "react";
-import { SearchbarFilter } from "./SearchbarFilter";
+import { useContext, useEffect, useState } from "react";
+import { SearchContext } from "../context/SearchContext";
 
 // ionic md breakpoint
 const mdBreakpoint = "(min-width: 576px)";
@@ -22,11 +22,15 @@ export const Searchbar = () => {
   );
   const [showMobileModal, setShowMobileModal] = useState(false);
   const [searchInput, setSearchInput] = useState("");
+  const { updateSearchKeyword, clearInput } = useContext(SearchContext);
+
   const placeholder = isMdBreakpoint
     ? "Search for a dish, cuisine or restaurant"
     : "Search";
-
+    
   const doSearch = () => {
+    updateSearchKeyword(searchInput);
+
     console.log(
       "search for results with the filters: ",
       `shortest distance: ${localStorage.getItem("byDistance")}`,
@@ -34,6 +38,7 @@ export const Searchbar = () => {
       `location: ${localStorage.getItem("locationFilter")}`,
       `rating: ${localStorage.getItem("rating")}`,
       `dietary: ${JSON.parse(localStorage.getItem("dietaries"))}`
+
     );
     return [];
   };
@@ -65,32 +70,27 @@ export const Searchbar = () => {
             pattern="search"
             inputMode="search"
             type="search"
-            clear-input={false}
+            clearInput={true}
             placeholder={placeholder}
             mode="ios"
             onKeyUp={(e) => {
               if (e.code === "Enter") {
                 setShowMobileModal(false);
                 doSearch();
-                console.log(searchInput);
               }
             }}
             onIonChange={(e) => {
+              if(e.cancelable) {
+                clearInput();
+                e.preventDefault();
+              }
               const input = e.detail.value;
               if (input.trim().length > 0) {
                 setSearchInput(e.detail.value);
               }
             }}
           />
-          <IonButton slot="end" color="light" fill="clear" id="searchbar">
-            <IonIcon icon={filter} />
-          </IonButton>
         </IonItem>
-
-        <SearchbarFilter
-          setShowMobileModal={setShowMobileModal}
-          doSearch={doSearch}
-        />
       </>
     );
   };

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import * as serviceWorkerRegistration from "../serviceWorkerRegistration";
+import * as serviceWorkerRegistration from "../utils/ServiceWorker/serviceWorkerRegistration";
 
 const ServiceWorkerContext = React.createContext();
 

@@ -3,7 +3,7 @@
   color: var(--ion-color-medium);
 }
 
-a {
+.img-attribution a {
   text-decoration: none;
   color: var(--ion-color-primary);
 }

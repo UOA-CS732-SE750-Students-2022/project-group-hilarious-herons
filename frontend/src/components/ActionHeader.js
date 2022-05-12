@@ -15,7 +15,7 @@ import { UserPopover } from "./UserPopover";
 import "./ActionHeader.css";
 import { Link } from "react-router-dom";
 
-export const ActionHeader = ({ banner, children }) => {
+export const ActionHeader = ({ banner, children, canSearch }) => {
   const [headerVisible, setHeaderVisible] = useState(true);
   const [displayName, setDisplayName] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -66,16 +66,23 @@ export const ActionHeader = ({ banner, children }) => {
           style={{ background: banner ? "transparent" : "#ff9f1c" }}
         >
           <IonToolbar color="transparent">
-            <IonText slot="start" style={{ color: "white", margin: "0 5%" }}>
+            <IonButton 
+              fill="clear" 
+              color="light" 
+              slot="start" 
+              mode="ios"
+              routerDirection="back"
+              href="/"
+              style={{ margin: "0 5%" }}
+            >
               <h2>FUNTER</h2>
-            </IonText>
-            <Searchbar />
+            </IonButton>
+            { canSearch ? (<Searchbar />): (<></>)}
             {isLoggedIn ? (
               <IonChip
                 id="user-avatar"
                 slot="end"
                 color="light"
-                style={{ margin: "0 5%" }}
               >
                 <IonAvatar>
                   <img
