@@ -5,10 +5,11 @@ import { useEffect, useState } from "react";
 import useSWR from "swr";
 import axios from "axios";
 import { convertFoodCard } from "../utils/postManager";
+import { BASE_URL } from "../services/api/apiAccessFunctions";
 
 export const HomePage = () => {
   const [postData, setData] = useState();
-  useSWR("http://localhost:3001/api/posts", (url) =>
+  useSWR(`${BASE_URL}/posts`, (url) =>
     axios(url, {
       params: {
         lat: -36.91042,

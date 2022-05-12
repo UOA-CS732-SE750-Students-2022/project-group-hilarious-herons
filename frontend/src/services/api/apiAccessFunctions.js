@@ -72,4 +72,4 @@ const apiDELETE = async (endpoint, data) => {
   return response.data;
 };
 
-export { apiGET, apiPOST, apiPUT, apiDELETE };
+export { apiGET, apiPOST, apiPUT, apiDELETE, BASE_URL };
