@@ -21,9 +21,6 @@ export const HomePage = () => {
         navigator.geolocation.getCurrentPosition(successCallback, failCallback);
       }
     };
-<<<<<<< HEAD
-    getData();
-=======
 
     const failCallback = () => {
       getData();
@@ -60,7 +57,6 @@ export const HomePage = () => {
     };
 
     getLocation();
->>>>>>> adba34a (Added location getting from user device)
   }, [clearInput, searchKeyword]);
 
   return (
