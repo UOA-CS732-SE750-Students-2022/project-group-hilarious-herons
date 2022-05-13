@@ -8,14 +8,38 @@ import {
   IonList,
   IonText,
 } from "@ionic/react";
+import { useEffect, useState } from "react";
+import "./LocationPopover.css";
 
-export const LocationPopover = ({ setLocationText, locations, show }) => {
-  const items = locations.map((location) => {
+export const LocationPopover = ({
+  show,
+  setRestaurantId,
+  locations,
+  setShow,
+  setLocationText,
+  showLoader,
+  notFound,
+}) => {
+  const [loaderTimeOut, setLoaderTimeOut] = useState(false);
+  const items = locations?.map((location) => {
     return {
-      heading: Object.values(location)[0],
-      subHeading: Object.values(location)[1],
+      heading: location.name,
+      subHeading: location.address,
+      id: location._id,
     };
   });
+
+  const timeOutforLoader = () => {
+    setTimeout(() => {
+      setLoaderTimeOut(true);
+    }, 10000);
+  };
+
+  useEffect(() => {
+    setLoaderTimeOut(false);
+  }, [showLoader, show, notFound]);
+
+  timeOutforLoader();
   return (
     <IonCard
       style={{
@@ -33,14 +57,33 @@ export const LocationPopover = ({ setLocationText, locations, show }) => {
         }}
       >
         <IonContent>
+          {!loaderTimeOut && !notFound ? (
+            <div className="loader-container">
+              <div className="loader"> </div>
+            </div>
+          ) : (
+            ""
+          )}
+
+          {notFound && !showLoader ? (
+            <div className="loader-container">
+              <p>Restaurant Not Found</p>
+            </div>
+          ) : (
+            ""
+          )}
+
           <IonList>
-            {items.map(({ heading, subHeading }, idx) => {
+            {items.map(({ heading, subHeading, id }, idx) => {
               return (
                 <IonItem
                   button
                   key={idx}
                   lines="none"
                   onClick={() => {
+                    console.log(id);
+                    setRestaurantId(id);
+                    setShow(false);
                     setLocationText(heading);
                   }}
                   mode="md"

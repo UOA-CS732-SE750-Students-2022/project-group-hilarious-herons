@@ -75,7 +75,7 @@ describe("GET /posts/search", () => {
   it("GET /posts/search", (done) => {
     request(app)
       .get("/api/posts/search")
-      .send({ lat: -36.91042, long: 174.7698112, searchKeyWord: "Fries" })
+      .query({ lat: -36.91042, long: 174.7698112, searchKeyWord: "Fries" })
       .expect(200)
       .end((err, res) => {
         if (err) {
@@ -93,7 +93,7 @@ describe("GET /posts/search", () => {
   it("GET /posts/search within array with partial string", (done) => {
     request(app)
       .get("/api/posts/search")
-      .send({ lat: -36.91042, long: 174.7698112, searchKeyWord: "ood" })
+      .query({ lat: -36.91042, long: 174.7698112, searchKeyWord: "ood" })
       .expect(200)
       .end((err, res) => {
         if (err) {
@@ -111,7 +111,7 @@ describe("GET /posts/search", () => {
   it("GET /posts/search within array with partial string case insensitive", (done) => {
     request(app)
       .get("/api/posts/search")
-      .send({ lat: -36.91042, long: 174.7698112, searchKeyWord: "FA" })
+      .query({ lat: -36.91042, long: 174.7698112, searchKeyWord: "FA" })
       .expect(200)
       .end((err, res) => {
         if (err) {
@@ -129,7 +129,7 @@ describe("GET /posts/search", () => {
   it("GET /posts/search no result", (done) => {
     request(app)
       .get("/api/posts/search")
-      .send({ lat: -36.91042, long: 174.7698112, searchKeyWord: "0" })
+      .query({ lat: -36.91042, long: 174.7698112, searchKeyWord: "0" })
       .expect(404)
       .end((err, res) => {
         if (err) {
