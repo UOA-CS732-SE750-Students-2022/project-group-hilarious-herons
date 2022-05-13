@@ -1,9 +1,11 @@
 import { FoodPage } from "../components/FoodPage";
 import { postDataForFoodCard } from "../utils/postManager";
 import { PostsLayout } from "../components/PostsLayout";
+import { Loading } from "../components/Loading";
 import { useContext, useEffect, useState } from "react";
 import { SearchContext } from "../context/SearchContext";
 import { AddPostButton } from "../components/AddPostButton";
+
 
 export const HomePage = () => {
   const [data, updateData] = useState();
@@ -22,17 +24,16 @@ export const HomePage = () => {
       );
       updateData(resp);
     };
-
     getData();
   }, [clearInput, searchKeyword]);
 
   return (
     <FoodPage banner>
-      <PostsLayout
+      <data ? PostsLayout
         isHomePage={true}
         dataForCards={data}
         isNoSearchResult={isNoSearchResults}
-      />
+      />: <Loading />}
       <AddPostButton />
     </FoodPage>
   );
