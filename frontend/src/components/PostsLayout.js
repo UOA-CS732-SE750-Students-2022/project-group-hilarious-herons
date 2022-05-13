@@ -59,10 +59,10 @@ export const PostsLayout = ({
             <IonIcon icon={funnel} size="small" />
           </IonFabButton>
           <IonPopover trigger="sort-button" size="auto" mode="ios">
-            <IonList>
+            <IonList inset={true}>
               <IonRadioGroup onIonChange={(e) => setSortOrder(e.target.value)}>
                 <IonListHeader>
-                  <IonLabel>Select Sort order</IonLabel>
+                  <IonLabel>Sort order</IonLabel>
                 </IonListHeader>
 
                 <IonItem>
