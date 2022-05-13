@@ -6,7 +6,6 @@ import { useContext, useEffect, useState } from "react";
 import { SearchContext } from "../context/SearchContext";
 import { AddPostButton } from "../components/AddPostButton";
 
-
 export const HomePage = () => {
   const [data, updateData] = useState();
   const { searchKeyword, clearInput } = useContext(SearchContext);
@@ -29,11 +28,15 @@ export const HomePage = () => {
 
   return (
     <FoodPage banner>
-      <data ? PostsLayout
-        isHomePage={true}
-        dataForCards={data}
-        isNoSearchResult={isNoSearchResults}
-      />: <Loading />}
+      {data ? (
+        <PostsLayout
+          isHomePage={true}
+          dataForCards={data}
+          isNoSearchResult={isNoSearchResults}
+        />
+      ) : (
+        <Loading />
+      )}
       <AddPostButton />
     </FoodPage>
   );
