@@ -33,7 +33,10 @@ const FoodCard = ({
     <IonCard className="food-card">
       <NavLink to={"/food/" + id} style={{ textDecoration: "none" }}>
         <div className="iamge-rate-distanse">
-          <img src={image} alt="food-img" className="food-img" />
+          <div className="img-container">
+            <img src={image} alt="food-img" className="food-img" />
+          </div>
+
           <IonRow style={infoStyle}>
             {/* Unsure if distance chip needed */}
             {/* <IonChip className='rate'>
