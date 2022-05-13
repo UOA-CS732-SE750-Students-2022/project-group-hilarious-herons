@@ -1,0 +1,7 @@
+.like-button {
+  vertical-align: middle;
+}
+
+.like-button:hover {
+  cursor: pointer;
+}

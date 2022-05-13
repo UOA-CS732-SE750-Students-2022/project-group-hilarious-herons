@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./FoodCard.css";
 import {
   IonCard,
@@ -11,12 +11,13 @@ import {
   IonRow,
   IonIcon,
 } from "@ionic/react";
-import { star, heart, heartOutline } from "ionicons/icons";
+import { star } from "ionicons/icons";
 import { NavLink } from "react-router-dom";
+import { LikeButton } from "./LikeButton";
 
 const infoStyle = {
   position: "absolute",
-  top: "15rem",
+  top: "59%",
 };
 
 const FoodCard = ({
@@ -29,26 +30,11 @@ const FoodCard = ({
   postLiked = false,
   distance,
 }) => {
-  const [liked, setLiked] = useState(postLiked);
-  const [totalLikes, setTotalLikes] = useState(numberOfLikes);
-  const updateLike = () => {
-    if (!liked) {
-      setTotalLikes(totalLikes + 1);
-    } else {
-      setTotalLikes(totalLikes - 1);
-    }
-    setLiked(!liked);
-    // Backend API method to be implemented. Use id.
-  };
-  console.log(distance);
   return (
     <IonCard className="food-card">
       <NavLink to={"/food/" + id} style={{ textDecoration: "none" }}>
-        <div>
-          <div className="img-continer">
-            <img src={image} alt="food-img" className="food-img" />
-          </div>
-
+        <div className="iamge-rate-distanse">
+          <img src={image} alt="food-img" className="food-img" />
           <IonRow style={infoStyle}>
             {/* Unsure if distance chip needed */}
             <IonChip className="rate">
@@ -68,16 +54,16 @@ const FoodCard = ({
           </IonCardTitle>
         </IonCardHeader>
       </NavLink>
+
       <IonCardContent>
         <IonRow className="like-food">
           <IonCardSubtitle>{timestamp}</IonCardSubtitle>
           <IonRow className="likes">
-            <IonIcon
-              onClick={() => updateLike()}
-              icon={liked ? heart : heartOutline}
-              size="small"
+            <LikeButton
+              id={id}
+              postLiked={postLiked}
+              numberOfLikes={numberOfLikes}
             />
-            <IonLabel>{totalLikes}</IonLabel>
           </IonRow>
         </IonRow>
       </IonCardContent>

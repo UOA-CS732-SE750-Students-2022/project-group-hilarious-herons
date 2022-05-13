@@ -53,11 +53,11 @@ export const ActionHeader = ({ banner, children, canSearch }) => {
 
   return (
     <IonContent
-      style={{ minHeight: "50rem" }}
+      // style={{ minHeight: "50rem" }}
       scrollEvents={true}
       onIonScroll={(event) => handleScroll(event)}
     >
-      <div>
+      <div style={{ justifyContent: "center" }}>
         {banner ? <div className="header-bg" /> : null}
 
         <div
