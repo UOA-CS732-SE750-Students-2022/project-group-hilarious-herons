@@ -24,7 +24,7 @@ exports.getRestaurantDetail = async (req, res) => {
             ? null
             : place.opening_hours.weekday_text;
 
-        const restaurantObj = {
+        let restaurantObj = {
           name: place.name,
           address: place.vicinity,
           coordinates: { lat: location.lat, long: location.lng },
@@ -34,7 +34,7 @@ exports.getRestaurantDetail = async (req, res) => {
         };
         const restuarntName = await Restaurant.findOne({ name: place.name });
         if (restuarntName === null) {
-          await createRestaurant(restaurantObj);
+          restaurantObj = await createRestaurant(restaurantObj);
         }
 
         resDetail = [...resDetail, restaurantObj];

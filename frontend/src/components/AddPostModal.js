@@ -26,16 +26,28 @@ import { useState } from "react";
 import { DietariesSelect } from "./DietariesSelect";
 import "./AddPostModal.css";
 import { LocationSearchbar } from "./LocationSearchbar";
+import { PostService } from "../services/PostService";
 
 export const AddPostModal = ({ isModalOpen, setIsModalOpen }) => {
   const [foodName, setFoodName] = useState("");
   const [experienceText, setExperienceText] = useState("");
   const [images, setImages] = useState([]);
   const [restaurantName, setRestaurantName] = useState("");
+  const [restauantId, setRestaurantId] = useState("");
   const [dietaries, setDietaries] = useState([]);
   const [tag, setTag] = useState("");
   const [tagsList, setTagsList] = useState([]);
   const [present] = useIonToast();
+  const [tagButton, setTagButton] = useState("");
+
+  const createWarning = (message) => {
+    return present({
+      message: message,
+      mode: "ios",
+      color: "dark",
+      duration: 2000,
+    });
+  };
 
   function getFiveStarRating() {
     const greyStars = [...Array(6).keys()].slice(1);
@@ -101,12 +113,7 @@ export const AddPostModal = ({ isModalOpen, setIsModalOpen }) => {
           </IonRow>
         );
       } else {
-        present({
-          message: "Share up to 9 photos in one post.",
-          mode: "ios",
-          color: "dark",
-          duration: 2000,
-        });
+        createWarning("Share up to 9 photos in one post.");
       }
     }
   }
@@ -119,23 +126,49 @@ export const AddPostModal = ({ isModalOpen, setIsModalOpen }) => {
     setDietaries([]);
     setTag("");
     setTagsList([]);
+    setRestaurantId("");
     document.querySelectorAll(".star-rating .star").forEach((eIcon) => {
       eIcon.classList.remove("active");
     });
   }
 
-  function handleSubmitPost() {
-    let postJson = {
-      foodName: "",
-      rate: getRateOfFood(),
-      timestamp: new Date(),
-      bodyText: experienceText,
-      imgs: images,
-      restaurant: restaurantName,
-    };
+  async function handleSubmitPost() {
+    if (
+      foodName == "" ||
+      tagsList.length == 0 ||
+      images.length == 0 ||
+      restauantId == ""
+    ) {
+      if (images.length == 0) {
+        createWarning("Please upload an image");
+      } else {
+        createWarning("Please enter all required field");
+      }
+    } else {
+      let postJson = {
+        foodName: foodName,
+        bodyText: experienceText,
+        tags: tagsList,
+        dietaries: dietaries,
+        numberOfLikes: 0,
+        rating: getRateOfFood(),
+        numberOfReviews: 0,
+        timestamp: new Date(),
+        restaurantId: restauantId,
+      };
 
-    setIsModalOpen(false);
-    handleReset();
+      console.log(postJson);
+      const res = await PostService.addPost(postJson, images[0]);
+      if (!res || res.status >= 400) {
+        console.log(res);
+
+        createWarning("Add post uncessefully: " + res.data.message);
+      } else {
+        createWarning("Add post successfully");
+      }
+      setIsModalOpen(false);
+      handleReset();
+    }
   }
 
   const handleEnterTag = (e) => {
@@ -146,12 +179,7 @@ export const AddPostModal = ({ isModalOpen, setIsModalOpen }) => {
         if (tagsList.length < 5) {
           setTagsList([...tagsList, tag]);
         } else {
-          present({
-            message: "Maximum 5 tags per post only",
-            mode: "ios",
-            color: "dark",
-            duration: 2000,
-          });
+          createWarning("Maximum 5 tags per post only");
         }
       }
     }
@@ -162,24 +190,15 @@ export const AddPostModal = ({ isModalOpen, setIsModalOpen }) => {
     setTagsList([...tagsList]);
   };
 
-  const getLocations = () => {
-    const locations = [
-      { name: "McDonald's Ti Rakau", address: "500 Ti Rakau Dr" },
-      { name: "McDonald's Botany Town centre", address: "Botany Town Centre" },
-      { name: "McDonald's Pakuranga", address: "472 Pakuranga Rd" },
-      { name: "McDonald's Ormiston", address: "249 Ormiston Rd" },
-      { name: "Carl's Jr. Pakuranga", address: "490 Pakuranga Rd" },
-      { name: "Carl's Jr. St Johns", address: "113-117 Felton Mathew Ave" },
-      { name: "Carl's Jr.", address: "639 Great South Rd" },
-      { name: "Domino's Pizza Howick", address: "26 Moore St" },
-      {
-        name: "Domino's Pizza Highland Park NZ",
-        address: "Unit 3/5 Aviemore Dr",
-      },
-      { name: "Domino's Pizza Pakuranga", address: "2 Johns Ln" },
-    ];
-
-    return locations;
+  const handleEnterButtonTag = () => {
+    setTag("");
+    if (tag.length > 0) {
+      if (tagsList.length < 5) {
+        setTagsList([...tagsList, tag]);
+      } else {
+        createWarning("Maximum 5 tags per post only");
+      }
+    }
   };
 
   return (
@@ -212,7 +231,7 @@ export const AddPostModal = ({ isModalOpen, setIsModalOpen }) => {
       {/* Adding food name */}
       <IonToolbar mode="ios">
         <IonItem lines="none" className="foodname">
-          <IonLabel position="fixed">Food Name</IonLabel>
+          <IonLabel position="fixed">Food Name*</IonLabel>
           <IonInput
             value={foodName}
             required={true}
@@ -226,11 +245,12 @@ export const AddPostModal = ({ isModalOpen, setIsModalOpen }) => {
 
         {/* Adding the restaurant name*/}
         <LocationSearchbar
-          label="Restaurant"
+          label="Restaurant*"
           placeholder="Enter restaurant name"
           locationText={restaurantName}
           setLocationText={setRestaurantName}
-          locations={getLocations()}
+          setRestaurantId={setRestaurantId}
+          restauantId={restauantId}
         />
 
         {/* Adding dietaries for the food*/}
@@ -238,7 +258,7 @@ export const AddPostModal = ({ isModalOpen, setIsModalOpen }) => {
 
         {/* Adding tags*/}
         <IonItem lines="none">
-          <IonLabel position="fixed">Tags</IonLabel>
+          <IonLabel position="fixed">Tags*</IonLabel>
           <IonInput
             value={tag}
             required={true}
@@ -250,6 +270,8 @@ export const AddPostModal = ({ isModalOpen, setIsModalOpen }) => {
             onKeyUp={(e) => handleEnterTag(e)}
             onIonChange={(e) => setTag(e.detail.value)}
           />
+          <IonButton onClick={(e) => handleEnterButtonTag()}>Enter</IonButton>
+
           <IonChip color="medium" className="chip">
             {tagsList.length} / 5
           </IonChip>
@@ -283,7 +305,6 @@ export const AddPostModal = ({ isModalOpen, setIsModalOpen }) => {
             border: "1px solid #ccc",
           }}
         />
-
         <div className="upload">
           <input
             id="upload-images"

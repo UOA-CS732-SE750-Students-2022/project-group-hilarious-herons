@@ -33,7 +33,7 @@ function App() {
           <Route path="/" exact component={HomePage} />
           <Route path="/food/:id" exact component={FoodDetailsPage} />
           <Route path="/auth" exact component={SignInPage} />
-          <Route path="/account" exact component={AccountPage} />
+          <Route path="/account" exact render={() => (!localStorage.getItem("isLoggedIn") ? <Redirect to={"/"} /> : <AccountPage />)} />
           <Route path="/notFound" exact component={ErrorPage} />
           <Route render={() => <Redirect to={"/notFound"} />} />
         </IonRouterOutlet>

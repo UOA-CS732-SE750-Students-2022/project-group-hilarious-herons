@@ -1,5 +1,4 @@
 import { IonFab, IonFabButton, IonIcon } from "@ionic/react";
-
 import { add } from "ionicons/icons";
 import { useState } from "react";
 import { AddPostModal } from "./AddPostModal";
