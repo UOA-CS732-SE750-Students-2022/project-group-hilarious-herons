@@ -1,0 +1,15 @@
+.img-attribution {
+  font-size: 11px !important;
+  color: var(--ion-color-medium);
+}
+
+.img-attribution a {
+  text-decoration: none;
+  color: var(--ion-color-primary);
+}
+
+@media only screen and (min-width: 768px) and (min-height: 600px) {
+  .sign-in-modal {
+    --height: "fit-content";
+  }
+}

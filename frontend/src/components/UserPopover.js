@@ -4,7 +4,7 @@ import {
     IonItem,
     IonLabel,
  } from "@ionic/react";
-import { logOut } from "../firebase";
+import { logOut } from "../utils/firebase";
 
 export const UserPopover = () => {
     const LabelStyle ={

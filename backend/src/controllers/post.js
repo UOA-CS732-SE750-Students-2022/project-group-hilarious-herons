@@ -102,8 +102,10 @@ exports.createPost = async (req, res) => {
       tags,
       numberOfLikes,
       rating,
+      dietryRequirements,
       numberOfReviews,
       restaurantId,
+      imageURLs,
     } = req.body;
 
     const restaurant = await retrieveRestaurant(restaurantId);
@@ -113,9 +115,11 @@ exports.createPost = async (req, res) => {
       bodyText,
       tags,
       numberOfLikes,
+      dietryRequirements,
       rating,
       numberOfReviews,
       restaurant,
+      imageURLs,
     };
 
     const newPost = await createPost(postObj);
@@ -181,6 +185,15 @@ const getPostFromGoogle = async (
         data.geometry.location.lat,
         data.geometry.location.lng
       );
+      if (
+        data.photos == undefined ||
+        data.opening_hours == undefined ||
+        data.name == undefined ||
+        data.formatted_address == undefined ||
+        data.geometry == undefined
+      ) {
+        continue;
+      }
       for (let i = 0; i < postPerRestaurant; i++) {
         const existPostName = await Post.find({
           foodName: data.name,
@@ -229,7 +242,7 @@ const getPostFromGoogle = async (
               bodyText: data.name,
               tags: [data.name, "Restaurant", "Food"],
               numberOfLikes: 0,
-              rating: 0,
+              rating: data.rating == undefined ? 0 : data.rating,
               numberOfReviews: 0,
               imageURLs: [imageURL],
               restaurant: restaurant,
@@ -262,19 +275,19 @@ const getPostFromGoogle = async (
 exports.getPosts = async (req, res) => {
   try {
     const { lat, long } = req.query;
-    let { range, numberOfposts } = req.query; //km
-
+    let { range, numberOfposts } = req.query;
     if (!range) {
       range = 10;
     }
     if (!numberOfposts || numberOfposts < 10) {
       numberOfposts = 10;
     }
+
     let posts = await getPostsFromDB(lat, long, range);
+
     range = range * 1000; //convert to meter
     if (posts.length < numberOfposts) {
       const num = numberOfposts - posts.length;
-
       const googleposts = await getPostFromGoogle(lat, long, range, num);
 
       posts = posts.concat(googleposts);
@@ -293,14 +306,32 @@ exports.getPosts = async (req, res) => {
 };
 
 exports.searchPost = async (req, res) => {
-  const { lat, long, searchKeyWord } = req.body;
+  const {
+    lat,
+    long,
+    searchKeyWord,
+    dietryRequirements,
+    sortByDistance = false,
+    sortByRating = false,
+  } = req.query;
 
-  const result = await Post.find({
-    $or: [
-      { foodName: { $regex: `(?i)${searchKeyWord}` } },
-      { tags: { $regex: `(?i)${searchKeyWord}` } },
-    ],
-  });
+  let result;
+  if (!dietryRequirements) {
+    result = await Post.find({
+      $or: [
+        { foodName: { $regex: `(?i)${searchKeyWord}` } },
+        { tags: { $regex: `(?i)${searchKeyWord}` } },
+      ],
+    });
+  } else {
+    result = await Post.find({
+      $or: [
+        { foodName: { $regex: `(?i)${searchKeyWord}` } },
+        { tags: { $regex: `(?i)${searchKeyWord}` } },
+      ],
+      dietryRequirements: { $in: dietryRequirements },
+    });
+  }
 
   if (result.length == 0) {
     return res.status(404).json({});
@@ -324,8 +355,16 @@ exports.searchPost = async (req, res) => {
     data = { ...data._doc, distance: distance };
     resultWithDistance = [...resultWithDistance, data];
   }
-  resultWithDistance = resultWithDistance.sort((a, b) => {
-    return a.distance - b.distance;
-  });
+
+  if (sortByRating) {
+    resultWithDistance = resultWithDistance.sort((a, b) => {
+      return b.rating - a.rating;
+    });
+  } else {
+    resultWithDistance = resultWithDistance.sort((a, b) => {
+      return a.distance - b.distance;
+    });
+  }
+
   res.send(resultWithDistance);
 };

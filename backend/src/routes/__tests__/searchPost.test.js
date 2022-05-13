@@ -40,6 +40,7 @@ const mockPost = {
   restaurant: new mongoose.Types.ObjectId("000000000000000000000001"),
   bodyText: "This is a really nice Fries",
   tags: ["Fast food", "fries"],
+  dietryRequirements: ["Vegetarian", "Dairy-Free", "Halah"],
   numberOfLikes: 2,
   rating: 2,
   numberOfReviews: 5,
@@ -74,7 +75,7 @@ describe("GET /posts/search", () => {
   it("GET /posts/search", (done) => {
     request(app)
       .get("/api/posts/search")
-      .send({ lat: -36.91042, long: 174.7698112, searchKeyWord: "Fries" })
+      .query({ lat: -36.91042, long: 174.7698112, searchKeyWord: "Fries" })
       .expect(200)
       .end((err, res) => {
         if (err) {
@@ -92,14 +93,13 @@ describe("GET /posts/search", () => {
   it("GET /posts/search within array with partial string", (done) => {
     request(app)
       .get("/api/posts/search")
-      .send({ lat: -36.91042, long: 174.7698112, searchKeyWord: "ood" })
+      .query({ lat: -36.91042, long: 174.7698112, searchKeyWord: "ood" })
       .expect(200)
       .end((err, res) => {
         if (err) {
           return done(err);
         }
         expect(res.body);
-        console.log(res.body);
 
         expect(res.body[0].foodName).toBe("Fries");
         return done();
@@ -111,14 +111,13 @@ describe("GET /posts/search", () => {
   it("GET /posts/search within array with partial string case insensitive", (done) => {
     request(app)
       .get("/api/posts/search")
-      .send({ lat: -36.91042, long: 174.7698112, searchKeyWord: "FA" })
+      .query({ lat: -36.91042, long: 174.7698112, searchKeyWord: "FA" })
       .expect(200)
       .end((err, res) => {
         if (err) {
           return done(err);
         }
         expect(res.body);
-        console.log(res.body);
 
         expect(res.body[0].foodName).toBe("Fries");
         return done();
@@ -130,13 +129,52 @@ describe("GET /posts/search", () => {
   it("GET /posts/search no result", (done) => {
     request(app)
       .get("/api/posts/search")
-      .send({ lat: -36.91042, long: 174.7698112, searchKeyWord: "0" })
+      .query({ lat: -36.91042, long: 174.7698112, searchKeyWord: "0" })
       .expect(404)
       .end((err, res) => {
         if (err) {
           return done(err);
         }
         return done();
+      });
+  });
+});
+
+describe("GET /posts/search", () => {
+  it("GET /posts/search result with dietary", (done) => {
+    request(app)
+      .get("/api/posts/search")
+      .send({
+        lat: -36.91042,
+        long: 174.7698112,
+        searchKeyWord: "food",
+        dietryRequirements: ["Vegetarian", "Dairy-Free"],
+      })
+      .expect(200)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        console.log(res.body[0]);
+        expect(res.body[0].foodName).toBe("Fries");
+        return done();
+      });
+  });
+});
+
+describe("GET /posts/search", () => {
+  it("GET /posts/search result with dietary not found", (done) => {
+    request(app)
+      .get("/api/posts/search")
+      .send({
+        lat: -36.91042,
+        long: 174.7698112,
+        searchKeyWord: "food",
+        dietryRequirements: ["no"],
+      })
+      .expect(404)
+      .end((err, res) => {
+        return done(err);
       });
   });
 });
