@@ -6,6 +6,7 @@ export const PostService = {
   likePost,
   unlikePost,
   searchPosts,
+  addPost,
 };
 
 /**
@@ -82,5 +83,24 @@ async function searchPosts(
     return result;
   } catch (err) {
     processError(err);
+  }
+}
+
+async function addPost(postJSON, image) {
+  try {
+    //upload the image
+    const imageData = new FormData();
+    imageData.append("file", image);
+    const res = await apiPOST("/posts/image", imageData);
+
+    //add new post
+    postJSON = { ...postJSON, imageURLs: [res] };
+    const result = await apiPOST("/posts/", postJSON);
+
+    return result;
+  } catch (err) {
+    if (err.response) {
+      return err.response;
+    }
   }
 }

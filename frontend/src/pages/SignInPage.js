@@ -33,7 +33,7 @@ export const SignInPage = () => {
 
         if (!dbUser) {
           createWarning("Not start the backend");
-          return;
+          return ;
         }
 
         if (dbUser === 404) {
