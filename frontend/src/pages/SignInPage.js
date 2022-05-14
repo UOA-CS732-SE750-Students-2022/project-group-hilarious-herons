@@ -70,7 +70,7 @@ export const SignInPage = () => {
             <IonRow className="content">
               <IonCol>
                 <IonRow class="ion-justify-content-center">
-                  <div class="ion-text-wrap" className="description-text">
+                  <div className="description-text">
                     <h1>START YOUR FOOD HUNTING JOURNEY.</h1>
                   </div>
                 </IonRow>

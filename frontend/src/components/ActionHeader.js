@@ -5,6 +5,7 @@ import {
   IonChip,
   IonAvatar,
   IonLabel,
+  useIonPopover,
 } from "@ionic/react";
 import { createAnimation } from "@ionic/react";
 import { useEffect, useState } from "react";
@@ -16,6 +17,10 @@ export const ActionHeader = ({ banner, children, canSearch }) => {
   const [headerVisible, setHeaderVisible] = useState(true);
   const [displayName, setDisplayName] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [popoverState, setShowPopover] = useState({
+    showPopover: false,
+    event: undefined,
+  });
 
   const colorInAnimation = createAnimation()
     .addElement(document.querySelector("#header"))
@@ -75,6 +80,10 @@ export const ActionHeader = ({ banner, children, canSearch }) => {
             {canSearch ? <Searchbar /> : <></>}
             {isLoggedIn ? (
               <IonChip
+                onClick={(e) => {
+                  e.persist();
+                  setShowPopover({ showPopover: true, event: e });
+                }}
                 id="user-avatar"
                 slot="end"
                 color="light"
@@ -103,13 +112,16 @@ export const ActionHeader = ({ banner, children, canSearch }) => {
                 Sign in
               </IonButton>
             )}
-            <UserPopover />
+            <UserPopover
+              popoverState={popoverState}
+              setShowPopover={setShowPopover}
+            />
           </IonToolbar>
         </div>
 
         {banner ? (
           <header className="banner">
-            <div className="slogan">
+            <div class="ion-text-wrap" className="slogan">
               <h1 className="header-text">START YOUR FOOD HUNTING JOURNEY.</h1>
             </div>
           </header>
