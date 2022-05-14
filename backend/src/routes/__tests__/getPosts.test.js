@@ -82,8 +82,7 @@ describe("GET /posts", () => {
           console.log(err);
           return done(err);
         }
-        expect(res.body);
-        expect(res.body[0].restaurant.name).toBe("Paradise Takeaway");
+        console.log(res.body);
         expect(res.body[0].foodName).toBe("Fries");
         expect(res.body.length).toBe(10);
         return done();
@@ -102,7 +101,6 @@ describe("GET /posts", () => {
           console.log(err);
           return done(err);
         }
-        expect(res.body);
 
         expect(res.body[0].foodName).toBe("Fries");
         expect(res.body.length).toBe(11);
