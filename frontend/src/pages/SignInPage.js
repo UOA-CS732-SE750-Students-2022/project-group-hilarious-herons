@@ -15,7 +15,7 @@ import { userService } from "../services/UserService";
 
 export const SignInPage = () => {
   const [present] = useIonToast();
-  
+
   const createWarning = (message) => {
     return present({
       message: message,
@@ -32,7 +32,7 @@ export const SignInPage = () => {
 
         if (!dbUser) {
           createWarning("Not start the backend");
-          return ;
+          return;
         }
 
         if (dbUser === 404) {
@@ -70,15 +70,14 @@ export const SignInPage = () => {
               </IonCol>
               <IonCol size="12" className="title-text-spacing">
                 <IonTitle className="description-text">
-                  <h2>
-                    START YOUR FOOD HUNTING JOURNEY
-                  </h2>
+                  <h2>START YOUR FOOD HUNTING JOURNEY</h2>
                 </IonTitle>
               </IonCol>
               <IonCol className="small-screen-login-button">
-                <IonButton 
-                  size="large" 
-                  mode="ios" 
+                <IonButton
+                  size="large"
+                  mode="ios"
+                  shape="round"
                   onClick={SignInWithGoogle}
                 >
                   <IonIcon slot="start" icon={logoGoogle} color="light" />
@@ -87,9 +86,9 @@ export const SignInPage = () => {
               </IonCol>
             </IonRow>
             <IonRow>
-            <IonCol>
+              <IonCol>
                 <a href="/" color="white">
-                    <h3>Return to Home</h3>
+                  <h3>Return to Home</h3>
                 </a>
               </IonCol>
             </IonRow>

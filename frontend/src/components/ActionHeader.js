@@ -95,7 +95,7 @@ export const ActionHeader = ({ banner, children, canSearch }) => {
                 href="/auth"
                 routerDirection="forward"
               >
-                Login
+                Sign in
               </IonButton>
             )}
             <UserPopover />
