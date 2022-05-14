@@ -63,7 +63,23 @@ async function unlikePost(id) {
 
 async function getPostDetails(id) {
   try {
-    const result = await apiGET("/posts/" + id);
+    const lat = localStorage.getItem("lat");
+    const long = localStorage.getItem("long");
+    let bodyJson;
+    if (lat === null || long === null) {
+      bodyJson = {
+        lat: lat,
+        long: long,
+      };
+    } else {
+      bodyJson = {
+        lat: -36.91042,
+        long: 174.7698112,
+      };
+    }
+
+    const result = await apiGET("/posts/" + id, bodyJson);
+    console.log(result);
     return result;
   } catch (err) {
     processError(err);
