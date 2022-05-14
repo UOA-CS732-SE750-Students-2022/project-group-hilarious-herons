@@ -344,6 +344,7 @@ exports.searchPost = async (req, res) => {
   let resultWithDistance = [];
   for (let data of result) {
     const restaurant = await retrieveRestaurant(data.restaurant);
+    if (restaurant == null) { continue }
     const restaurantLat = restaurant.coordinates.lat;
     const restaurantLong = restaurant.coordinates.long;
     const mapResult = distantMap.get(restaurantLat + restaurantLong);
