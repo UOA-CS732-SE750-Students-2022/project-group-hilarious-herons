@@ -90,7 +90,6 @@ export const AccountPage = () => {
   }, [option]);
 
   const handleSegmentClick = async (e) => {
-    console.log(e.detail.value);
     setOption(e.detail.value);
   };
 

@@ -24,8 +24,6 @@ const User = require("../models/User/UserSchema");
 
 exports.getPost = async (req, res) => {
   try {
-    console.log(req.params);
-
     const { lat, long } = req.query;
     const id = mongoose.Types.ObjectId(req.params.id);
     let post = await retrievePost(id);
@@ -146,7 +144,6 @@ exports.createPost = async (req, res) => {
 
     let user = await User.findOne({ firebaseUUID: userId });
 
-    console.log(user);
     user.posts = [...user.posts, newPost._id];
 
     updateUser(user);
@@ -156,7 +153,6 @@ exports.createPost = async (req, res) => {
       .header("Location", `/api/post/${newPost._id}`)
       .json(newPost);
   } catch (err) {
-    console.log(err.message);
     res.status(500).json({
       success: false,
       info: err.message,

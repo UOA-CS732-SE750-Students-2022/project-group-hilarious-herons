@@ -119,8 +119,6 @@ async function addPost(postJSON, image) {
 
     return result;
   } catch (err) {
-    console.log(err);
-
     if (err.response) {
       return err.response;
     }
