@@ -97,12 +97,11 @@ export const FoodDetailsCard = () => {
                 size="12"
                 sizeLg="6"
                 class="ion-justify-content-center"
-                style={{ display: "flex" }}
+                // style={{ display: "flex" }}
               >
                 <div
                   style={{
-                    width: "100%",
-                    height: "fit-content",
+                    display: "flex",
                     justifyContent: "center",
                   }}
                 >
@@ -113,7 +112,7 @@ export const FoodDetailsCard = () => {
                 </div>
               </IonCol>
 
-              <IonCol size="12" sizeLg="6">
+              <IonCol size="12" sizeLg="6" style={{ height: "fit-content" }}>
                 <IonItem lines="none">
                   <IonCardTitle>
                     <b>{foodData?.foodName}</b>

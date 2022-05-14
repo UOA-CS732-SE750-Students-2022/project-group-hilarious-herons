@@ -64,7 +64,6 @@ export const ActionHeader = ({ banner, children, canSearch }) => {
         >
           <IonToolbar color="transparent">
             <IonButton
-              className="funter"
               fill="clear"
               color="light"
               slot="start"
@@ -95,7 +94,7 @@ export const ActionHeader = ({ banner, children, canSearch }) => {
                 href="/auth"
                 routerDirection="forward"
               >
-                Login
+                Sign in
               </IonButton>
             )}
             <UserPopover />
