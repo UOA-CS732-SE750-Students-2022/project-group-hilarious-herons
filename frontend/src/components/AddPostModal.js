@@ -334,7 +334,7 @@ export const AddPostModal = ({ isModalOpen, setIsModalOpen }) => {
       </IonToolbar>
 
       {/* Dynamic Rating section and submit button section */}
-      <IonToolbar style={{ padding: "0 1rem" }}>
+      <IonToolbar color="background-color" style={{ padding: "0 1rem" }}>
         {getFiveStarRating()}
         <IonButton
           shape="round"
