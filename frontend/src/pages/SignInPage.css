@@ -19,6 +19,10 @@
   text-align: center;
 }
 
+.title {
+  height: fit-content;
+}
+
 .content {
   height: 80%;
   align-items: center;

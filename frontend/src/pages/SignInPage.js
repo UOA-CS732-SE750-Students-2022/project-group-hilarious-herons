@@ -63,7 +63,7 @@ export const SignInPage = () => {
         <IonRow className="grid">
           <IonCol style={{ padding: 0 }} className="image-content">
             <IonRow>
-              <IonTitle>
+              <IonTitle class="title">
                 <h1>FUNTER</h1>
               </IonTitle>
             </IonRow>
