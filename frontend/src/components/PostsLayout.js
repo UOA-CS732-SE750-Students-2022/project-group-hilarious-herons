@@ -22,17 +22,17 @@ export const PostsLayout = ({
 
   useEffect(() => {
     switch (sortOrder) {
-      case "ASC":
+      case "RATING ASC":
         cardsToDisplay.sort((a, b) => (a.rating > b.rating ? 1 : -1));
         break;
-      case "DESC":
+      case "RATING DESC":
         cardsToDisplay.sort((a, b) => (a.rating < b.rating ? 1 : -1));
         break;
       default:
         break;
     }
     
-    if(sortOrder) {
+    if(sortOrder) { //unsort if users unselect the sort options
       setCardsToDisplay([...cardsToDisplay]);
     } else {
       setCardsToDisplay([...dataForCards])

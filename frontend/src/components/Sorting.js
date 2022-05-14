@@ -37,7 +37,7 @@ export const Sorting = ({
                   Rating 
                   <IonIcon icon={arrowUp} size="small" />
                 </IonLabel>
-                <IonRadio value="DESC" />
+                <IonRadio value="RATING DESC" />
               </IonItem>
 
               <IonItem>
@@ -45,15 +45,7 @@ export const Sorting = ({
                   Rating 
                   <IonIcon icon={arrowDown} size="small" />
                 </IonLabel>
-                <IonRadio value="ASC" />
-              </IonItem>
-
-              <IonItem>
-                <IonLabel>
-                  Distance 
-                  <IonIcon icon={arrowDown} size="small" />
-                </IonLabel>
-                <IonRadio value="" />
+                <IonRadio value="RATING ASC" />
               </IonItem>
             </IonRadioGroup>
           </IonList>
