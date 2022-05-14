@@ -27,7 +27,7 @@ export const PostsLayout = ({
                     foodName={cardData.foodName}
                     rating={cardData.rating}
                     timestamp={cardData.timestamp}
-                    umberOfLikes={cardData.numberOfLikes}
+                    numberOfLikes={cardData.numberOfLikes}
                     postLiked={cardData.postLiked}
                     distance={cardData.distance}
                   />
