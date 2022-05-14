@@ -109,7 +109,7 @@ export const ActionHeader = ({ banner, children, canSearch }) => {
 
         {banner ? (
           <header className="banner">
-            <div class="ion-text-wrap" className="slogan">
+            <div className="slogan">
               <h1 className="header-text">START YOUR FOOD HUNTING JOURNEY.</h1>
             </div>
           </header>

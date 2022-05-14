@@ -1,5 +1,4 @@
 import {
-  IonCardSubtitle,
   IonCardTitle,
   IonFabButton,
   IonHeader,
@@ -8,8 +7,6 @@ import {
   IonItem,
   IonModal,
   IonRow,
-  IonTitle,
-  IonToolbar,
 } from "@ionic/react";
 import { search } from "ionicons/icons";
 import { useContext, useEffect, useState } from "react";

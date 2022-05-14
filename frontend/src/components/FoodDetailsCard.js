@@ -97,7 +97,6 @@ export const FoodDetailsCard = () => {
                 size="12"
                 sizeLg="6"
                 class="ion-justify-content-center"
-                // style={{ display: "flex" }}
               >
                 <div
                   style={{
