@@ -66,7 +66,7 @@ async function getPostDetails(id) {
     const lat = localStorage.getItem("lat");
     const long = localStorage.getItem("long");
     let bodyJson;
-    if (lat === null || long === null) {
+    if (lat !== null || long !== null) {
       bodyJson = {
         lat: lat,
         long: long,
