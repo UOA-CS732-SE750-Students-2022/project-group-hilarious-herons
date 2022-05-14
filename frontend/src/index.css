@@ -191,7 +191,7 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-tint: var(--ion-color-ionBack-tint);
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   /*
    * Dark Colors
    * -------------------------------------------
@@ -362,7 +362,7 @@ http://ionicframework.com/docs/theming/ */
     --box-shadow: none;
     font-weight: bold;
   }
-  
+
   .ion-color-ionBack {
     --ion-color-base: var(--ion-color-ionBack);
     --ion-color-base-rgb: var(--ion-color-ionBack-rgb);

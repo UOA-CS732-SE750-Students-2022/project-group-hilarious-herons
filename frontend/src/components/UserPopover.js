@@ -30,9 +30,12 @@ export const UserPopover = ({ popoverState, setShowPopover }) => {
           detail={false}
           href="/"
           onClick={() => {
-            logOut(async (isLogout) => {
+            logOut((isLogout) => {
               if (isLogout) {
-                localStorage.clear();
+                localStorage.removeItem("token");
+                localStorage.removeItem("isLoggedIn");
+                localStorage.removeItem("uid");
+                localStorage.removeItem("displayName");
               }
             });
           }}
