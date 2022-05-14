@@ -41,7 +41,7 @@ export const LocationSearchbar = ({
         const restauant = await RestaurantService.getRestaurants({
           name: value,
         });
-        if (restauant != 404) {
+        if (restauant !== 404) {
           setShowLoader(!showLoader);
           setNotFound(false);
           setRestaurant(restauant);
@@ -54,7 +54,7 @@ export const LocationSearchbar = ({
       }
     }, 1500);
 
-    if (value.length == 0) {
+    if (value.length === 0) {
       setRestaurantId("");
 
       setShow(false);

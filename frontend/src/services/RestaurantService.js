@@ -1,4 +1,4 @@
-import { apiGET, apiPOST } from "./api/apiAccessFunctions";
+import { apiGET } from "./api/apiAccessFunctions";
 
 export const RestaurantService = {
   getRestaurants,

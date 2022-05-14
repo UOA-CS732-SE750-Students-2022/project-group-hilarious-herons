@@ -202,7 +202,10 @@ const getPostFromGoogle = async (
           break;
         }
 
-        if (data.photos[Math.floor(Math.random() * 5)].photo_reference) {
+        if (
+          data.photos.length > 0 &&
+          data.photos[Math.floor(Math.random() * 5)].photo_reference
+        ) {
           const photoRef =
             data.photos[Math.floor(Math.random() * 5)].photo_reference;
           // let imageURL = null;
@@ -284,6 +287,8 @@ exports.getPosts = async (req, res) => {
     }
 
     let posts = await getPostsFromDB(lat, long, range);
+
+    console.log(posts.length);
 
     range = range * 1000; //convert to meter
     if (posts.length < numberOfposts) {
