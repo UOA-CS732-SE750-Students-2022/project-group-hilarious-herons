@@ -50,10 +50,12 @@ const FoodCard = ({
           </IonRow>
         </div>
         <IonCardHeader>
-          <IonCardTitle color="ionFoodCardTitle">
-            {foodName.length >= 33
-              ? foodName.substring(0, 25) + "...."
-              : foodName}
+          <IonCardTitle color="ionFoodCardTitle" mode="md">
+            <strong>
+              {foodName.length >= 33
+                ? foodName.substring(0, 25) + "...."
+                : foodName}
+            </strong>
           </IonCardTitle>
         </IonCardHeader>
       </NavLink>

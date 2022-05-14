@@ -6,6 +6,7 @@ import {
   IonChip,
   IonAvatar,
   IonLabel,
+  IonText,
 } from "@ionic/react";
 import { createAnimation } from "@ionic/react";
 import { useEffect, useState } from "react";
@@ -75,14 +76,21 @@ export const ActionHeader = ({ banner, children, canSearch }) => {
             </IonButton>
             {canSearch ? <Searchbar /> : <></>}
             {isLoggedIn ? (
-              <IonChip id="user-avatar" slot="end" color="light">
-                <IonAvatar>
+              <IonChip
+                id="user-avatar"
+                slot="end"
+                color="light"
+                style={{ margin: "0 5%", height: "fit-content" }}
+              >
+                <IonAvatar style={{ height: "2.5rem", width: "fit-content" }}>
                   <img
                     src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg"
                     alt="user"
                   />
                 </IonAvatar>
-                <IonLabel>{displayName}</IonLabel>
+                <IonLabel color="white">
+                  <strong>{displayName}</strong>
+                </IonLabel>
               </IonChip>
             ) : (
               <IonButton
@@ -103,13 +111,16 @@ export const ActionHeader = ({ banner, children, canSearch }) => {
 
         {banner ? (
           <header className="banner">
-            <IonTitle slot="start" className="slogan">
-              <h1 className="header-text">
-                START YOUR FOOD
-                <br />
-                HUNTING JOURNEY.
-              </h1>
-            </IonTitle>
+            {/* <IonTitle
+              slot="start"
+              class="ion-text-wrap"
+              className="slogan"
+              style={{ height: "fit-content" }}
+            > */}
+            <div class="ion-text-wrap">
+              <h1 className="header-text">START YOUR FOOD HUNTING JOURNEY.</h1>
+            </div>
+            {/* </IonTitle> */}
           </header>
         ) : null}
         <div className="content">{children}</div>
