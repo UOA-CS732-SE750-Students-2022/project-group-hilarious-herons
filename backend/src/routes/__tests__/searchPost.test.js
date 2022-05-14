@@ -144,7 +144,7 @@ describe("GET /posts/search", () => {
   it("GET /posts/search result with dietary", (done) => {
     request(app)
       .get("/api/posts/search")
-      .send({
+      .query({
         lat: -36.91042,
         long: 174.7698112,
         searchKeyWord: "food",
@@ -155,7 +155,6 @@ describe("GET /posts/search", () => {
         if (err) {
           return done(err);
         }
-        console.log(res.body[0]);
         expect(res.body[0].foodName).toBe("Fries");
         return done();
       });

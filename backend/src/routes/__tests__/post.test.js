@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const Post = require("../../models/Post/PostSchema");
 const { getTestAuthToken } = require("../../utils/testing/utils");
 const Restaurant = require("../../models/Restaurant/RestaurantSchema");
+const User = require("../../models/User/UserSchema");
 
 require("dotenv").config();
 
@@ -55,6 +56,18 @@ const post1 = {
   numberOfLikes: 5,
   rating: 10,
   numberOfReviews: 5,
+  userId: "uid",
+};
+
+const mockUser = {
+  _id: new mongoose.Types.ObjectId("000000000000000000000003"),
+  firebaseUUID: "uid",
+  displayName: "Henry Man",
+  firstName: "",
+  lastName: "",
+  posts: [],
+  favourites: [],
+  followingUsers: [],
 };
 
 beforeAll(async () => {
@@ -70,11 +83,15 @@ beforeEach(async () => {
 
   const coll = await mongoose.connection.db.createCollection("posts");
   await mongoose.connection.db.createCollection("restaurants");
+  await mongoose.connection.db.createCollection("users");
 
   const restaurant = new Restaurant(mockRestaurant);
   await restaurant.save();
   const post = new Post(mockPost);
   await post.save();
+
+  const user = new User(mockUser);
+  await user.save();
 });
 
 afterAll(async () => {
@@ -86,7 +103,10 @@ describe("GET /api/posts/:id", () => {
   it("do return post", (done) => {
     request(app)
       .get("/api/posts/000000000000000000000002")
-      .send()
+      .query({
+        lat: -36.91042,
+        long: 174.7698112,
+      })
       .expect(200)
       .end((err, res) => {
         if (err) return done(err);
@@ -106,33 +126,6 @@ describe("Fail GET /api/post/:id", () => {
       .expect(404)
       .end((err) => {
         expect(err);
-        return done();
-      });
-  });
-});
-
-describe("POST /posts", () => {
-  it("POST /posts", (done) => {
-    request(app)
-      .post("/api/posts")
-      .set("Accept", "application/json")
-      .set("Authorization", token)
-      .send(post1)
-      .expect(201)
-      .end((err, res) => {
-        expect(res.body);
-        expect(res.body.foodName).toBe("Steak");
-        return done();
-      });
-  });
-
-  it("fails if no auth token", (done) => {
-    request(app)
-      .post("/api/posts")
-      .set("Accept", "application/json")
-      .send(post1)
-      .expect(403)
-      .end((err, res) => {
         return done();
       });
   });
