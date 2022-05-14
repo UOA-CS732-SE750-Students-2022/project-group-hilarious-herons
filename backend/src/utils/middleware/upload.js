@@ -1,4 +1,4 @@
-const { bucket } = require("../../config/googleCloudStorage");
+const { bucket } = require("../googleApi/googleCloudStorage");
 const { format } = require("util");
 exports.upload = (imageStream, filename, cb) => {
   try {

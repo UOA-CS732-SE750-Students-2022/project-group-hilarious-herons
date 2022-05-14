@@ -1,6 +1,6 @@
 const processFile = require("../utils/middleware/multerImage");
 const { upload } = require("../utils/middleware/upload");
-const { bucket } = require("../config/googleCloudStorage");
+const { bucket } = require("../utils/googleApi/googleCloudStorage");
 
 // Instantiate a storage client with credentials
 
