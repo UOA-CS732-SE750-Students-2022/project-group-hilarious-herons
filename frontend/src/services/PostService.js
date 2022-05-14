@@ -79,7 +79,6 @@ async function getPostDetails(id) {
     }
 
     const result = await apiGET("/posts/" + id, bodyJson);
-    console.log(result);
     return result;
   } catch (err) {
     processError(err);
@@ -110,11 +109,18 @@ async function addPost(postJSON, image) {
     const res = await apiPOST("/posts/image", imageData);
 
     //add new post
-    postJSON = { ...postJSON, imageURLs: [res] };
+    postJSON = {
+      ...postJSON,
+      imageURLs: [res],
+      userId: localStorage.getItem("uid"),
+    };
+
     const result = await apiPOST("/posts/", postJSON);
 
     return result;
   } catch (err) {
+    console.log(err);
+
     if (err.response) {
       return err.response;
     }

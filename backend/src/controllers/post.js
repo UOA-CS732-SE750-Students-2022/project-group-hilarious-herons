@@ -19,6 +19,9 @@ const {
   createRestaurant,
 } = require("../models/Restaurant/restaurant-dao");
 
+const { updateUser } = require("../models/User/user-dao");
+const User = require("../models/User/UserSchema");
+
 exports.getPost = async (req, res) => {
   try {
     console.log(req.params);
@@ -122,6 +125,7 @@ exports.createPost = async (req, res) => {
       numberOfReviews,
       restaurantId,
       imageURLs,
+      userId,
     } = req.body;
 
     const restaurant = await retrieveRestaurant(restaurantId);
@@ -140,11 +144,19 @@ exports.createPost = async (req, res) => {
 
     const newPost = await createPost(postObj);
 
+    let user = await User.findOne({ firebaseUUID: userId });
+
+    console.log(user);
+    user.posts = [...user.posts, newPost._id];
+
+    updateUser(user);
+
     res
       .status(201)
       .header("Location", `/api/post/${newPost._id}`)
       .json(newPost);
   } catch (err) {
+    console.log(err.message);
     res.status(500).json({
       success: false,
       info: err.message,
