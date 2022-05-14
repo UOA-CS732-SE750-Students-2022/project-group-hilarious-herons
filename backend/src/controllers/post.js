@@ -288,8 +288,6 @@ exports.getPosts = async (req, res) => {
 
     let posts = await getPostsFromDB(lat, long, range);
 
-    console.log(posts.length);
-
     range = range * 1000; //convert to meter
     if (posts.length < numberOfposts) {
       const num = numberOfposts - posts.length;
@@ -346,6 +344,7 @@ exports.searchPost = async (req, res) => {
   let resultWithDistance = [];
   for (let data of result) {
     const restaurant = await retrieveRestaurant(data.restaurant);
+    if (restaurant == null) { continue }
     const restaurantLat = restaurant.coordinates.lat;
     const restaurantLong = restaurant.coordinates.long;
     const mapResult = distantMap.get(restaurantLat + restaurantLong);
