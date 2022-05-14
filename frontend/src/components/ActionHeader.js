@@ -6,7 +6,6 @@ import {
   IonChip,
   IonAvatar,
   IonLabel,
-  IonText,
 } from "@ionic/react";
 import { createAnimation } from "@ionic/react";
 import { useEffect, useState } from "react";
@@ -111,16 +110,15 @@ export const ActionHeader = ({ banner, children, canSearch }) => {
 
         {banner ? (
           <header className="banner">
-            {/* <IonTitle
-              slot="start"
-              class="ion-text-wrap"
-              className="slogan"
-              style={{ height: "fit-content" }}
-            > */}
-            <div class="ion-text-wrap">
+            <div class="ion-text-wrap" className="slogan">
+              {/* <IonTitle
+                slot="start"
+                className="slogan"
+                style={{ height: "fit-content" }}
+              > */}
               <h1 className="header-text">START YOUR FOOD HUNTING JOURNEY.</h1>
+              {/* </IonTitle> */}
             </div>
-            {/* </IonTitle> */}
           </header>
         ) : null}
         <div className="content">{children}</div>

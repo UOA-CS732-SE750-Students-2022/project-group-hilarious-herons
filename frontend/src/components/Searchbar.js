@@ -9,7 +9,7 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { search, filter } from "ionicons/icons";
+import { search } from "ionicons/icons";
 import { useContext, useEffect, useState } from "react";
 import { SearchContext } from "../context/SearchContext";
 
@@ -27,7 +27,7 @@ export const Searchbar = () => {
   const placeholder = isMdBreakpoint
     ? "Search for a dish, cuisine or restaurant"
     : "Search";
-    
+
   const doSearch = () => {
     updateSearchKeyword(searchInput);
 
@@ -38,7 +38,6 @@ export const Searchbar = () => {
       `location: ${localStorage.getItem("locationFilter")}`,
       `rating: ${localStorage.getItem("rating")}`,
       `dietary: ${JSON.parse(localStorage.getItem("dietaries"))}`
-
     );
     return [];
   };
@@ -80,7 +79,7 @@ export const Searchbar = () => {
               }
             }}
             onIonChange={(e) => {
-              if(e.cancelable) {
+              if (e.cancelable) {
                 clearInput();
                 e.preventDefault();
               }
