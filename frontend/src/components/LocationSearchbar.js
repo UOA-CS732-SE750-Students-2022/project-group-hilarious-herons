@@ -1,5 +1,6 @@
 import { IonItem, IonLabel, IonInput } from "@ionic/react";
 import { useState } from "react";
+import { RestaurantService } from "../services/RestaurantService";
 import { LocationPopover } from "./LocationPopover";
 
 export const LocationSearchbar = ({
@@ -7,33 +8,58 @@ export const LocationSearchbar = ({
   placeholder,
   locationText,
   setLocationText,
-  locations,
+  setRestaurantId,
+  restauantId,
 }) => {
   const [show, setShow] = useState(false);
-
-  const filterLocations = () => {
-    return locations.filter((restaurant) => {
-      return Object.values(restaurant)[0]
-        .toLowerCase()
-        .includes(locationText.toLowerCase());
-    });
-  };
+  const [timer, setTimer] = useState(null);
+  const [restauant, setRestaurant] = useState([]);
+  const [showLoader, setShowLoader] = useState([]);
+  const [notFound, setNotFound] = useState(false);
 
   const handleRestaurantInput = (e) => {
     const value = e.detail.value;
-    const locationList = filterLocations();
-    const locationsCount = locationList.length;
-    setLocationText(value);
-    if (
-      locationsCount === 1 &&
-      locationText === Object.values(locationList[0])[0] // check that the first property in the object is the same
-    ) {
-      setShow(false);
-    } else if (value.length > 0 && locationsCount > 0) {
+
+    if (value.length > 0) {
+      setShowLoader(true);
       setShow(true);
-    } else {
+    }
+
+    if (restauantId.length > 0) {
       setShow(false);
     }
+
+    setLocationText(value);
+    clearTimeout(timer);
+
+    const newTimer = setTimeout(async () => {
+      if (show && value.length > 0) {
+        setRestaurant([]);
+
+        setShowLoader(!showLoader);
+
+        const restauant = await RestaurantService.getRestaurants({
+          name: value,
+        });
+        if (restauant !== 404) {
+          setShowLoader(!showLoader);
+          setNotFound(false);
+          setRestaurant(restauant);
+        } else {
+          setRestaurant([]);
+          setShowLoader(!showLoader);
+
+          setNotFound(true);
+        }
+      }
+    }, 1500);
+
+    if (value.length === 0) {
+      setRestaurantId("");
+
+      setShow(false);
+    }
+    setTimer(newTimer);
   };
 
   return (
@@ -53,9 +79,13 @@ export const LocationSearchbar = ({
         />
       </IonItem>
       <LocationPopover
-        setLocationText={setLocationText}
-        locations={filterLocations()}
         show={show}
+        setLocationText={setLocationText}
+        locations={restauant}
+        setRestaurantId={setRestaurantId}
+        setShow={setShow}
+        showLoader={showLoader}
+        notFound={notFound}
       />
     </>
   );

@@ -28,17 +28,21 @@ const FoodCard = ({
   timestamp = "21/04/2022",
   numberOfLikes = 1200,
   postLiked = false,
+  distance,
 }) => {
   return (
     <IonCard className="food-card">
       <NavLink to={"/food/" + id} style={{ textDecoration: "none" }}>
         <div className="iamge-rate-distanse">
-          <img src={image} alt="food-img" className="food-img" />
+          <div className="img-container">
+            <img src={image} alt="food-img" className="food-img" />
+          </div>
+
           <IonRow style={infoStyle}>
             {/* Unsure if distance chip needed */}
-            {/* <IonChip className='rate'>
-                        <IonLabel>1.2km</IonLabel>
-                    </IonChip> */}
+            <IonChip className="rate">
+              <IonLabel>{distance ? distance + "km" : "Somewhere"} </IonLabel>
+            </IonChip>
             <IonChip className="rate">
               <IonIcon icon={star} />
               <IonLabel>{rating}/5</IonLabel>
@@ -46,7 +50,7 @@ const FoodCard = ({
           </IonRow>
         </div>
         <IonCardHeader>
-          <IonCardTitle>
+          <IonCardTitle color="ionFoodCardTitle">
             {foodName.length >= 33
               ? foodName.substring(0, 25) + "...."
               : foodName}

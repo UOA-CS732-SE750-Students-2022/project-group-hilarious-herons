@@ -3,25 +3,14 @@ import {
   IonRow,
   IonCol,
   IonText,
-  IonIcon,
-  IonFabButton,
-  IonPopover,
-  IonRadioGroup,
-  IonLabel,
-  IonItem,
-  IonRadio,
-  IonListHeader,
-  IonList,
+  IonCardSubtitle,
 } from "@ionic/react";
 import FoodCard from "./FoodCard";
-import { BackHomeButton } from "./BackHomeButton";
-import { useEffect, useState } from "react";
-import { funnel, arrowUp, arrowDown } from "ionicons/icons";
+import "./PostsLayout.css";
 
 export const PostsLayout = ({
-  isHomePage = false,
   dataForCards = [],
-  isNoSearchResult,
+  isNoSearchResult = false,
 }) => {
   const unsorted = dataForCards;
 
@@ -44,87 +33,83 @@ export const PostsLayout = ({
     }
     setCardsToDisplay(sorted);
   }, [sortOrder]);
-
+  
   if (!isNoSearchResult) {
-    return (
-      <IonGrid>
-        {isHomePage ? <></> : <BackHomeButton />}
-        <IonRow class="ion-justify-content-end ion-padding-end">
-          <IonFabButton
-            size="large"
-            color="light"
-            className="ion-no-shadows"
-            id="sort-button"
-          >
-            <IonIcon icon={funnel} size="small" />
-          </IonFabButton>
-          <IonPopover trigger="sort-button" size="auto" mode="ios">
-            <IonList inset={true}>
-              <IonRadioGroup onIonChange={(e) => setSortOrder(e.target.value)}>
-                <IonListHeader>
-                  <IonLabel>Sort order</IonLabel>
-                </IonListHeader>
-
-                <IonItem>
-                  <IonLabel>
-                    Rating <IonIcon icon={arrowUp} size="small" />
-                  </IonLabel>
-                  <IonRadio value="DESC" />
-                </IonItem>
-
-                <IonItem>
-                  <IonLabel>
-                    Rating <IonIcon icon={arrowDown} size="small" />
-                  </IonLabel>
-                  <IonRadio value="ASC" />
-                </IonItem>
-
-                <IonItem>
-                  <IonLabel>
-                    Distance <IonIcon icon={arrowDown} size="small" />
-                  </IonLabel>
-                  <IonRadio value="" />
-                </IonItem>
-              </IonRadioGroup>
-            </IonList>
-          </IonPopover>
-        </IonRow>
-
-        <IonRow class="ion-justify-content-center no-padding">
-          {cardsToDisplay.map((cardData, index) => {
-            if (typeof cardData.image !== "undefined") {
-              return (
-                <IonCol
-                  size="auto"
-                  key={index}
-                  class="no-padding text-center ion-item "
-                  style={{ maxWidth: "365px", minWidth: "365px" }}
-                >
-                  <FoodCard
-                    id={cardData.id}
-                    image={cardData.image}
-                    foodName={cardData.foodName}
-                    rating={cardData.rating}
-                    timestamp={cardData.timestamp}
-                    numberOfLikes={cardData.numberOfLikes}
-                    postLiked={cardData.postLiked}
-                  />
-                </IonCol>
-              );
-            } else {
-              return <IonCol key={index}></IonCol>;
-            }
-          })}
-        </IonRow>
-      </IonGrid>
-    );
+    if (dataForCards.length === 0) {
+      return (
+        <IonGrid style={{ textAlign: "center", margin: "1.5rem" }}>
+          <img
+            src="/no-results-img.png"
+            alt="Natasha Remarchuk"
+            className="img"
+          />
+          <p className="img-attribution">
+            Illustration by{" "}
+            <a href="https://icons8.com/illustrations/author/292791">
+              Anna Golde
+            </a>{" "}
+            from <a href="https://icons8.com/illustrations">Ouch!</a>
+          </p>
+          <IonText color="ionContentHeaderText" className="title-msg">
+            <h1>No posts found</h1>
+          </IonText>
+        </IonGrid>
+      );
+    } else {
+      return (
+        <IonGrid>
+          <IonRow class="ion-justify-content-center no-padding">
+            {dataForCards.map((cardData, index) => {
+              if (typeof cardData.image !== "undefined") {
+                return (
+                  <IonCol
+                    size="auto"
+                    key={index}
+                    class="no-padding text-center ion-item "
+                    style={{ maxWidth: "365px", minWidth: "365px" }}
+                  >
+                    <FoodCard
+                      id={cardData.id}
+                      image={cardData.image}
+                      foodName={cardData.foodName}
+                      rating={cardData.rating}
+                      timestamp={cardData.timestamp}
+                      numberOfLikes={cardData.numberOfLikes}
+                      postLiked={cardData.postLiked}
+                      distance={cardData.distance}
+                    />
+                  </IonCol>
+                );
+              } else {
+                return <IonCol key={index}></IonCol>;
+              }
+            })}
+          </IonRow>
+        </IonGrid>
+      );
+    }
   } else {
     return (
-      <IonGrid style={{ textAlign: "center" }}>
-        <IonText color="ionContentHeaderText" style={{ fontSize: "xx-large" }}>
-          <h1>None of the posts match the search</h1>
-          <p>Please try another search</p>
+      <IonGrid style={{ textAlign: "center", margin: "1.5rem" }}>
+        <img
+          src="/no-results-img.png"
+          alt="Natasha Remarchuk"
+          className="img"
+        />
+        <p className="img-attribution">
+          Illustration by{" "}
+          <a href="https://icons8.com/illustrations/author/292791">
+            Anna Golde
+          </a>{" "}
+          from <a href="https://icons8.com/illustrations">Ouch!</a>
+        </p>
+
+        <IonText color="ionContentHeaderText" className="title-msg">
+          <h1>No matching results found</h1>
         </IonText>
+        <IonCardSubtitle class="subtitle-msg">
+          <p>Try another search keyword</p>
+        </IonCardSubtitle>
       </IonGrid>
     );
   }

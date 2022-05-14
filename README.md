@@ -3,16 +3,18 @@
 ## About
 * **Project**: Funter, the food application, look at the food on your feed and proceed to feed yourself. 
 * **Team Name**: SE750-hilarious-herons
-* For more Documentation, please check the wiki pages.
-
-Frontend is developed by using:
-* [React](https://reactjs.org/)
-* [Ionic Framework](https://ionicframework.com/)
-
-Backend is developed by using: 
-* Node.js
-* MongoDB
-* Firebase
+* **Ket Features**:
+   * Get food posts of restaurants nearby 
+   * Adding post
+   * Like/unlike posts
+* **Frontend** is developed by using:
+   * [React](https://reactjs.org/)
+   * [Ionic Framework](https://ionicframework.com/)
+* **Backend** is developed by using: 
+   *  Node.js
+   *  MongoDB
+   *  Firebase
+*  For more Documentation, please check the wiki pages.
 ## Before run
 Make sure you install:
 * [Node.js](https://nodejs.org/en/)

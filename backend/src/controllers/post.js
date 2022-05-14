@@ -102,8 +102,10 @@ exports.createPost = async (req, res) => {
       tags,
       numberOfLikes,
       rating,
+      dietryRequirements,
       numberOfReviews,
       restaurantId,
+      imageURLs,
     } = req.body;
 
     const restaurant = await retrieveRestaurant(restaurantId);
@@ -113,9 +115,11 @@ exports.createPost = async (req, res) => {
       bodyText,
       tags,
       numberOfLikes,
+      dietryRequirements,
       rating,
       numberOfReviews,
       restaurant,
+      imageURLs,
     };
 
     const newPost = await createPost(postObj);
@@ -154,8 +158,7 @@ const getPostsFromDB = async (lat, long, range) => {
   for (i of distancesObj) {
     const response = await Post.find({ restaurant: i.id });
     for (data of response) {
-      const restaurant = await retrieveRestaurant(data.restaurant);
-      data.restaurant = restaurant;
+      data = { ...data._doc, distance: i.distance };
       posts = [...posts, data];
     }
   }
@@ -199,7 +202,10 @@ const getPostFromGoogle = async (
           break;
         }
 
-        if (data.photos[Math.floor(Math.random() * 5)].photo_reference) {
+        if (
+          data.photos.length > 0 &&
+          data.photos[Math.floor(Math.random() * 5)].photo_reference
+        ) {
           const photoRef =
             data.photos[Math.floor(Math.random() * 5)].photo_reference;
           // let imageURL = null;
@@ -271,6 +277,7 @@ const getPostFromGoogle = async (
 exports.getPosts = async (req, res) => {
   try {
     const { lat, long } = req.query;
+
     let { range, numberOfposts } = req.query;
     if (!range) {
       range = 10;
@@ -337,6 +344,7 @@ exports.searchPost = async (req, res) => {
   let resultWithDistance = [];
   for (let data of result) {
     const restaurant = await retrieveRestaurant(data.restaurant);
+    if (restaurant == null) { continue }
     const restaurantLat = restaurant.coordinates.lat;
     const restaurantLong = restaurant.coordinates.long;
     const mapResult = distantMap.get(restaurantLat + restaurantLong);

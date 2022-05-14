@@ -112,7 +112,7 @@ export const FoodDetailsCard = () => {
 
             <IonCol size="12" sizeLg="6" style={{ height: "fit-content" }}>
               <IonItem lines="none">
-                <IonCardTitle>
+                <IonCardTitle color="ionFoodCardTitle">
                   <b>{foodData?.foodName}</b>
                   <IonCardSubtitle style={{ marginTop: "0.5rem" }}>
                     {timestamp.toLocaleDateString()}
@@ -156,7 +156,7 @@ export const FoodDetailsCard = () => {
 
               <IonItem lines="none">
                 <IonIcon icon={locationOutline} slot="start" />
-                <IonCardSubtitle color="dark">
+                <IonCardSubtitle color="ionLikes">
                   <b>Location</b>
                 </IonCardSubtitle>
               </IonItem>
@@ -180,7 +180,7 @@ export const FoodDetailsCard = () => {
 
               <IonItem lines="none">
                 <IonIcon icon={timeOutline} slot="start" />
-                <IonCardSubtitle color="dark">
+                <IonCardSubtitle color="ionLikes">
                   <b>Opening hours</b>
                 </IonCardSubtitle>
               </IonItem>
