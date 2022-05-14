@@ -33,6 +33,7 @@
 .funter {
   color: white;
   margin: 0 5%;
+  font-size: x-large;
 }
 
 .slogan {
@@ -70,6 +71,14 @@
 @media only screen and (max-width: 690px) {
   :root {
     --banner-height: 12rem;
+  }
+
+  .funter {
+    font-size: 1.2rem;
+  }
+
+  .username {
+    font-size: x-small;
   }
 
   .header-text {

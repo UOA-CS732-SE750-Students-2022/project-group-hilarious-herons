@@ -70,7 +70,7 @@ export const ActionHeader = ({ banner, children, canSearch }) => {
               routerDirection="back"
               href="/"
             >
-              <h2>FUNTER</h2>
+              <h2 className="funter">FUNTER</h2>
             </IonButton>
             {canSearch ? <Searchbar /> : <></>}
             {isLoggedIn ? (
@@ -86,7 +86,7 @@ export const ActionHeader = ({ banner, children, canSearch }) => {
                     alt="user"
                   />
                 </IonAvatar>
-                <IonLabel color="white">
+                <IonLabel color="white" className="username">
                   <strong>{displayName}</strong>
                 </IonLabel>
               </IonChip>

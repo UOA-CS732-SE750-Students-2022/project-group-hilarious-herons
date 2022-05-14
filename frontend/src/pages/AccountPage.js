@@ -81,7 +81,7 @@ export const AccountPage = () => {
   };
 
   return (
-    <FoodPage>
+    <FoodPage canSearch={false}>
       <BackHomeButton />
       <IonSegment
         mode="md"
