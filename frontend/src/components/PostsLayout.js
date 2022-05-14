@@ -18,12 +18,14 @@ export const PostsLayout = ({
   const [sortOrder, setSortOrder] = useState();
 
   useEffect(() => {
+    let sort;
+
     switch (sortOrder) {
       case "RATING ASC":
-        cardsToDisplay.sort((a, b) => (a.rating > b.rating ? 1 : -1));
+        sort = [...dataForCards].sort((a, b) => (a.rating > b.rating ? 1 : -1));
         break;
       case "RATING DESC":
-        cardsToDisplay.sort((a, b) => (a.rating < b.rating ? 1 : -1));
+        sort = [...dataForCards].sort((a, b) => (a.rating < b.rating ? 1 : -1));
         break;
       default:
         break;
@@ -31,7 +33,7 @@ export const PostsLayout = ({
 
     if (sortOrder) {
       //unsort if users unselect the sort options
-      setCardsToDisplay([...cardsToDisplay]);
+      setCardsToDisplay([...sort]);
     } else {
       setCardsToDisplay([...dataForCards]);
     }
@@ -60,11 +62,13 @@ export const PostsLayout = ({
         </IonGrid>
       );
     } else {
+      console.log(cardsToDisplay);
+      console.log(dataForCards);
       return (
         <IonGrid>
           <Sorting sortOrder={sortOrder} setSortOrder={setSortOrder} />
           <IonRow class="ion-justify-content-center no-padding">
-            {dataForCards.map((cardData, index) => {
+            {cardsToDisplay.map((cardData, index) => {
               if (typeof cardData.image !== "undefined") {
                 return (
                   <IonCol
