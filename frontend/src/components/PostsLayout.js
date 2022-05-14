@@ -27,8 +27,9 @@ export const PostsLayout = ({
                     foodName={cardData.foodName}
                     rating={cardData.rating}
                     timestamp={cardData.timestamp}
-                    numberOfLikes={cardData.numberOfLikes}
+                    umberOfLikes={cardData.numberOfLikes}
                     postLiked={cardData.postLiked}
+                    distance={cardData.distance}
                   />
                 </IonCol>
               );

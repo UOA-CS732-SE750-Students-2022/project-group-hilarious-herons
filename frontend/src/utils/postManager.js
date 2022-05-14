@@ -14,7 +14,10 @@ export const postDataForFoodCard = async (
 ) => {
   let result,
     dataToReturn = [];
+<<<<<<< HEAD
   let user;
+=======
+>>>>>>> 453f12e (fix distance not showing)
 
   if (keyword === "") {
     result = await PostService.getPosts(bodyJson);
@@ -31,6 +34,7 @@ export const postDataForFoodCard = async (
     }
   }
 
+<<<<<<< HEAD
   const uid = localStorage.getItem("uid");
 
   // Fetch the user if signed in
@@ -40,6 +44,9 @@ export const postDataForFoodCard = async (
 
   result.forEach((data, index) => {
     const liked = user ? user.favourites.indexOf(data._id) > -1 : false;
+=======
+  result.forEach((data, index) => {
+>>>>>>> 453f12e (fix distance not showing)
     let formattedDate = getTimestampFromId(data._id);
     let jsonForFoodCard = {
       id: data._id,
@@ -49,6 +56,7 @@ export const postDataForFoodCard = async (
       rating: Math.round(data.rating),
       timestamp: formattedDate,
       postLiked: liked,
+      distance: data.distance,
     };
     dataToReturn[index] = jsonForFoodCard;
   });
