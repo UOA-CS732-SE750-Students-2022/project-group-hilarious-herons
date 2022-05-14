@@ -6,14 +6,12 @@ import {
   IonChip,
   IonAvatar,
   IonLabel,
-  IonText,
 } from "@ionic/react";
 import { createAnimation } from "@ionic/react";
 import { useEffect, useState } from "react";
 import { Searchbar } from "./Searchbar";
 import { UserPopover } from "./UserPopover";
 import "./ActionHeader.css";
-import { Link } from "react-router-dom";
 
 export const ActionHeader = ({ banner, children, canSearch }) => {
   const [headerVisible, setHeaderVisible] = useState(true);
@@ -53,7 +51,6 @@ export const ActionHeader = ({ banner, children, canSearch }) => {
 
   return (
     <IonContent
-      // style={{ minHeight: "50rem" }}
       scrollEvents={true}
       onIonScroll={(event) => handleScroll(event)}
     >
@@ -66,10 +63,10 @@ export const ActionHeader = ({ banner, children, canSearch }) => {
           style={{ background: banner ? "transparent" : "#ff9f1c" }}
         >
           <IonToolbar color="transparent">
-            <IonButton 
-              fill="clear" 
-              color="light" 
-              slot="start" 
+            <IonButton
+              fill="clear"
+              color="light"
+              slot="start"
               mode="ios"
               routerDirection="back"
               href="/"
@@ -77,13 +74,9 @@ export const ActionHeader = ({ banner, children, canSearch }) => {
             >
               <h2>FUNTER</h2>
             </IonButton>
-            { canSearch ? (<Searchbar />): (<></>)}
+            {canSearch ? <Searchbar /> : <></>}
             {isLoggedIn ? (
-              <IonChip
-                id="user-avatar"
-                slot="end"
-                color="light"
-              >
+              <IonChip id="user-avatar" slot="end" color="light">
                 <IonAvatar>
                   <img
                     src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg"
@@ -102,7 +95,7 @@ export const ActionHeader = ({ banner, children, canSearch }) => {
                 href="/auth"
                 routerDirection="forward"
               >
-                Login
+                Sign in
               </IonButton>
             )}
             <UserPopover />
