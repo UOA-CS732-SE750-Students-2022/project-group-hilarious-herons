@@ -5,35 +5,15 @@ import {
   IonText,
   IonCardSubtitle,
 } from "@ionic/react";
-import FoodCard from "./FoodCard";
+import { FoodCard } from "./FoodCard";
+import { Sorting } from "./Sorting";
 import "./PostsLayout.css";
 
 export const PostsLayout = ({
   dataForCards = [],
   isNoSearchResult = false,
 }) => {
-  const unsorted = dataForCards;
 
-  const [cardsToDisplay, setCardsToDisplay] = useState(unsorted);
-  const [sortOrder, setSortOrder] = useState("ASC");
-  const [showMobileModal, setShowMobileModal] = useState(false);
-
-  useEffect(() => {
-    let sorted = [...unsorted];
-    switch (sortOrder) {
-      case "ASC":
-        sorted.sort((a, b) => (a.rating > b.rating ? 1 : -1));
-        break;
-      case "DESC":
-        sorted.sort((a, b) => (a.rating < b.rating ? 1 : -1));
-        break;
-      default:
-        sorted = [...unsorted];
-        break;
-    }
-    setCardsToDisplay(sorted);
-  }, [sortOrder]);
-  
   if (!isNoSearchResult) {
     if (dataForCards.length === 0) {
       return (
@@ -58,6 +38,7 @@ export const PostsLayout = ({
     } else {
       return (
         <IonGrid>
+          <Sorting />
           <IonRow class="ion-justify-content-center no-padding">
             {dataForCards.map((cardData, index) => {
               if (typeof cardData.image !== "undefined") {

@@ -18,7 +18,6 @@ export const Sorting = (dataForCards) => {
     const unsorted = dataForCards;
     const [cardsToDisplay, setCardsToDisplay] = useState(unsorted);
     const [sortOrder, setSortOrder] = useState("ASC");
-    const [showMobileModal, setShowMobileModal] = useState(false);
   
     useEffect(() => {
       let sorted = [...unsorted];
