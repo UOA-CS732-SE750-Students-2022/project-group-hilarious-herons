@@ -68,6 +68,10 @@
 }
 
 @media only screen and (max-width: 690px) {
+  :root {
+    --banner-height: 12rem;
+  }
+
   .header-text {
     font-size: 30px;
     text-align: center;

@@ -13,7 +13,7 @@ export const Loading = () => {
   return (
     <IonGrid style={{ margin: "5rem" }}>
       <IonRow class="ion-align-items-center ion-justify-content-center">
-        <IonCol size="2">
+        <IonCol>
           <div id="loading-logo" />
         </IonCol>
       </IonRow>

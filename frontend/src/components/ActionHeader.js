@@ -1,7 +1,6 @@
 import {
   IonButton,
   IonContent,
-  IonTitle,
   IonToolbar,
   IonChip,
   IonAvatar,
@@ -111,13 +110,7 @@ export const ActionHeader = ({ banner, children, canSearch }) => {
         {banner ? (
           <header className="banner">
             <div class="ion-text-wrap" className="slogan">
-              {/* <IonTitle
-                slot="start"
-                className="slogan"
-                style={{ height: "fit-content" }}
-              > */}
               <h1 className="header-text">START YOUR FOOD HUNTING JOURNEY.</h1>
-              {/* </IonTitle> */}
             </div>
           </header>
         ) : null}
