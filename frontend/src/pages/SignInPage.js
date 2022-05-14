@@ -61,35 +61,38 @@ export const SignInPage = () => {
     <IonPage>
       <IonContent>
         <IonRow className="grid">
-          <IonCol style={{ padding: 0 }} className="image-content" size="12">
+          <IonCol style={{ padding: 0 }} className="image-content">
             <IonRow>
-              <IonCol size="0" sizeXs="12">
-                <IonTitle>
-                  <h1>FUNTER</h1>
-                </IonTitle>
-              </IonCol>
-              <IonCol size="12" className="title-text-spacing">
-                <IonTitle className="description-text">
-                  <h2>START YOUR FOOD HUNTING JOURNEY</h2>
-                </IonTitle>
-              </IonCol>
-              <IonCol className="small-screen-login-button">
-                <IonButton
-                  size="large"
-                  mode="ios"
-                  shape="round"
-                  onClick={SignInWithGoogle}
-                >
-                  <IonIcon slot="start" icon={logoGoogle} color="light" />
-                  Sign In with Google
-                </IonButton>
-              </IonCol>
+              <IonTitle>
+                <h1>FUNTER</h1>
+              </IonTitle>
             </IonRow>
-            <IonRow>
+            <IonRow className="content">
               <IonCol>
-                <a href="/" color="white">
-                  <h3>Return to Home</h3>
-                </a>
+                <IonRow class="ion-justify-content-center">
+                  <div class="ion-text-wrap" className="description-text">
+                    <h1>START YOUR FOOD HUNTING JOURNEY.</h1>
+                  </div>
+                </IonRow>
+                <IonRow
+                  className="small-screen-login-button"
+                  class="ion-justify-content-center"
+                >
+                  <IonButton
+                    size="large"
+                    mode="ios"
+                    shape="round"
+                    onClick={SignInWithGoogle}
+                  >
+                    <IonIcon slot="start" icon={logoGoogle} color="light" />
+                    Sign In with Google
+                  </IonButton>
+                </IonRow>
+                <IonRow class="ion-justify-content-center">
+                  <a href="/" color="white">
+                    <h3>Return to Home</h3>
+                  </a>
+                </IonRow>
               </IonCol>
             </IonRow>
           </IonCol>
