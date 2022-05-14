@@ -1,16 +1,21 @@
 import {
+  IonCardSubtitle,
+  IonCardTitle,
   IonFabButton,
   IonHeader,
   IonIcon,
   IonInput,
   IonItem,
   IonModal,
+  IonRow,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
 import { search } from "ionicons/icons";
 import { useContext, useEffect, useState } from "react";
 import { SearchContext } from "../context/SearchContext";
+import { close } from "ionicons/icons";
+import "./Searchbar.css";
 
 // ionic md breakpoint
 const mdBreakpoint = "(min-width: 576px)";
@@ -114,15 +119,21 @@ export const Searchbar = () => {
           onDidPresent={() => setShowMobileModal(true)}
           onDidDismiss={() => setShowMobileModal(false)}
         >
-          <IonHeader class="ion-no-border">
-            <IonToolbar color="primary">
-              <IonTitle class="ion-no-padding">
+          <IonHeader class="ion-no-border" className="search-header">
+            <IonRow class="ion-padding">
+              <IonCardTitle className="prompt-text">
                 Find a dish, cuisine or restaurant
-              </IonTitle>
-            </IonToolbar>
-            <IonToolbar color="primary" class="ion-padding-bottom" lines="none">
+              </IonCardTitle>
+              <IonIcon
+                icon={close}
+                color="light"
+                style={{ marginLeft: "auto" }}
+                onClick={() => setShowMobileModal(false)}
+              />
+            </IonRow>
+            <IonRow class="ion-padding" className="search">
               {lgSearchbar(placeholder)}
-            </IonToolbar>
+            </IonRow>
           </IonHeader>
         </IonModal>
       </>
