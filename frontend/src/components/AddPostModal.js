@@ -156,7 +156,6 @@ export const AddPostModal = ({ isModalOpen, setIsModalOpen }) => {
         restaurantId: restauantId,
       };
 
-      console.log(postJson);
       const res = await PostService.addPost(postJson, images[0]);
       if (!res || res.status >= 400) {
         createWarning("Add post uncessefully: " + res.data.message);

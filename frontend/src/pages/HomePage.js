@@ -27,8 +27,11 @@ export const HomePage = () => {
     };
 
     const successCallback = (position) => {
-      const lat = -37.202969;
-      const long = 174.901544;
+      const lat = position.coords.latitude;
+      const long = position.coords.longitude;
+
+      localStorage.setItem("lat", lat);
+      localStorage.setItem("long", long);
 
       getData(lat, long);
     };

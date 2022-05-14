@@ -26,8 +26,14 @@ export const AccountPage = () => {
         const { favourites } = user;
         Promise.all(
           favourites.map(async (id) => {
-            const { _id, imageURLs, foodName, rating, numberOfLikes } =
-              await PostService.getPostDetails(id);
+            const {
+              _id,
+              imageURLs,
+              foodName,
+              rating,
+              numberOfLikes,
+              distance,
+            } = await PostService.getPostDetails(id);
 
             return {
               id: _id,
@@ -37,6 +43,7 @@ export const AccountPage = () => {
               timestamp: getTimestampFromId(id),
               numberOfLikes: numberOfLikes,
               postLiked: true,
+              distance: distance,
             };
           })
         ).then((likes) => {
@@ -48,8 +55,14 @@ export const AccountPage = () => {
         const { posts } = user;
         Promise.all(
           posts.map(async (id) => {
-            const { _id, imageURLs, foodName, rating, numberOfLikes } =
-              await PostService.getPostDetails(id);
+            const {
+              _id,
+              imageURLs,
+              foodName,
+              rating,
+              numberOfLikes,
+              distance,
+            } = await PostService.getPostDetails(id);
 
             return {
               id: _id,
@@ -58,7 +71,8 @@ export const AccountPage = () => {
               rating: rating,
               timestamp: getTimestampFromId(id),
               numberOfLikes: numberOfLikes,
-              postLiked: true,
+              postLiked: user.favourites.includes(_id) ? true : false,
+              distance: distance,
             };
           })
         ).then((created) => {
@@ -73,11 +87,10 @@ export const AccountPage = () => {
   // Fetch posts on load
   useEffect(() => {
     fetchPosts();
-  }, []);
+  }, [option]);
 
   const handleSegmentClick = async (e) => {
     setOption(e.detail.value);
-    fetchPosts();
   };
 
   return (

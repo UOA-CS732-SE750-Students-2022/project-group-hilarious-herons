@@ -19,17 +19,34 @@ const {
   createRestaurant,
 } = require("../models/Restaurant/restaurant-dao");
 
+const { updateUser } = require("../models/User/user-dao");
+const User = require("../models/User/UserSchema");
+
 exports.getPost = async (req, res) => {
   try {
+    const { lat, long } = req.query;
     const id = mongoose.Types.ObjectId(req.params.id);
-    const post = await retrievePost(id);
+    let post = await retrievePost(id);
 
     if (post === undefined || post === null || post.length === 0) {
       res.status(404).json({ success: false });
     }
 
     const restaurant = await retrieveRestaurant(post.restaurant);
+
+    if (restaurant == null || restaurant.coordinates == null) {
+      res.status(404).json({ success: false });
+    }
     post.restaurant = restaurant;
+
+    const distance = distanceCalculation(
+      lat,
+      long,
+      restaurant.coordinates.lat,
+      restaurant.coordinates.long
+    );
+
+    post = { ...post._doc, distance: distance };
 
     res.send(post);
   } catch (e) {
@@ -106,6 +123,7 @@ exports.createPost = async (req, res) => {
       numberOfReviews,
       restaurantId,
       imageURLs,
+      userId,
     } = req.body;
 
     const restaurant = await retrieveRestaurant(restaurantId);
@@ -123,6 +141,12 @@ exports.createPost = async (req, res) => {
     };
 
     const newPost = await createPost(postObj);
+
+    let user = await User.findOne({ firebaseUUID: userId });
+
+    user.posts = [...user.posts, newPost._id];
+
+    updateUser(user);
 
     res
       .status(201)
@@ -344,7 +368,9 @@ exports.searchPost = async (req, res) => {
   let resultWithDistance = [];
   for (let data of result) {
     const restaurant = await retrieveRestaurant(data.restaurant);
-    if (restaurant == null) { continue }
+    if (restaurant == null) {
+      continue;
+    }
     const restaurantLat = restaurant.coordinates.lat;
     const restaurantLong = restaurant.coordinates.long;
     const mapResult = distantMap.get(restaurantLat + restaurantLong);

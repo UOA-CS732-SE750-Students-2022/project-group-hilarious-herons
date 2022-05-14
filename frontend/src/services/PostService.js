@@ -63,7 +63,22 @@ async function unlikePost(id) {
 
 async function getPostDetails(id) {
   try {
-    const result = await apiGET("/posts/" + id);
+    const lat = localStorage.getItem("lat");
+    const long = localStorage.getItem("long");
+    let bodyJson;
+    if (lat === null || long === null) {
+      bodyJson = {
+        lat: lat,
+        long: long,
+      };
+    } else {
+      bodyJson = {
+        lat: -36.91042,
+        long: 174.7698112,
+      };
+    }
+
+    const result = await apiGET("/posts/" + id, bodyJson);
     return result;
   } catch (err) {
     processError(err);
@@ -94,7 +109,12 @@ async function addPost(postJSON, image) {
     const res = await apiPOST("/posts/image", imageData);
 
     //add new post
-    postJSON = { ...postJSON, imageURLs: [res] };
+    postJSON = {
+      ...postJSON,
+      imageURLs: [res],
+      userId: localStorage.getItem("uid"),
+    };
+
     const result = await apiPOST("/posts/", postJSON);
 
     return result;
