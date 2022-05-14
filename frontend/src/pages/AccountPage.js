@@ -70,6 +70,7 @@ export const AccountPage = () => {
     }
   };
 
+  // Fetch posts on load
   useEffect(() => {
     fetchPosts();
   }, []);
