@@ -12,9 +12,6 @@ export const PostsLayout = ({
   dataForCards = [],
   isNoSearchResult = false,
 }) => {
-  console.log(dataForCards);
-  console.log("no search results", isNoSearchResult);
-
   if (!isNoSearchResult) {
     return (
       <IonGrid>

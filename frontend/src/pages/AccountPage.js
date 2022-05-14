@@ -6,72 +6,72 @@ import { BackHomeButton } from "../components/BackHomeButton";
 import { userService } from "../services/UserService";
 import { PostService } from "../services/PostService";
 import { getTimestampFromId } from "../utils/helper";
+import { Loading } from "../components/Loading";
 
 export const AccountPage = () => {
   const [option, setOption] = useState("liked");
   const [likedPosts, setLikedPosts] = useState([]);
   const [createdPosts, setCreatedPosts] = useState([]);
-  const [user, setUser] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchPosts = async () => {
+    setIsLoading(true);
     const uid = localStorage.getItem("uid");
+    const user = await userService.getUser(uid);
+
+    if (!user) return null;
 
     if (uid !== null) {
       if (option === "liked") {
-        const favPosts = [];
-        const { favourites } = await userService.getUser(uid);
+        const { favourites } = user;
+        Promise.all(
+          favourites.map(async (id) => {
+            const { _id, imageURLs, foodName, rating, numberOfLikes } =
+              await PostService.getPostDetails(id);
 
-        favourites.map(async (id) => {
-          const { _id, imageURLs, foodName, rating, numberOfLikes } =
-            await PostService.getPostDetails(id);
-
-          favPosts.push({
-            id: _id,
-            image: imageURLs[0],
-            foodName: foodName,
-            rating: rating,
-            timestamp: getTimestampFromId(id),
-            numberOfLikes: numberOfLikes,
-            postLiked: true,
-          });
+            return {
+              id: _id,
+              image: imageURLs[0],
+              foodName: foodName,
+              rating: rating,
+              timestamp: getTimestampFromId(id),
+              numberOfLikes: numberOfLikes,
+              postLiked: true,
+            };
+          })
+        ).then((likes) => {
+          setLikedPosts(likes);
         });
 
-        setLikedPosts(favPosts);
-        console.log(likedPosts);
-      } else {
-        const createdPosts = [];
-        const { posts } = await userService.getUser(uid);
+        setIsLoading(false);
+      } else if (option === "created") {
+        const { posts } = user;
+        Promise.all(
+          posts.map(async (id) => {
+            const { _id, imageURLs, foodName, rating, numberOfLikes } =
+              await PostService.getPostDetails(id);
 
-        posts.map(async (id) => {
-          const { _id, imageURLs, foodName, rating, numberOfLikes } =
-            await PostService.getPostDetails(id);
-
-          createdPosts.push({
-            id: _id,
-            image: imageURLs[0],
-            foodName: foodName,
-            rating: rating,
-            timestamp: getTimestampFromId(id),
-            numberOfLikes: numberOfLikes,
-            postLiked: true,
-          });
+            return {
+              id: _id,
+              image: imageURLs[0],
+              foodName: foodName,
+              rating: rating,
+              timestamp: getTimestampFromId(id),
+              numberOfLikes: numberOfLikes,
+              postLiked: true,
+            };
+          })
+        ).then((created) => {
+          setCreatedPosts(created);
         });
 
-        setCreatedPosts(posts);
-        console.log(posts);
+        setIsLoading(false);
       }
     }
   };
 
   useEffect(() => {
-    const getUser = async () => {
-      const uid = localStorage.getItem("uid");
-      const user = await userService.getUser(uid);
-      setUser(user);
-    };
-    getUser();
-
-    // fetchPosts();
+    fetchPosts();
   }, []);
 
   const handleSegmentClick = async (e) => {
@@ -96,9 +96,13 @@ export const AccountPage = () => {
         </IonSegmentButton>
       </IonSegment>
       <br />
-      <PostsLayout
-        dataForCards={option === "liked" ? likedPosts : createdPosts}
-      />
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <PostsLayout
+          dataForCards={option === "liked" ? likedPosts : createdPosts}
+        />
+      )}
     </FoodPage>
   );
 };
