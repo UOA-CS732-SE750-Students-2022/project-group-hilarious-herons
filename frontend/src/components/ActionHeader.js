@@ -1,11 +1,11 @@
 import {
   IonButton,
   IonContent,
-  IonTitle,
   IonToolbar,
   IonChip,
   IonAvatar,
   IonLabel,
+  useIonPopover,
 } from "@ionic/react";
 import { createAnimation } from "@ionic/react";
 import { useEffect, useState } from "react";
@@ -17,6 +17,10 @@ export const ActionHeader = ({ banner, children, canSearch }) => {
   const [headerVisible, setHeaderVisible] = useState(true);
   const [displayName, setDisplayName] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [popoverState, setShowPopover] = useState({
+    showPopover: false,
+    event: undefined,
+  });
 
   const colorInAnimation = createAnimation()
     .addElement(document.querySelector("#header"))
@@ -70,20 +74,30 @@ export const ActionHeader = ({ banner, children, canSearch }) => {
               mode="ios"
               routerDirection="back"
               href="/"
-              style={{ margin: "0 5%" }}
             >
-              <h2>FUNTER</h2>
+              <h2 className="funter">FUNTER</h2>
             </IonButton>
             {canSearch ? <Searchbar /> : <></>}
             {isLoggedIn ? (
-              <IonChip id="user-avatar" slot="end" color="light">
-                <IonAvatar>
+              <IonChip
+                onClick={(e) => {
+                  e.persist();
+                  setShowPopover({ showPopover: true, event: e });
+                }}
+                id="user-avatar"
+                slot="end"
+                color="light"
+                style={{ margin: "0 5%", height: "fit-content" }}
+              >
+                <IonAvatar style={{ height: "2.5rem", width: "fit-content" }}>
                   <img
                     src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg"
                     alt="user"
                   />
                 </IonAvatar>
-                <IonLabel>{displayName}</IonLabel>
+                <IonLabel color="white" className="username">
+                  <strong>{displayName}</strong>
+                </IonLabel>
               </IonChip>
             ) : (
               <IonButton
@@ -98,25 +112,21 @@ export const ActionHeader = ({ banner, children, canSearch }) => {
                 Sign in
               </IonButton>
             )}
-            <UserPopover />
+            <UserPopover
+              popoverState={popoverState}
+              setShowPopover={setShowPopover}
+            />
           </IonToolbar>
         </div>
 
         {banner ? (
           <header className="banner">
-            <IonTitle
-              slot="start"
-              style={{ fontSize: "2.25em", color: "white", margin: "5%" }}
-            >
-              <h1 className="header-text">
-                START YOUR FOOD
-                <br />
-                HUNTING JOURNEY.
-              </h1>
-            </IonTitle>
+            <div class="ion-text-wrap" className="slogan">
+              <h1 className="header-text">START YOUR FOOD HUNTING JOURNEY.</h1>
+            </div>
           </header>
         ) : null}
-        {children}
+        <div className="content">{children}</div>
       </div>
     </IonContent>
   );

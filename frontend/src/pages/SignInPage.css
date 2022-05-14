@@ -1,46 +1,56 @@
-
-.big-screen-login-button{
-    display: block;
+.big-screen-login-button {
+  display: block;
 }
 
-.grid{
-    height: 100%;
-    display: flex;
-    flex-flow: row;
+.grid {
+  height: 100%;
+  display: flex;
+  flex-flow: row;
 }
 
 .image-content {
-    background-color: #000000;
-	background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url('/public/login.jpg');
-    background-position: center;
-	background-size: cover;
-	color: #ffffff;
-	padding: 1em;
-	text-align: center;
+  background-color: #000000;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url("/public/login.jpg");
+  background-position: center;
+  background-size: cover;
+  color: #ffffff;
+  padding: 1em;
+  text-align: center;
 }
 
-.title-text-spacing{
-    margin-top: 12rem;
+.title {
+  height: fit-content;
 }
 
-.login-button{
-    margin-left: auto;
-    margin-right: auto;
+.content {
+  height: 90%;
+  align-items: center;
+}
+
+.login-button {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 a {
-    color: #ffffff;
+  color: #ffffff;
 }
 
-@media only screen and (max-width: 600px){
-    .title-text-spacing{
-        margin-top: 10rem;
-    }
-    .small-screen-login-button{
-        visibility: visible;
-    }
-    .description-text{
-        font-size: medium;
-    }
+.description-text {
+  font-size: x-large;
+  color: white;
+  z-index: 1;
+  margin: 0 5%;
+  width: 50%;
 }
 
+@media only screen and (max-width: 600px) {
+  .small-screen-login-button {
+    visibility: visible;
+  }
+  .description-text {
+    font-size: large;
+    width: 100%;
+  }
+}

@@ -113,7 +113,7 @@ export const PostsLayout = ({
         <IonText color="ionContentHeaderText" className="title-msg">
           <h1>No matching results found</h1>
         </IonText>
-        <IonCardSubtitle class="subtitle-msg">
+        <IonCardSubtitle className="subtitle-msg">
           <p>Try another search keyword</p>
         </IonCardSubtitle>
       </IonGrid>

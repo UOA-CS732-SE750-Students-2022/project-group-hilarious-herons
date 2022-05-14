@@ -8,6 +8,7 @@ export const BackHomeButton = () => {
       id="back-button"
       routerDirection="back"
       shape="round"
+      mode="md"
       style={{ margin: "1rem 0 0 1rem" }}
     >
       <IonBackButton

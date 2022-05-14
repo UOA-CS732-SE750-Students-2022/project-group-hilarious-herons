@@ -1,0 +1,9 @@
+.search-header {
+  background-color: var(--ion-color-primary);
+}
+
+.prompt-text {
+  font-size: "large";
+  color: white;
+  width: 95%;
+}

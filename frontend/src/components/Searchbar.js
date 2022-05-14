@@ -1,17 +1,18 @@
 import {
-  IonButton,
+  IonCardTitle,
   IonFabButton,
   IonHeader,
   IonIcon,
   IonInput,
   IonItem,
   IonModal,
-  IonTitle,
-  IonToolbar,
+  IonRow,
 } from "@ionic/react";
-import { search, filter } from "ionicons/icons";
+import { search } from "ionicons/icons";
 import { useContext, useEffect, useState } from "react";
 import { SearchContext } from "../context/SearchContext";
+import { close } from "ionicons/icons";
+import "./Searchbar.css";
 
 // ionic md breakpoint
 const mdBreakpoint = "(min-width: 576px)";
@@ -27,7 +28,7 @@ export const Searchbar = () => {
   const placeholder = isMdBreakpoint
     ? "Search for a dish, cuisine or restaurant"
     : "Search";
-    
+
   const doSearch = () => {
     updateSearchKeyword(searchInput);
 
@@ -38,7 +39,6 @@ export const Searchbar = () => {
       `location: ${localStorage.getItem("locationFilter")}`,
       `rating: ${localStorage.getItem("rating")}`,
       `dietary: ${JSON.parse(localStorage.getItem("dietaries"))}`
-
     );
     return [];
   };
@@ -80,7 +80,7 @@ export const Searchbar = () => {
               }
             }}
             onIonChange={(e) => {
-              if(e.cancelable) {
+              if (e.cancelable) {
                 clearInput();
                 e.preventDefault();
               }
@@ -116,15 +116,21 @@ export const Searchbar = () => {
           onDidPresent={() => setShowMobileModal(true)}
           onDidDismiss={() => setShowMobileModal(false)}
         >
-          <IonHeader class="ion-no-border">
-            <IonToolbar color="primary">
-              <IonTitle class="ion-no-padding">
+          <IonHeader class="ion-no-border" className="search-header">
+            <IonRow class="ion-padding">
+              <IonCardTitle className="prompt-text">
                 Find a dish, cuisine or restaurant
-              </IonTitle>
-            </IonToolbar>
-            <IonToolbar color="primary" class="ion-padding-bottom" lines="none">
+              </IonCardTitle>
+              <IonIcon
+                icon={close}
+                color="light"
+                style={{ marginLeft: "auto" }}
+                onClick={() => setShowMobileModal(false)}
+              />
+            </IonRow>
+            <IonRow class="ion-padding" className="search">
               {lgSearchbar(placeholder)}
-            </IonToolbar>
+            </IonRow>
           </IonHeader>
         </IonModal>
       </>

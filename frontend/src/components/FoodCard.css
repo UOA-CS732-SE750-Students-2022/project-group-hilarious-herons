@@ -1,16 +1,27 @@
 .food-card {
-    width: auto;
-    height: fit-content;
+  width: auto;
+  height: fit-content;
+  border-radius: 0.5rem;
 }
 
 .food-img {
-  width: auto;
-  height: 280px;
+  width: 100%;
+  height: 17.5rem;
+  object-fit: cover;
 }
 
-.img-container{
+.img-container {
   width: auto;
   text-align: center;
+}
+
+.rate,
+.distance {
+  margin: 0 0 1rem 0.6rem;
+}
+
+.label {
+  font-weight: bold;
 }
 
 .like-food {
@@ -27,8 +38,6 @@
 }
 
 ion-chip {
-  --color:var(--ion-color-primary);
+  --color: var(--ion-color-primary);
   --background: white;
 }
-
-

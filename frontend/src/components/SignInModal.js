@@ -5,11 +5,13 @@ import {
   IonCardTitle,
   IonCol,
   IonGrid,
+  IonIcon,
   IonModal,
   IonRow,
 } from "@ionic/react";
 import { NavLink } from "react-router-dom";
 import "./SignInModal.css";
+import { close } from "ionicons/icons";
 
 export const SignInModal = ({
   showModal,
@@ -28,7 +30,14 @@ export const SignInModal = ({
       mode="ios"
     >
       <IonCardContent>
-        <IonCardTitle color="primary">{title}</IonCardTitle>
+        <IonRow>
+          <IonCardTitle color="primary">{title}</IonCardTitle>
+          <IonIcon
+            icon={close}
+            style={{ marginLeft: "auto" }}
+            onClick={() => setShowModal(false)}
+          />
+        </IonRow>
         <IonCardSubtitle mode="md">{subtitle}</IonCardSubtitle>
 
         <img src={imgSrc} alt="sign-in-img" />

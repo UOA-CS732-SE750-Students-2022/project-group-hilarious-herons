@@ -11,7 +11,7 @@ import {
   IonRow,
   IonIcon,
 } from "@ionic/react";
-import { star } from "ionicons/icons";
+import { star, compass } from "ionicons/icons";
 import { NavLink } from "react-router-dom";
 import { LikeButton } from "./LikeButton";
 
@@ -39,21 +39,25 @@ const FoodCard = ({
           </div>
 
           <IonRow style={infoStyle}>
-            {/* Unsure if distance chip needed */}
             <IonChip className="rate">
-              <IonLabel>{distance ? distance + "km" : "Somewhere"} </IonLabel>
+              <IonIcon icon={compass} />
+              <IonLabel className="label">
+                {distance ? distance + " km" : "Somewhere"}
+              </IonLabel>
             </IonChip>
             <IonChip className="rate">
               <IonIcon icon={star} />
-              <IonLabel>{rating}/5</IonLabel>
+              <IonLabel className="label">{rating} / 5</IonLabel>
             </IonChip>
           </IonRow>
         </div>
         <IonCardHeader>
-          <IonCardTitle color="ionFoodCardTitle">
-            {foodName.length >= 33
-              ? foodName.substring(0, 25) + "...."
-              : foodName}
+          <IonCardTitle color="ionFoodCardTitle" mode="md">
+            <strong>
+              {foodName.length >= 33
+                ? foodName.substring(0, 25) + "...."
+                : foodName}
+            </strong>
           </IonCardTitle>
         </IonCardHeader>
       </NavLink>
