@@ -288,8 +288,6 @@ exports.getPosts = async (req, res) => {
 
     let posts = await getPostsFromDB(lat, long, range);
 
-    console.log(posts.length);
-
     range = range * 1000; //convert to meter
     if (posts.length < numberOfposts) {
       const num = numberOfposts - posts.length;
