@@ -49,6 +49,7 @@ export const postDataForFoodCard = async (
       rating: Math.round(data.rating),
       timestamp: formattedDate,
       postLiked: liked,
+      distance: data.distance,
     };
     dataToReturn[index] = jsonForFoodCard;
   });

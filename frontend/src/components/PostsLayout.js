@@ -28,7 +28,6 @@ export const PostsLayout = ({
             </a>{" "}
             from <a href="https://icons8.com/illustrations">Ouch!</a>
           </p>
-
           <IonText color="ionContentHeaderText" className="title-msg">
             <h1>No posts found</h1>
           </IonText>
@@ -55,6 +54,7 @@ export const PostsLayout = ({
                       timestamp={cardData.timestamp}
                       numberOfLikes={cardData.numberOfLikes}
                       postLiked={cardData.postLiked}
+                      distance={cardData.distance}
                     />
                   </IonCol>
                 );

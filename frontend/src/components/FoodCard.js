@@ -28,6 +28,7 @@ const FoodCard = ({
   timestamp = "21/04/2022",
   numberOfLikes = 1200,
   postLiked = false,
+  distance,
 }) => {
   return (
     <IonCard className="food-card">
@@ -39,9 +40,9 @@ const FoodCard = ({
 
           <IonRow style={infoStyle}>
             {/* Unsure if distance chip needed */}
-            {/* <IonChip className="distance">
-              <IonLabel className="label">1.2km</IonLabel>
-            </IonChip> */}
+            <IonChip className="rate">
+              <IonLabel>{distance ? distance + "km" : "Somewhere"} </IonLabel>
+            </IonChip>
             <IonChip className="rate">
               <IonIcon icon={star} />
               <IonLabel className="label">{rating} / 5</IonLabel>

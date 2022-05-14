@@ -4,7 +4,7 @@ import { arrowBackOutline } from "ionicons/icons";
 export const BackHomeButton = () => {
   return (
     <IonButton
-      color="light"
+      color="ionBack"
       id="back-button"
       routerDirection="back"
       shape="round"
