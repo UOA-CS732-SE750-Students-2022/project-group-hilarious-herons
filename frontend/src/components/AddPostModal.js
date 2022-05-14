@@ -38,7 +38,6 @@ export const AddPostModal = ({ isModalOpen, setIsModalOpen }) => {
   const [tag, setTag] = useState("");
   const [tagsList, setTagsList] = useState([]);
   const [present] = useIonToast();
-  const [tagButton, setTagButton] = useState("");
 
   const createWarning = (message) => {
     return present({
@@ -134,12 +133,12 @@ export const AddPostModal = ({ isModalOpen, setIsModalOpen }) => {
 
   async function handleSubmitPost() {
     if (
-      foodName == "" ||
-      tagsList.length == 0 ||
-      images.length == 0 ||
-      restauantId == ""
+      foodName === "" ||
+      tagsList.length === 0 ||
+      images.length === 0 ||
+      restauantId === ""
     ) {
-      if (images.length == 0) {
+      if (images.length === 0) {
         createWarning("Please upload an image");
       } else {
         createWarning("Please enter all required field");
@@ -160,8 +159,6 @@ export const AddPostModal = ({ isModalOpen, setIsModalOpen }) => {
       console.log(postJson);
       const res = await PostService.addPost(postJson, images[0]);
       if (!res || res.status >= 400) {
-        console.log(res);
-
         createWarning("Add post uncessefully: " + res.data.message);
       } else {
         createWarning("Add post successfully");
@@ -334,7 +331,7 @@ export const AddPostModal = ({ isModalOpen, setIsModalOpen }) => {
       </IonToolbar>
 
       {/* Dynamic Rating section and submit button section */}
-      <IonToolbar style={{ padding: "0 1rem" }}>
+      <IonToolbar color="background-color" style={{ padding: "0 1rem" }}>
         {getFiveStarRating()}
         <IonButton
           shape="round"

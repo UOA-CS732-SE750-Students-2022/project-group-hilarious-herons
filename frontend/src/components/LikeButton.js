@@ -55,7 +55,7 @@ export const LikeButton = ({ id, postLiked, numberOfLikes }) => {
         icon={liked ? heart : heartOutline}
         size="large"
       />
-      <IonText color="dark" style={{ marginLeft: "0.3rem" }}>
+      <IonText color="ionLikes" style={{ marginLeft: "0.3rem" }}>
         {totalLikes}
       </IonText>
       <SignInModal

@@ -7,7 +7,6 @@ import {
   useIonToast,
   IonRow,
   IonCol,
-  IonText,
 } from "@ionic/react";
 import { logoGoogle } from "ionicons/icons";
 import "./SignInPage.css";
