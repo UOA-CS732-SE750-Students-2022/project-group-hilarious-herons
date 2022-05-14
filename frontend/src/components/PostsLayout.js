@@ -38,7 +38,8 @@ export const PostsLayout = ({
   }, [sortOrder, dataForCards]);
 
   if (!isNoSearchResult) {
-    if (dataForCards.length === 0) {
+    console.log("hello");
+    if (cardsToDisplay.length === 0) {
       return (
         <IonGrid style={{ textAlign: "center", margin: "1.5rem" }}>
           <img
@@ -63,7 +64,7 @@ export const PostsLayout = ({
         <IonGrid>
           <Sorting sortOrder={sortOrder} setSortOrder={setSortOrder} />
           <IonRow class="ion-justify-content-center no-padding">
-            {cardsToDisplay.map((cardData, index) => {
+            {dataForCards.map((cardData, index) => {
               if (typeof cardData.image !== "undefined") {
                 return (
                   <IonCol
@@ -93,6 +94,7 @@ export const PostsLayout = ({
       );
     }
   } else {
+    console.log("else");
     return (
       <IonGrid style={{ textAlign: "center", margin: "1.5rem" }}>
         <img
