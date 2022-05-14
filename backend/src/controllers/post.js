@@ -275,7 +275,6 @@ exports.getPosts = async (req, res) => {
   try {
     const { lat, long } = req.query;
 
-    console.log(lat, long);
     let { range, numberOfposts } = req.query;
     if (!range) {
       range = 10;
