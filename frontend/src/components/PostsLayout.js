@@ -40,7 +40,6 @@ export const PostsLayout = ({
   }, [sortOrder, dataForCards]);
 
   if (!isNoSearchResult) {
-    console.log("hello");
     if (cardsToDisplay.length === 0) {
       return (
         <IonGrid style={{ textAlign: "center", margin: "1.5rem" }}>
@@ -62,8 +61,6 @@ export const PostsLayout = ({
         </IonGrid>
       );
     } else {
-      console.log(cardsToDisplay);
-      console.log(dataForCards);
       return (
         <IonGrid>
           <Sorting sortOrder={sortOrder} setSortOrder={setSortOrder} />
@@ -98,7 +95,6 @@ export const PostsLayout = ({
       );
     }
   } else {
-    console.log("else");
     return (
       <IonGrid style={{ textAlign: "center", margin: "1.5rem" }}>
         <img
