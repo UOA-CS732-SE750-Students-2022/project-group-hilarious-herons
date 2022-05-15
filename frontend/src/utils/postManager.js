@@ -2,6 +2,13 @@ import { PostService } from "../services/PostService";
 import { userService } from "../services/UserService";
 import { getTimestampFromId } from "./helper";
 
+/**
+ * Get posts or search results and process the result
+ * @param {*} setIsNoSearchResults
+ * @param {*} keyword
+ * @param {*} bodyJson
+ * @returns
+ */
 export const postDataForFoodCard = async (
   setIsNoSearchResults,
   keyword,
