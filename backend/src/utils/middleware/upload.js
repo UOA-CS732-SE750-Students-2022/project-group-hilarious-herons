@@ -1,5 +1,12 @@
 const { bucket } = require("../googleApi/googleCloudStorage");
 const { format } = require("util");
+
+/**
+ * Upload image to google cloud storage
+ * @param {*} imageStream
+ * @param {*} filename
+ * @param {*} cb
+ */
 exports.upload = (imageStream, filename, cb) => {
   try {
     imageStream.on("error", (err) => {

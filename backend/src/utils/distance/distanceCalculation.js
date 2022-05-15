@@ -3,6 +3,11 @@ const convertToRad = (deg) => {
   return deg * (pi / 180);
 };
 
+/**
+ * validate coordiantion input
+ * @param {number} input
+ * @returns
+ */
 const checkValidity = (input) => {
   if (input === null) {
     return false;
@@ -13,6 +18,14 @@ const checkValidity = (input) => {
   return true;
 };
 
+/**
+ * Calculates the linear distance between two coordinate using the haversine formula
+ * @param {*} currentLat
+ * @param {*} currentLong
+ * @param {*} destLat
+ * @param {*} destLong
+ * @returns distance in km
+ */
 exports.distanceCalculation = (currentLat, currentLong, destLat, destLong) => {
   if (
     !checkValidity(currentLat) ||

@@ -5,6 +5,12 @@ firebaseAdmin.initializeApp({
   credential: firebaseAdmin.credential.cert(serviceAccount),
 });
 
+/**
+ * Check if an account is authenticated
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
 exports.checkAuth = (req, res, next) => {
   const authToken = req.headers.authorization;
 
