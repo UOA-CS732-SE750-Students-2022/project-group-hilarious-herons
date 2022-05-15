@@ -31,15 +31,6 @@ export const Searchbar = () => {
 
   const doSearch = () => {
     updateSearchKeyword(searchInput);
-
-    console.log(
-      "search for results with the filters: ",
-      `shortest distance: ${localStorage.getItem("byDistance")}`,
-      `highest rating: ${localStorage.getItem("byRating")}`,
-      `location: ${localStorage.getItem("locationFilter")}`,
-      `rating: ${localStorage.getItem("rating")}`,
-      `dietary: ${JSON.parse(localStorage.getItem("dietaries"))}`
-    );
     return [];
   };
 

@@ -5,6 +5,12 @@ const {
   getPlace,
 } = require("../utils/googleApi/googleAPI");
 
+/**
+ * Get restaurant detail that matcehs the give id
+ * @param {*} req
+ * @param {*} res 200 sucess, 404 not found 500 internal error
+ * @returns
+ */
 exports.getRestaurantDetail = async (req, res) => {
   try {
     const { name } = req.query;

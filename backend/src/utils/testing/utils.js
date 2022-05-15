@@ -1,5 +1,9 @@
 const axios = require("axios");
 
+/**
+ * Get a test authen token
+ * @returns token
+ */
 exports.getTestAuthToken = async () => {
   let email = process.env.AUTH_TEST_EMAIL;
   let password = process.env.AUTH_TEST_PASSWORD;

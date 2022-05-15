@@ -5,6 +5,11 @@ const {
   retrieveByFirebaseUID,
 } = require("../models/User/user-dao");
 
+/**
+ * Create user
+ * @param {*} req
+ * @param {*} res 201 success, 500 internal error
+ */
 exports.createUser = async (req, res) => {
   try {
     const userObj = req.body;
@@ -22,6 +27,11 @@ exports.createUser = async (req, res) => {
   }
 };
 
+/**
+ * Get yser with given id
+ * @param {*} req
+ * @param {*} res 201 success, 404 not found, 500 internal error
+ */
 exports.getUser = async (req, res) => {
   try {
     const id = req.params.id;
@@ -40,6 +50,11 @@ exports.getUser = async (req, res) => {
   }
 };
 
+/**
+ * Get user with a specific firebase uid
+ * @param {*} req
+ * @param {*} res 200 success, 404 not found, 500 internal error
+ */
 exports.getUserFromFirebaseUID = async (req, res) => {
   try {
     const id = req.params.id;
@@ -58,6 +73,11 @@ exports.getUserFromFirebaseUID = async (req, res) => {
   }
 };
 
+/**
+ * Update user document
+ * @param {*} req
+ * @param {*} res 204 success, 404 not found, 500 internal error
+ */
 exports.updateUser = async (req, res) => {
   try {
     const userID = req.params.id;

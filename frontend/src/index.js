@@ -2,17 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import reportWebVitals from "./utils/ServiceWorker/reportWebVitals";
-import { ServiceWorkerProvider } from "./context/serviceWorkerContext";
 import { SearchContextProvider } from "./context/SearchContext";
 
 ReactDOM.render(
   <React.StrictMode>
-    <ServiceWorkerProvider>
-      <SearchContextProvider value={{ searchKeyword: ""}}>
-        <App />
-      </SearchContextProvider>
-    </ServiceWorkerProvider>
+    <SearchContextProvider value={{ searchKeyword: "" }}>
+      <App />
+    </SearchContextProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
@@ -20,4 +16,3 @@ ReactDOM.render(
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

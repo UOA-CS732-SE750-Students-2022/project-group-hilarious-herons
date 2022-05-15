@@ -1,7 +1,7 @@
 const axios = require("axios");
 
 /**
- * return a list of nearby restaurant which rank by restaurant
+ * return a list of nearby restaurant
  * @param {*} lat
  * @param {*} long
  * @returns
@@ -28,7 +28,7 @@ const getNearbyPlace = async (lat, long, range) => {
 };
 
 /**
- *
+ * get restuant detail with a given google place id
  * @param {*} placeId
  * @returns place detail
  */
@@ -70,6 +70,11 @@ const getReivewfromGoogle = async (lat, long, range) => {
   }
 };
 
+/**
+ * Search restuarnt by text
+ * @param {*} name search keyword
+ * @returns google restaurant json object
+ */
 const getRestaurantByText = async (name) => {
   try {
     const key = process.env.GOOGLE_API_KEY;
@@ -92,6 +97,11 @@ const getRestaurantByText = async (name) => {
   }
 };
 
+/**
+ * Using the get photo api in google place api to fetch the url of an image with a given photo reference
+ * @param {*} ref photo reference
+ * @returns url of the image
+ */
 const getGooglePhoto = async (ref) => {
   const key = process.env.GOOGLE_API_KEY;
   try {

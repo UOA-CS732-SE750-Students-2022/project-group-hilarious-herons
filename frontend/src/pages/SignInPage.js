@@ -35,7 +35,7 @@ export const SignInPage = () => {
           return;
         }
 
-        if (dbUser === 404) {
+        if (dbUser == 404) {
           const newUserObj = {
             firebaseUUID: user.uid,
             displayName: user.providerData[0].displayName,

@@ -5,7 +5,7 @@ import {
   GoogleAuthProvider,
   signOut,
 } from "firebase/auth";
-import { firebaseConfig } from "../firebase_config";
+import { firebaseConfig } from "../firebase-config-frontend";
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);

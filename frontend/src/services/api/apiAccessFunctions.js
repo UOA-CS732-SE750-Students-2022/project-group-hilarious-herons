@@ -34,7 +34,7 @@ const apiGET = async (endpoint, data = "") => {
         throw new Error("Server Unavailable");
       }
       checkTokenExpired(err.response.data.message);
-      throw new Error(`${err.response.data.message}`);
+      throw new Error(`${err.response.status}`);
     });
   return response.data;
 };

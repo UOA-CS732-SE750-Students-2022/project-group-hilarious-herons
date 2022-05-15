@@ -15,10 +15,9 @@ export const userService = {
 async function getUser(firebaseUID) {
   try {
     const result = await apiGET("/users/firebase/" + firebaseUID);
-
     return result;
   } catch (err) {
-    processError(err);
+    return processError(err);
   }
 }
 
@@ -33,7 +32,7 @@ async function createUser(newUser) {
 
     return result;
   } catch (err) {
-    processError(err);
+    return processError(err);
   }
 }
 
