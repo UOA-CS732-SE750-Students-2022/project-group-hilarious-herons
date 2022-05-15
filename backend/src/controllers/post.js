@@ -22,6 +22,11 @@ const {
 const { updateUser } = require("../models/User/user-dao");
 const User = require("../models/User/UserSchema");
 
+/**
+ * Get an post
+ * @param {*} req query: lat, long params: id
+ * @param {*} res 200 sucess or 404 not found
+ */
 exports.getPost = async (req, res) => {
   try {
     const { lat, long } = req.query;
@@ -57,6 +62,11 @@ exports.getPost = async (req, res) => {
   }
 };
 
+/**
+ * Like post
+ * @param {*} req body: id
+ * @param {*} res 200 sucess, 404 not found 500 internal error
+ */
 exports.likePost = async (req, res) => {
   try {
     const objectId = mongoose.Types.ObjectId(req.body.id);
@@ -83,6 +93,11 @@ exports.likePost = async (req, res) => {
   }
 };
 
+/**
+ * Unlike a post, reduce the number of like by 1 and can't be smaller than 0
+ * @param {*} req body: id
+ * @param {*} res 200 sucess, 404 not found 500 internal error
+ */
 exports.unlikePost = async (req, res) => {
   try {
     const objectId = mongoose.Types.ObjectId(req.body.id);
@@ -111,6 +126,11 @@ exports.unlikePost = async (req, res) => {
   }
 };
 
+/**
+ * create a post
+ * @param {*} req
+ * @param {*} res 201 success, 500 internal errors
+ */
 exports.createPost = async (req, res) => {
   try {
     const {
@@ -160,6 +180,13 @@ exports.createPost = async (req, res) => {
   }
 };
 
+/**
+ * Fetch posts from database
+ * @param {*} lat latitude of the current position
+ * @param {*} long longitude of the current position
+ * @param {*} range range it wants the posts to be, km
+ * @returns
+ */
 const getPostsFromDB = async (lat, long, range) => {
   const response = await Restaurant.find({});
 
@@ -190,6 +217,15 @@ const getPostsFromDB = async (lat, long, range) => {
   return posts;
 };
 
+/**
+ * Fetch posts from google review
+ * @param {*} lat latitude of the user current coordination
+ * @param {*} long longitude of the user current coordination
+ * @param {*} range range of search
+ * @param {*} numberOfposts number of posts we want
+ * @param {*} postPerRestaurant  number of review we want to fetch from each restaurant
+ * @returns
+ */
 const getPostFromGoogle = async (
   lat,
   long,
@@ -298,6 +334,12 @@ const getPostFromGoogle = async (
   }
 };
 
+/**
+ * Get posts within a specific range of the user current coordination
+ * @param {*} req
+ * @param {*} res 200 success, 500 internal error
+ * @returns
+ */
 exports.getPosts = async (req, res) => {
   try {
     const { lat, long } = req.query;
@@ -332,6 +374,12 @@ exports.getPosts = async (req, res) => {
   }
 };
 
+/**
+ * Search for posts that its tags and name contains the search keyword
+ * @param {*} req
+ * @param {*} res
+ * @returns
+ */
 exports.searchPost = async (req, res) => {
   const {
     lat,

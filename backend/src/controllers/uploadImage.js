@@ -2,9 +2,13 @@ const processFile = require("../utils/middleware/multerImage");
 const { upload } = require("../utils/middleware/upload");
 const { bucket } = require("../utils/googleApi/googleCloudStorage");
 
-// Instantiate a storage client with credentials
-
-// https://www.bezkoder.com/google-cloud-storage-nodejs-upload-file/#Nodejs_upload_File_to_Google_Cloud_Storage_example
+/**
+ * Upload image to google cloud storage
+ * Ref: https://www.bezkoder.com/google-cloud-storage-nodejs-upload-file/#Nodejs_upload_File_to_Google_Cloud_Storage_example
+ * @param {*} req
+ * @param {*} res
+ * @returns 200 success, 400 no file is attached, 500 internal error
+ */
 exports.upload = async (req, res) => {
   try {
     await processFile(req, res);
