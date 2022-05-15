@@ -41,16 +41,17 @@ Make sure you install:
 
 ## To run
 ### Frontend
-Navigate to ./frontend from root directory and run:
+**Prerequiste**: Ensure the provided config file is included at the specified location of `./frontend` directory
 ```bash
+# Navigate to ./frontend from root directory and run:
 npm install
 npm run start 
 ```
 ### Backend
-**Prerequisite**: Create a `.env` file at the root of the backend directory, with a variable `MONGO_DB_URI` that contains the connection string for your MongoDB instance.
+**Prerequisite**: Ensure the provided `.env` file and the required config files are included at specified location of the `./backend` directory
 
-Navigate to `./backend` from the root directory and run:
 ```bash
+# Navigate to `./backend` from the root directory and run:
 npm install
 npm run start
 ```
